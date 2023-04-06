@@ -1,0 +1,57 @@
+* Tasks
+
+** TODO Keyboard
+
+*** TODO Add caps-lock as compose-key
+
+*** TODO Swap () and {}
+
+** TODO ssh-agent
+
+** TODO Nvidia drivers
+
+To be able to change the brightness of the backlight
+
+** TODO Podman
+
+For containers, obviously...
+
+I might be able to get away with running =guix shell --container=
+
+** TODO Put ~/.config/guix under git
+
+*** TODO Move into ~/dev/
+
+** TODO Stumpwm
+
+** TODO Emacs
+
+*** TODO Use guix to install (most?) packages
+
+*** TODO Clone my emacs configs
+
+https://gitlab.com/fstamour/emacs-dot-files
+
+**** TODO See if I can do that using guix-home.
+
+*** TODO Enable darkroom-mode and focus-mode with org-mode
+
+maybe all text-modes?
+maybe all programming modes???
+
+** TODO EDITOR env variable
+
+** TODO fish is installed but is not in /etc/shells
+
+So I can't chsh just yet...
+
+** TODO Gforth 0.7.9 instead of 0.7.3
+
+--with-source="mirror://gnu/gforth/gforth-0.7.9.tar.gz"
+didn't work, the latest version in the mirrors were 0.7.3
+
+--with-git-url=gforth="https://git.savannah.gnu.org/git/gforth/"
+
+./autogen.sh: line 24: libtoolize: command not found
+./autogen.sh: line 24: glibtoolize: command not found
+./autogen.sh: line 30: aclocal: command not found
