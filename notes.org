@@ -24,15 +24,25 @@ I might be able to get away with running =guix shell --container=
 
 ** TODO Stumpwm
 
+git@github.com:fstamour/stumpwm-config.git
+
 ** TODO Emacs
 
 *** TODO Use guix to install (most?) packages
 
 *** TODO Clone my emacs configs
 
-https://gitlab.com/fstamour/emacs-dot-files
+git@gitlab.com:fstamour/emacs-dot-files.git
 
 **** TODO See if I can do that using guix-home.
+
+From the manual:
+
+> It is possible to manage stateful data with Guix Home, this includes
+the ability to automatically clone Git repositories on the initial
+setup of the machine, and periodically running commands like rsync to
+sync data with another host. This functionality is still in an
+experimental stage, though.
 
 *** TODO Enable darkroom-mode and focus-mode with org-mode
 
@@ -55,3 +65,9 @@ didn't work, the latest version in the mirrors were 0.7.3
 ./autogen.sh: line 24: libtoolize: command not found
 ./autogen.sh: line 24: glibtoolize: command not found
 ./autogen.sh: line 30: aclocal: command not found
+
+* Guix home
+
+guix home import ~/dev/guix-configurations/home/
+
+** TODO pin

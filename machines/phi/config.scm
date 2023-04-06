@@ -35,16 +35,16 @@
  ;; Packages installed system-wide.  Users can also install packages
  ;; under their own account: use 'guix search KEYWORD' to search
  ;; for packages and 'guix install PACKAGE' to install a package.
- (packages (append (list
-		    ;; TODO mapcar much?
-		    (specification->package "emacs")
-		    (specification->package "stumpwm-with-slynk")
-		    (specification->package "i3-wm")
-                    (specification->package "i3status")
-                    (specification->package "rofi")
-                    (specification->package "st")
-                    (specification->package "nss-certs")
-		    (specification->package "fish"))
+ (packages (append (specifications->packages
+		    (list
+		     "emacs"
+		     "stumpwm-with-slynk"
+		     "i3-wm"
+                     "i3status"
+                     "rofi"
+                     "st"
+                     "nss-certs"
+		     "fish"))
                    %base-packages))
 
  ;; Below is the list of system services.  To search for available
