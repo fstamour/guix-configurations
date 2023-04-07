@@ -7,7 +7,7 @@ all: channels host homes
 
 .PHONY: home
 home:
-	$(MAKE) -C home
+	$(MAKE) -C home home
 
 .PHONY: channels
 channels:
