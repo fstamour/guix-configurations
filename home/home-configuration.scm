@@ -9,9 +9,55 @@
 
 (use-modules (gnu home)
              (gnu packages)
+	     (gnu packages syncthing)
+	     (gnu packages admin) ;; for shepherd
              (gnu services)
              (guix gexp)
-             (gnu home services shells))
+             (gnu home services shells)
+	     (gnu home services shepherd))
+
+;; Putting those in a variable because I'm using bash for now, but
+;; I'll use fish in the future. I would be nice to have those aliases
+;; defined for both!
+;;
+;; I'll have to decide which ones I would prefer to have abbrevs instead
+(define %shell-aliases
+  '(("..." . "cd ../..")
+    ;; This one is not needed in fish though... that works out of the box
+    (".." . "cd ..")
+    ("grep" . "grep --color=auto")
+    ("ll" . "ls -l")
+    ("ls" . "ls -p --color=auto")
+    ("cp" . "cp -i")
+    ("rm" . "rm -i")
+    ("mv" . "mv -i")
+    ("gst" . "git status")))
+
+(define %bash
+  (service home-bash-service-type
+           (home-bash-configuration
+            (aliases %shell-aliases)
+            (bashrc (list (local-file
+                           "./.bashrc"
+                           "bashrc")))
+            (bash-profile (list (local-file
+				 "./.bash_profile"
+				 "bash_profile"))))))
+
+(define %syncthing
+  (simple-service 'syncthing home-shepherd-service-type
+                  (list (shepherd-service
+                         (provision '(syncthing))
+			 (documentation "Run syncthing as a shepherd (user) service")
+			 (start
+			  #~(make-forkexec-constructor
+			     (list
+			      #$(file-append syncthing "/bin/syncthing")
+			      ;; TODO Put synchting's log in its own file
+			      ;; -logfile=...
+			      ;; -logflag=... To specify the format?
+                              "-no-browser")))
+			 (stop #~(make-kill-destructor))))))
 
 (home-environment
  ;; Below is the list of packages that will show up in your
@@ -45,6 +91,8 @@
 
 	     "gforth"
 
+	     "w3m"
+
              "kitty"
              "xbacklight"
              "xclip"
@@ -57,16 +105,5 @@
  ;; Below is the list of Home services.  To search for available
  ;; services, run 'guix home search KEYWORD' in a terminal.
  (services
-  (list (service home-bash-service-type
-                 (home-bash-configuration
-                  (aliases '(("..." . "cd ../..")
-			     (".." . "cd ..")
-			     ("grep" . "grep --color=auto")
-			     ("ll" . "ls -l")
-                             ("ls" . "ls -p --color=auto")))
-                  (bashrc (list (local-file
-                                 "/home/fstamour/dev/guix-configurations/home/.bashrc"
-                                 "bashrc")))
-                  (bash-profile (list (local-file
-                                       "/home/fstamour/dev/guix-configurations/home/.bash_profile"
-                                       "bash_profile"))))))))
+  (list %bash
+	%syncthing)))
