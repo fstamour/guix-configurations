@@ -51,6 +51,14 @@ maybe all programming modes???
 
 ** TODO EDITOR env variable
 
+** TODO
+
+Clone repos
+
+start with git@gitlab.com:fstamour/catchall.git
+
+or Stumpwm's
+
 ** TODO fish is installed but is not in /etc/shells
 
 So I can't chsh just yet...
@@ -70,4 +78,19 @@ didn't work, the latest version in the mirrors were 0.7.3
 
 guix home import ~/dev/guix-configurations/home/
 
+~/.local/var/log/shepherd.log
+
 ** TODO pin
+
+* Snippets
+
+#+begin_src shell
+guix package --list-profiles
+#+end_src
+
+
+#+begin_src shell
+guix package \
+     -p $HOME/.config/guix/profiles/emacs \
+     -m $HOME/.config/guix/manifests/emacs.scm
+#+end_src
