@@ -13,4 +13,8 @@ update:
 	# Pulling a new commit of the channels
 	guix pull --channels=$(CURDIR)/channels-no-commit.scm
 	# Saving the channels with the new commits
+
+.PHONY: describe
+describe:
+>>>>>>> 5b369fc (add guix channels, "pin" channels to a specific commit)
 	guix describe --format=channels > $(CURDIR)/channels.scm
