@@ -7,15 +7,27 @@
 ;; need to capture the channels being used, as returned by "guix describe".
 ;; See the "Replicating Guix" section in the manual.
 
-(use-modules (gnu home)
-             (gnu packages)
-	     (gnu packages syncthing)
-	     (gnu packages admin) ;; for shepherd
-             (gnu services)
-             (guix gexp)
-             (gnu home services shells)
-	     (gnu home services shepherd)
-	     (gnu home services desktop))
+(use-modules
+ (gnu home services)
+ (gnu home services desktop)
+ (gnu home services shells)
+ (gnu home services shepherd)
+ (gnu home services ssh)
+ (gnu home)
+ (gnu packages admin) ;; for shepherd
+ (gnu packages shells)
+ (gnu packages syncthing)
+ (gnu packages)
+ (gnu services)
+ (guix gexp))
+
+(define %environment-variables
+  (simple-service 'some-useful-env-vars-service
+		  home-environment-variables-service-type
+		  `(("EDITOR" . "emacsclient -nw -a emacs -nw")
+		    ;; Meh
+		    ;; ("VISUAL" . "emacsclient -a emacs")
+		    )))
 
 ;; Putting those in a variable because I'm using bash for now, but
 ;; I'll use fish in the future. I would be nice to have those aliases
@@ -37,13 +49,7 @@
 (define %bash
   (service home-bash-service-type
            (home-bash-configuration
-            (aliases %shell-aliases)
-            (bashrc (list (local-file
-                           "./.bashrc"
-                           "bashrc")))
-            (bash-profile (list (local-file
-				 "./.bash_profile"
-				 "bash_profile"))))))
+            (aliases %shell-aliases))))
 
 (define %syncthing
   (simple-service 'syncthing home-shepherd-service-type
@@ -85,6 +91,12 @@
 		       ("keysym Caps_Lock" . "Multi_key Caps_Lock")
 		       "clear Lock")))))
 
+(define %ssh-agent
+  (service home-ssh-agent-service-type
+         (home-ssh-agent-configuration
+          ;; TODO maybe another time... (extra-options '("-t" "1h30m"))
+	  )))
+
 (home-environment
  ;; Below is the list of packages that will show up in your
  ;; Home profile, under ~/.guix-home/profile.
@@ -106,7 +118,7 @@
              "sbcl-cl+ssl"
 	     "stumpwm-with-slynk" ;; TODO install as root or user??
 
-             "emacs"
+             "emacs-next" ;; for emacs 29.0
 	     "emacs-magit"
 	     "emacs-guix"
 	     "emacs-paredit"
@@ -131,8 +143,18 @@
  ;; Below is the list of Home services.  To search for available
  ;; services, run 'guix home search KEYWORD' in a terminal.
  (services
-  (list %bash
-	%syncthing
-	%xmodmap
-	%my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
-	%where-have-you-been-all-my-life)))
+  (list
+   ;; Essentials
+   %environment-variables
+
+   ;; Shell
+   %bash
+
+   ;; Various daemons
+   %ssh-agent
+   %syncthing
+
+   ;; Desktop
+   %xmodmap
+   %my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
+   %where-have-you-been-all-my-life)))
