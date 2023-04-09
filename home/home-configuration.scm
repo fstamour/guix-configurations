@@ -14,7 +14,8 @@
              (gnu services)
              (guix gexp)
              (gnu home services shells)
-	     (gnu home services shepherd))
+	     (gnu home services shepherd)
+	     (gnu home services desktop))
 
 ;; Putting those in a variable because I'm using bash for now, but
 ;; I'll use fish in the future. I would be nice to have those aliases
@@ -58,6 +59,19 @@
 			      ;; -logflag=... To specify the format?
                               "-no-browser")))
 			 (stop #~(make-kill-destructor))))))
+
+(define %my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
+  (service home-redshift-service-type
+           (home-redshift-configuration
+            (location-provider 'manual)
+	    ;; Took Ottawa's coordinates
+            (latitude 45.4215)
+            (longitude -75.6972))))
+
+(define %where-have-you-been-all-my-life
+  (service home-unclutter-service-type
+           (home-unclutter-configuration
+            (idle-timeout 2))))
 
 (home-environment
  ;; Below is the list of packages that will show up in your
@@ -106,4 +120,6 @@
  ;; services, run 'guix home search KEYWORD' in a terminal.
  (services
   (list %bash
-	%syncthing)))
+	%syncthing
+	%my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
+	%where-have-you-been-all-my-life)))
