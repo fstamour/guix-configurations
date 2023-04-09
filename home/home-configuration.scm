@@ -97,6 +97,10 @@
           ;; TODO maybe another time... (extra-options '("-t" "1h30m"))
 	  )))
 
+(define %files
+  (service home-files-service-type
+	   `((".xsession" ,(local-file "xsession")))))
+
 (home-environment
  ;; Below is the list of packages that will show up in your
  ;; Home profile, under ~/.guix-home/profile.
@@ -131,14 +135,17 @@
 
 	     "w3m"
 
-             "kitty"
+	     "icecat"
+	     "kitty"
+             "firefox" ;; nonguix
+             "freecad"
+             "keepassxc"
+             "rofi"
+             "steam-nvidia" ;; nonguix
              "xbacklight"
              "xclip"
-             "keepassxc"
-             "steam-nvidia" ;; nonguix
-             "freecad"
-             "firefox" ;; nonguix
-             "icecat")))
+	     "xmodmap" "setxkbmap"
+	     )))
 
  ;; Below is the list of Home services.  To search for available
  ;; services, run 'guix home search KEYWORD' in a terminal.
@@ -157,4 +164,7 @@
    ;; Desktop
    %xmodmap
    %my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
-   %where-have-you-been-all-my-life)))
+   %where-have-you-been-all-my-life
+
+   ;; Files
+   %files)))

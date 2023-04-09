@@ -2,15 +2,26 @@
 
 ** TODO Keyboard
 
-*** TODO Add caps-lock as compose-key
+*** DONE Add caps-lock as compose-key
 
-*** TODO Swap () and {}
+*** DONE Swap () and {}
 
-** TODO ssh-agent
+*** TODO xmodmap service doesn't work anymore
+
+- I thinks it happens since I updated...
+- OOOrrrr... since I'm using xsession...
+- I only have the error =Service xmodmap could not be started.=
+
+** DONE ssh-agent
 
 ** TODO Nvidia drivers
 
-To be able to change the brightness of the backlight
+- To be able to change the brightness of the backlight
+- I noticed that I can change the brightness of the screen in gdm
+  (e.g. the keys work on the login screen).
+- But xbacklight doesn't work...
+- Maybe gdm uses wayland... and magically knows how to change the
+  backlight's brightness...
 
 ** TODO Podman
 
@@ -18,9 +29,9 @@ For containers, obviously...
 
 I might be able to get away with running =guix shell --container=
 
-** TODO Put ~/.config/guix under git
+** DONE Put ~/.config/guix under git
 
-*** TODO Move into ~/dev/
+*** DONE Move into ~/dev/
 
 ** TODO Stumpwm
 
@@ -49,11 +60,9 @@ experimental stage, though.
 maybe all text-modes?
 maybe all programming modes???
 
-** TODO EDITOR env variable
+** DONE EDITOR env variable
 
-** TODO
-
-Clone repos
+** TODO Clone repos
 
 start with git@gitlab.com:fstamour/catchall.git
 
@@ -80,7 +89,7 @@ guix home import ~/dev/guix-configurations/home/
 
 ~/.local/var/log/shepherd.log
 
-** TODO pin
+** DONE pin
 
 * Snippets
 

@@ -37,14 +37,8 @@
  ;; for packages and 'guix install PACKAGE' to install a package.
  (packages (append (specifications->packages
 		    (list
-		     "emacs"
-		     "stumpwm-with-slynk"
-		     "i3-wm"
-                     "i3status"
-                     "rofi"
-                     "st"
                      "nss-certs"
-		     "fish"))
+       		     "fish"))
                    %base-packages))
 
  ;; Below is the list of system services.  To search for available
