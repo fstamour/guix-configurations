@@ -73,6 +73,18 @@
            (home-unclutter-configuration
             (idle-timeout 2))))
 
+(define %xmodmap
+  (service home-xmodmap-service-type
+           (home-xmodmap-configuration
+            (key-map '(;; Switch ( with [ and ) with ]
+		       ("keycode 18" . "9 braceleft")
+		       ("keycode 19" . "0 braceright")
+		       ("keycode 34" . "parenleft bracketleft")
+		       ("keycode 35" . "parenright bracketright")
+		       ;; Use Caps Lock as a compose key
+		       ("keysym Caps_Lock" . "Multi_key Caps_Lock")
+		       "clear Lock")))))
+
 (home-environment
  ;; Below is the list of packages that will show up in your
  ;; Home profile, under ~/.guix-home/profile.
@@ -121,5 +133,6 @@
  (services
   (list %bash
 	%syncthing
+	%xmodmap
 	%my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
 	%where-have-you-been-all-my-life)))
