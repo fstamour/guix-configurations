@@ -19,5 +19,5 @@ host: $(HOSTNAME)
 
 .PHONY: $(HOSTNAME)
 $(HOSTNAME):
-	$(MAKE) -C machines/$(HOSTNAME)
+	$(MAKE) -C hosts/$(HOSTNAME)
 
