@@ -97,9 +97,11 @@
           ;; TODO maybe another time... (extra-options '("-t" "1h30m"))
           )))
 
+;; .xsession seems not to work when it's a symlink
 (define %files
   (service home-files-service-type
-           `((".xsession" ,(local-file "xsession")))))
+           `(#|(".xsession" ,(local-file "xsession"))|#)))
+
 
 (home-environment
  ;; Below is the list of packages that will show up in your
