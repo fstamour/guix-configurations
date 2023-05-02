@@ -19,5 +19,5 @@ host: $(HOSTNAME)
 
 .PHONY: $(HOSTNAME)
 $(HOSTNAME):
-	$(MAKE) -C hosts/$(HOSTNAME)
+	sudo guix system reconfigure hosts/$(HOSTNAME)/config.scm
 
