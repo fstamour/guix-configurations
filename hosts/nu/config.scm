@@ -10,7 +10,8 @@
 ;; Indicate which modules to import to access the variables
 ;; used in this configuration.
 (use-modules (gnu)
-	     (gnu services sddm))
+	     (gnu services sddm)
+	     (gnu services docker))
 
 (use-service-modules cups desktop networking ssh xorg)
 
@@ -52,7 +53,9 @@
 
 	   (service sddm-service-type
 		    (sddm-configuration
-		     (xorg-configuration (xorg-configuration (keyboard-layout keyboard-layout))))))
+		     (xorg-configuration (xorg-configuration (keyboard-layout keyboard-layout)))))
+
+	  (service docker-service-type))
 
           ;; This is the default list of services we
           ;; are appending to.
