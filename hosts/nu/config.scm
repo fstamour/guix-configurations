@@ -9,9 +9,12 @@
 
 ;; Indicate which modules to import to access the variables
 ;; used in this configuration.
-(use-modules (gnu)
-	     (gnu services sddm)
-	     (gnu services docker))
+
+(define-module (host-nu)
+  #:use-module (gnu)
+  #:use-module (gnu services sddm)
+  #:use-module (gnu services docker)
+  #:use-module (nongnu packages nvidia))
 
 (use-service-modules cups desktop networking ssh xorg)
 
