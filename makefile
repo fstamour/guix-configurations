@@ -2,6 +2,11 @@
 HOSTNAME := $(shell hostname)
 
 # TODO The default target should probably be "help".
+
+.PHONY: build-host
+build-host:
+	guix system build hosts/$(HOSTNAME)/config.scm
+
 .PHONY: all
 all: channels host homes
 
