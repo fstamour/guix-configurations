@@ -18,6 +18,14 @@
 
 (use-service-modules cups desktop networking ssh xorg)
 
+(define %users/fstamour
+  (user-account
+   (name "fstamour")
+   (comment "Francis St-Amour")
+   (group "users")
+   (home-directory "/home/fstamour")
+   (supplementary-groups '("wheel" "netdev" "audio" "video"))))
+
 (operating-system
  (locale "en_CA.utf8")
  (timezone "America/New_York")
@@ -25,12 +33,7 @@
  (host-name "nu")
 
  ;; The list of user accounts ('root' is implicit).
- (users (cons* (user-account
-                (name "fstamour")
-                (comment "Francis St-Amour")
-                (group "users")
-                (home-directory "/home/fstamour")
-                (supplementary-groups '("wheel" "netdev" "audio" "video")))
+ (users (cons* %users/fstamour
                %base-user-accounts))
 
  ;; Packages installed system-wide.  Users can also install packages
@@ -58,7 +61,7 @@
 		    (sddm-configuration
 		     (xorg-configuration (xorg-configuration (keyboard-layout keyboard-layout)))))
 
-	  (service docker-service-type))
+	   (service docker-service-type))
 
           ;; This is the default list of services we
           ;; are appending to.
