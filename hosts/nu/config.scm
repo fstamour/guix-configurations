@@ -9,7 +9,9 @@
 
 ;; Indicate which modules to import to access the variables
 ;; used in this configuration.
-(use-modules (gnu))
+(use-modules (gnu)
+	     (gnu services sddm))
+
 (use-service-modules cups desktop networking ssh xorg)
 
 (operating-system
@@ -34,7 +36,6 @@
                          (specification->package "i3status")
 			 (specification->package "xfce")
                          (specification->package "dmenu")
-                         (specification->package "st")
                          (specification->package "nss-certs"))
                    %base-packages))
 
@@ -46,14 +47,21 @@
            ;; To configure OpenSSH, pass an 'openssh-configuration'
            ;; record as a second argument to 'service' below.
            (service openssh-service-type)
-           (service cups-service-type)
-           (set-xorg-configuration
-            (xorg-configuration (keyboard-layout keyboard-layout))))
+
+	   (service cups-service-type)
+
+	   (service sddm-service-type
+		    (sddm-configuration
+		     (xorg-configuration (xorg-configuration (keyboard-layout keyboard-layout))))))
 
           ;; This is the default list of services we
           ;; are appending to.
 	  (modify-services
 	   %desktop-services
+
+	   ;; I use sddm instead of gdm
+	   (delete gdm-service-type)
+
 	   (guix-service-type
 	    config => (guix-configuration
 		       (inherit config)
