@@ -15,7 +15,6 @@ channels:
 
 .PHONY: host
 host: $(HOSTNAME)
-	echo $(HOSTNAME)
 
 .PHONY: $(HOSTNAME)
 $(HOSTNAME):

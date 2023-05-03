@@ -103,3 +103,9 @@ guix package \
      -p $HOME/.config/guix/profiles/emacs \
      -m $HOME/.config/guix/manifests/emacs.scm
 #+end_src
+
+* Manifests
+
+From guix cookbook:
+> Using multiple, small profiles provides more flexibility and usability.
+
