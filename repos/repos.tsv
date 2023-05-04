@@ -2,10 +2,41 @@
 host:	github	git@github.com:fstamour/
 
 # link stumpwm-config where stumpwm would look for
-stumpwm-config	~/.config/stumpwm
 
-temper
+advent2018
 breeze
+# common-lisp-heroku-example # Haven't care about heroku for a while
+dill
+disjoint-sets
+emu
+fstamour
+graph_proto
+# guix-configurations # I'm already in this repo...
+hotkey
+inf3610-h16-tp3
+inf3610-h16-tp4
+inf4705
+instalag
+ioccc_blakely
+linedit
+local-gitlab
+log2420-aut2016
+log4410-methodes-formelles
+looset
+nix-configurations
+non-trivial-benchmarks
+opencv-sandbox
+public-notes
+redmoon
+shell_foo
+simpbin
+stumpwm-config	~/.config/stumpwm
+# tally # TODO delete this repo
+temper
+tile
+try-mcclim
+try_parcel
+vimrc
 
 ### GitLab
 host:	gitlab	git@gitlab.com:fstamour/
