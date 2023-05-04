@@ -17,7 +17,9 @@
   #:use-module (gnu services sddm)
   #:use-module (gnu services docker)
   #:use-module (guix transformations) ;; for options->transformation
-  #:use-module (nongnu packages linux) ;; for linux-lts (which is not linux-libre)
+  #:use-module (guix channels) ;; to be able to define channel, in order to define an inferior
+  #:use-module (guix inferior)
+ ;;  #:use-module (nongnu packages linux) ;; for linux-lts (which is not linux-libre)
   #:use-module (nongnu packages nvidia))
 
 ;; (use-package-modules linux)
@@ -34,6 +36,34 @@
   (options->transformation
    '((with-graft . "mesa=nvda"))))
 
+
+(define nonguix-nvidia-470-commit
+  ;; The last commit where nonguix had nvidia drivers version 470
+  ;; "12104c6ed1c7d718e23291317a6c8b5879e5274f" 
+  "aae58388dc2c64c5370ed9dc991e081f2166681d"
+  )
+
+;; 2023-05-03: I just chose the commit that my channels is currently
+;; at (it's already a bit old though).
+(define guix-commit "c1262edba9118af6507dc47ce6ad61ffdec02384")
+
+(define pinned-package
+  (lambda* (name #:optional version)
+    (let* ((channels
+	    (list (channel
+		   (name 'nonguix)
+		   (url "https://gitlab.com/nonguix/nonguix")
+		   (commit nonguix-nvidia-470-commit))
+		  (channel
+		   (name 'guix)
+		   (url "https://git.savannah.gnu.org/git/guix.git")
+		   (commit guix-commit))))
+	   (inferior (inferior-for-channels channels)))
+      (first
+       (if version
+	   (lookup-inferior-packages inferior name version)
+	   (lookup-inferior-packages inferior name))))))
+
 (define %users/fstamour
   (user-account
    (name "fstamour")
@@ -49,7 +79,7 @@
  (timezone "America/New_York")
  (keyboard-layout (keyboard-layout "us"))
 
- (kernel linux-lts)
+ (kernel (pinned-package "linux-lts" "5.15.106"))
  
  ;; Blacklist the "nouveau" kernel module
  (kernel-arguments (append
