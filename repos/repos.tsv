@@ -1,8 +1,6 @@
 #### GitHub
 host:	github	git@github.com:fstamour/
 
-# link stumpwm-config where stumpwm would look for
-
 advent2018
 breeze
 # common-lisp-heroku-example # Haven't care about heroku for a while
@@ -41,7 +39,7 @@ vimrc
 ### GitLab
 host:	gitlab	git@gitlab.com:fstamour/
 
-emacs-dot-files
+emacs-dot-files	~/.emacs.d
 catchall
 # this one is private, but it's not sensitive at all
 myelin
@@ -52,9 +50,10 @@ OpenBookStore
 host:	savannah	https://git.savannah.gnu.org/git/
 
 guix
-
 guix/gnunet	guix-gnunet
 
 
 ### Others
-host: 
+host:
+
+https://gitlab.com/nonguix/nonguix

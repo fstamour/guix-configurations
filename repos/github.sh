@@ -2,6 +2,7 @@
 #
 # Script to fetch a list of repositories from GitHub
 #
+# TODO Move all of this into `local-gitlab`, probably need to rename that project too
 
 set -ueo pipefail
 
@@ -66,3 +67,7 @@ jq -r -s 'map(select(.fork == false)) | map(.name) | .[]' github.json \
     | tee -a  github.tsv \
     | column
 
+
+
+# TODO use GitHub's API to sync my forks
+# https://github.blog/changelog/2021-09-03-api-to-sync-fork-with-upstream/

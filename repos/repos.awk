@@ -74,10 +74,11 @@ NF == 0 { next }
 /^host:/ {
     host = $3 # e.g. git@...
     hostname = $2 # e.g mylittlegitforge
-    print "####################"
-    if(hostname) {
-	print "### " hostname
+    if(!hostname) {
+	hostname = "other"
     }
+    print "####################"
+    print "### " hostname " (" host ")"
     print ""
     # Skip the rest of the processing for this line, and process the
     # next line.
@@ -99,7 +100,11 @@ host {
 # If the url was not set from the "host" variable, then the first
 # column is the whole url.
 !url {
-    url = $1
+    if(match($1, /.git$/)){
+	url = $1
+    } else {
+	url = $1 ".git"
+    }
 }
 
 # Extract the name of the repo from the URL, if not already set
