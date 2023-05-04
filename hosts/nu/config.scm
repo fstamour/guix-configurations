@@ -12,11 +12,27 @@
 
 (define-module (host-nu)
   #:use-module (gnu)
+  #:use-module (gnu packages xorg) ;; for xorg-server
+  #:use-module (gnu services linux) ;; for kernel-module-loader-service-type
   #:use-module (gnu services sddm)
   #:use-module (gnu services docker)
+  #:use-module (guix transformations) ;; for options->transformation
+  #:use-module (nongnu packages linux) ;; for linux-lts (which is not linux-libre)
   #:use-module (nongnu packages nvidia))
 
-(use-service-modules cups desktop networking ssh xorg)
+;; (use-package-modules linux)
+
+(use-service-modules
+ cups
+ desktop
+ ;; linux
+ networking
+ ssh
+ xorg)
+
+(define transform
+  (options->transformation
+   '((with-graft . "mesa=nvda"))))
 
 (define %users/fstamour
   (user-account
@@ -27,10 +43,22 @@
    (supplementary-groups '("wheel" "netdev" "audio" "video"))))
 
 (operating-system
+ (host-name "nu")
+
  (locale "en_CA.utf8")
  (timezone "America/New_York")
  (keyboard-layout (keyboard-layout "us"))
- (host-name "nu")
+
+ (kernel linux-lts)
+ 
+ ;; Blacklist the "nouveau" kernel module
+ (kernel-arguments (append
+                    '("modprobe.blacklist=nouveau")
+                    %default-kernel-arguments))
+
+ ;; Add "nvidia-driver" to the list of loadable kernel modules
+ (kernel-loadable-modules (list nvidia-module))
+
 
  ;; The list of user accounts ('root' is implicit).
  (users (cons* %users/fstamour
@@ -55,22 +83,46 @@
            ;; record as a second argument to 'service' below.
            (service openssh-service-type)
 
+	   ;; Printer!
 	   (service cups-service-type)
 
+	   ;; Use SDDM desktop manager (because I hate GDM)
 	   (service sddm-service-type
 		    (sddm-configuration
-		     (xorg-configuration (xorg-configuration (keyboard-layout keyboard-layout)))))
+		     (xorg-configuration
+		      (xorg-configuration
+		       (keyboard-layout keyboard-layout)
+		       ;; list nvidia-driver to the list of modules
+		       ;(modules (cons* nvidia-driver %default-xorg-modules))
+		       ;; graft!
+                       ;(server (transform xorg-server))
+		       ;; specify which driver to use (spoiler: nvidia)
+					;(drivers '("nvidia"))
+		       ))))
 
-	   (service docker-service-type))
+	   ;; Udev rule for nvidia cards
+	   (simple-service 'custom-udev-rules udev-service-type (list nvidia-driver))
+	   ;; Service to load nvidia's kernel modules
+	   (service kernel-module-loader-service-type
+		    '("ipmi_devintf"
+		      "nvidia"
+		      "nvidia_modeset"
+		      "nvidia_uvm"))
 
-          ;; This is the default list of services we
-          ;; are appending to.
+	  ;; Add a docker daemon
+	   (service docker-service-type)
+
+	   ;; End of the first list of services
+	   ) 
+
 	  (modify-services
+	   ;; This is the default list of services
 	   %desktop-services
 
 	   ;; I use sddm instead of gdm
 	   (delete gdm-service-type)
 
+	   ;; Configure guix to use substitutes for nonguix
 	   (guix-service-type
 	    config => (guix-configuration
 		       (inherit config)
@@ -80,6 +132,7 @@
 		       (authorized-keys
 			(append (list (local-file "../nonguix-substitutes-signing-key.pub"))
 				%default-authorized-guix-keys)))))))
+
  (bootloader (bootloader-configuration
               (bootloader grub-efi-bootloader)
               (targets (list "/boot/efi"))
