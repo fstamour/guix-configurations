@@ -1,3 +1,5 @@
 *
 !makefile
 !.gitignore
+!repos.tsv
+!repos.awk

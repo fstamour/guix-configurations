@@ -1,17 +1,9 @@
+# "all" is the default target
+.PHONY: all
+all: clone link
 
-GITHUB_REPOS := stumpwm temper
+# target to (re)generate the included makefile
+repos.mak: repos.awk repos.tsv
+	./$< repos.tsv > $@
 
-STUMPWM := ~/.config/stumpwm
-SYMLINKS := $(STUMPWM)
-
-all: $(GITHUB_REPOS) $(SYMLINKS)
-
-GIT_CLONE_REPO = $@
-GIT_CLONE_DIR = $@
-$(GITHUB_REPOS):
-	git clone git@github.com:fstamour/$(GIT_CLONE_REPO).git $(GIT_CLONE_DIR)
-
-stumpwm: GIT_CLONE_REPO=stumpwm-config
-
-$(STUMPWM): | stumpwm
-	ln -s $(abspath stumpwm) $@
+include repos.mak

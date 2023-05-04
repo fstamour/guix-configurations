@@ -1,0 +1,29 @@
+#### GitHub
+host:	github	git@github.com:fstamour/
+
+# link stumpwm-config where stumpwm would look for
+stumpwm-config	~/.config/stumpwm
+
+temper
+breeze
+
+### GitLab
+host:	gitlab	git@gitlab.com:fstamour/
+
+emacs-dot-files
+catchall
+# this one is private, but it's not sensitive at all
+myelin
+
+OpenBookStore
+
+### Savannah
+host:	savannah	https://git.savannah.gnu.org/git/
+
+guix
+
+guix/gnunet	guix-gnunet
+
+
+### Others
+host: 
