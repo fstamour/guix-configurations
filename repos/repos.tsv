@@ -2,7 +2,7 @@
 host:	github	git@github.com:fstamour/
 
 advent2018
-breeze
+breeze	~/quicklisp/local-projects/breeze
 # common-lisp-heroku-example # Haven't care about heroku for a while
 dill
 disjoint-sets

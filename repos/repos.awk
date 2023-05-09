@@ -22,6 +22,7 @@ function deref(var) {
     return "$(" var ")"
 }
 
+# TODO I don't use this anymore
 function join(array, sep,    result, i)
 {
     if (sep == "") {
