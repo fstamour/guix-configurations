@@ -82,7 +82,9 @@
 (define %xmodmap
   (service home-xmodmap-service-type
            (home-xmodmap-configuration
-            (key-map '(;; Switch ( with [ and ) with ]
+            ;; TODO This didn't do exactly what I intended, [] is now
+            ;; (), but () is now {} and {} is now []...
+            (key-map '( ;; Switch ( with [ and ) with ]
                        ("keycode 18" . "9 braceleft")
                        ("keycode 19" . "0 braceright")
                        ("keycode 34" . "parenleft bracketleft")
@@ -93,11 +95,14 @@
 
 (define %ssh-agent
   (service home-ssh-agent-service-type
-         (home-ssh-agent-configuration
-          ;; TODO maybe another time... (extra-options '("-t" "1h30m"))
-          )))
+           (home-ssh-agent-configuration
+            ;; TODO maybe another time... (extra-options '("-t" "1h30m"))
+            )))
 
 ;; .xsession seems not to work when it's a symlink
+;; update: .xession not being a symlink doesn't seem to be the source
+;; of the problem, because now it works with a "manually" created
+;; symlink.
 (define %files
   (service home-files-service-type
            `(#|(".xsession" ,(local-file "xsession"))|#)))
@@ -108,43 +113,58 @@
  ;; Home profile, under ~/.guix-home/profile.
  (packages (specifications->packages
             (list
-             "fd"
-             "make"
 
-             "podman"
-
+             "bat"
+             "coreutils"
+             "direnv"
              "git"
-             "tmux"
-             "rlwrap"
+             "less"
+             "make"
+             "mosh"
+             "podman"
              "readline"
+             "rlwrap"
              "sqlite"
+             "tmux"
+             "tmux"
+             "fd"
 
              "sbcl-slynk"
+             ;; "sbcl-swank" doesn't exists...
              "sbcl"
              "sbcl-cl+ssl"
-             "stumpwm-with-slynk" ;; TODO install as root or user??
 
-             "emacs-next" ;; for emacs 29.0
+             "stumpwm-with-slynk"
+
+             "emacs-next" ;; for emacs 29.0; for built-in eglot and use-package
              "emacs-magit"
              "emacs-guix"
              "emacs-paredit"
              "emacs-vertico"
              "emacs-darkroom"
              "emacs-focus"
+             ;; "emacs-slime"
              "emacs-sly"
 
+             ;; TODO as of 2023-05-08 guix provides gforth 0.7.3,
+             ;; which is very old...
              "gforth"
 
              "w3m"
 
+             "anki"
              "icecat"
              "kitty"
              "firefox" ;; nonguix
              "freecad"
              "keepassxc"
              "rofi"
+
+             "flatpak"
              "steam-nvidia" ;; nonguix
+
              "xbacklight"
+
              "xclip"
              "xmodmap" "setxkbmap"
              )))
