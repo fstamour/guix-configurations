@@ -49,7 +49,10 @@
 (define %bash
   (service home-bash-service-type
            (home-bash-configuration
-            (aliases %shell-aliases))))
+            (guix-defaults? #t)
+            (aliases %shell-aliases)
+            (bashrc
+             (list (plain-file "bashrc" "eval \"$(direnv hook bash)\""))))))
 
 (define %syncthing
   (simple-service 'syncthing home-shepherd-service-type
