@@ -4,3 +4,4 @@
 !repos.tsv
 !repos.awk
 !github.sh
+!quicklisp.lisp

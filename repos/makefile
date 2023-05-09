@@ -14,12 +14,13 @@ QUICKLISP_DIR := ~/quicklisp
 QL_LOCAL_PROJECTS_DIR := $(QUICKLISP_DIR)/local-projects
 
 $(QL_LOCAL_PROJECTS_DIR): $(QUICKLISP_DIR)
-	mkdir $@
+	mkdir -p $@
 
 $(QUICKLISP_DIR):
-	@echo "\"$@\" doesn't exists." >&2
-	@echo "Please install quicklisp." >&2
-	@exit 1
+	sbcl --noinform \
+		--load ./quicklisp.lisp \
+		--eval '(quicklisp-quickstart:install)' \
+		--eval '(ql:add-to-init-file)'
 
 # "Extra symlinks" that goes into quicklisp's local-projects directory
 $(BREEZE_EXTRA): $(QL_LOCAL_PROJECTS_DIR)
