@@ -7,3 +7,9 @@ test:
 .PHONY: home
 home:
 	guix home reconfigure $(CONF)
+
+XSESSION := ~/.xsession
+.PHONY: xsession
+xsession: $(XSESSION)
+$(XSESSION):
+	ln -s $(abspath xsession) $@
