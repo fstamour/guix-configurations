@@ -1,15 +1,3 @@
-;; This is an operating system configuration generated
-;; by the graphical installer.
-;;
-;; Once installation is complete, you can learn and modify
-;; this file to tweak the system configuration, and pass it
-;; to the 'guix system reconfigure' command to effect your
-;; changes.
-
-
-;; Indicate which modules to import to access the variables
-;; used in this configuration.
-
 (define-module (host-nu)
   #:use-module (gnu)
   #:use-module (gnu services sddm)
@@ -39,11 +27,15 @@
  ;; Packages installed system-wide.  Users can also install packages
  ;; under their own account: use 'guix search KEYWORD' to search
  ;; for packages and 'guix install PACKAGE' to install a package.
- (packages (append (list (specification->package "i3-wm")
-                         (specification->package "i3status")
-			 (specification->package "xfce")
-                         (specification->package "dmenu")
-                         (specification->package "nss-certs"))
+ (packages (append (specifications->packages
+		    '(
+		    "i3-wm"
+		    "i3status"
+		    ;; "xfce"
+		    "gnome"
+		    "dmenu"
+		    "nss-certs"
+		    ))
                    %base-packages))
 
  ;; Below is the list of system services.  To search for available
