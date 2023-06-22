@@ -1,7 +1,7 @@
 
 # Put channels.scm into ~/.config/guix/
 ~/.config/guix/channels.scm: | $(CURDIR)/channels.scm ~/.config/guix/
-	ln -s $< $@
+	ln -s $(CURDIR)/channels.scm $@
 
 # If guix is already installed, this should already exists...
 ~/.config/guix/:
