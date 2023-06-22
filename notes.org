@@ -109,3 +109,6 @@ guix package \
 From guix cookbook:
 > Using multiple, small profiles provides more flexibility and usability.
 
+* TODO
+
+sudo guix archive --authorize < machines/phi/nonguix-substitutes-signing-key.pub
