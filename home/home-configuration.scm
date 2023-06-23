@@ -127,10 +127,16 @@
              "podman"
              "readline"
              "rlwrap"
+             "ripgrep"
              "sqlite"
              "tmux"
              "tmux"
              "fd"
+
+             ;; Not tested yet:
+             ;; "cl-slime-swank"
+             ;; "cl-slynk"
+             ;; "emacs-slime"
 
              "sbcl-slynk"
              ;; "sbcl-swank" doesn't exists...
@@ -155,13 +161,16 @@
 
              "w3m"
 
-             "anki"
+             ;; "anki" the version in guix is way too old, I'll use
+             ;; the flatpak for now
              "icecat"
              "kitty"
              "firefox" ;; nonguix
              "freecad"
              "keepassxc"
              "rofi"
+
+             "pavucontrol"
 
              "flatpak"
              "steam-nvidia" ;; nonguix
@@ -170,6 +179,7 @@
 
              "xclip"
              "xmodmap" "setxkbmap"
+             "xrandr"
              )))
 
  ;; Below is the list of Home services.  To search for available
