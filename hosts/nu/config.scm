@@ -72,7 +72,13 @@
                     (sddm-configuration
                      (xorg-configuration (xorg-configuration (keyboard-layout keyboard-layout)))))
 
-           (service docker-service-type))
+           (service docker-service-type)
+
+           (service guix-publish-service-type
+                    (guix-publish-configuration
+                     (host "0.0.0.0")
+                     (port 9876)
+                     (advertise? #t))))
 
           ;; This is the default list of services we
           ;; are appending to.
