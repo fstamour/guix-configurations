@@ -26,7 +26,8 @@
 (operating-system
  (locale "en_CA.utf8")
  (timezone "America/New_York")
- (keyboard-layout (keyboard-layout "us"))
+ (keyboard-layout (keyboard-layout "us"
+                                   #:options '("compose:caps")))
  (host-name "nu")
 
  ;; The list of user accounts ('root' is implicit).
