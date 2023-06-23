@@ -20,6 +20,7 @@ function get() {
 # Don't fetch the list if we already have it
 if [ ! -f github.json ]; then
     (
+# this is super dumb, but it works
 	get 1
 	get 2
 	get 3
