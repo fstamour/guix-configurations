@@ -12,7 +12,16 @@
    (comment "Francis St-Amour")
    (group "users")
    (home-directory "/home/fstamour")
-   (supplementary-groups '("wheel" "netdev" "audio" "video"))))
+   (supplementary-groups
+    '("audio"
+      "cdrom"
+      "dialout"
+      "disk"
+      "docker"
+      "lp"
+      "netdev"
+      "video"
+      "wheel"))))
 
 (operating-system
  (locale "en_CA.utf8")
