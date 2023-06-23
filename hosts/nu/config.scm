@@ -46,6 +46,14 @@
                       "gnome"
                       "dmenu"
                       "nss-certs"
+                      "podman"
+
+                      ;; These are added system-wide to make it easier
+                      ;; to use them from ssh. (The default .bashrc
+                      ;; that guix provides doesn't source the
+                      ;; guix-home's /etc/profile)
+                      "git"
+                      "mosh"
                       ))
                    %base-packages))
 
