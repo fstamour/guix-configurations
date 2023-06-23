@@ -91,10 +91,7 @@
                        ("keycode 18" . "9 braceleft")
                        ("keycode 19" . "0 braceright")
                        ("keycode 34" . "parenleft bracketleft")
-                       ("keycode 35" . "parenright bracketright")
-                       ;; Use Caps Lock as a compose key
-                       ("keysym Caps_Lock" . "Multi_key Caps_Lock")
-                       "clear Lock")))))
+                       ("keycode 35" . "parenright bracketright"))))))
 
 (define %ssh-agent
   (service home-ssh-agent-service-type
