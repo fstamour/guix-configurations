@@ -109,6 +109,39 @@ guix package \
 From guix cookbook:
 > Using multiple, small profiles provides more flexibility and usability.
 
+* REPL
+
+#+begin_src scheme
+  (use-modules
+   (ice-9 pretty-print)
+   (gnu))
+
+  1
+
+
+  %base-groups
+#+end_src
+
+
+#+begin_src scheme
+  (use-modules
+   (ice-9 pretty-print)
+   (gnu))
+
+  (for-each (lambda (x) (pretty-print x)  (force-output)) %base-groups)
+#+end_src
+
+
+#+begin_src scheme
+  (use-modules
+   (ice-9 pretty-print)
+   (gnu))
+
+  (use-service-modules desktop)
+
+  (for-each (lambda (x) (pretty-print x) (force-output)) %desktop-services)
+#+end_src
+
 * TODO
 
 sudo guix archive --authorize < machines/phi/nonguix-substitutes-signing-key.pub
