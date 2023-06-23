@@ -17,7 +17,7 @@ inf4705
 instalag
 ioccc_blakely
 linedit
-local-gitlab
+local-gitlab	~/quicklisp/local-projects/local-gitlab
 log2420-aut2016
 log4410-methodes-formelles
 looset
@@ -42,7 +42,7 @@ host:	gitlab	git@gitlab.com:fstamour/
 emacs-dot-files	~/.emacs.d
 catchall
 # this one is private, but it's not sensitive at all
-myelin
+myelin	~/quicklisp/local-projects/myelin
 
 OpenBookStore
 
@@ -57,3 +57,8 @@ guix/gnunet	guix-gnunet
 host:
 
 https://gitlab.com/nonguix/nonguix
+
+
+https://github.com/joaotavora/sly.git
+
+https://git.code.sf.net/p/sbcl/sbcl
