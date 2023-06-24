@@ -1,12 +1,3 @@
-;;;;; WIP, I only generated it (with guix home import), it's not
-;;;;; "reconfigured" yet (had to go).
-
-;; This "home-environment" file can be passed to 'guix home reconfigure'
-;; to reproduce the content of your profile.  This is "symbolic": it only
-;; specifies package names.  To reproduce the exact same profile, you also
-;; need to capture the channels being used, as returned by "guix describe".
-;; See the "Replicating Guix" section in the manual.
-
 (use-modules
  (gnu home services)
  (gnu home services desktop)
@@ -19,7 +10,8 @@
  (gnu packages syncthing)
  (gnu packages)
  (gnu services)
- (guix gexp))
+ (guix gexp)
+ (local-gitlab))
 
 (define %environment-variables
   (simple-service 'some-useful-env-vars-service
@@ -67,6 +59,19 @@
                               ;; -logfile=...
                               ;; -logflag=... To specify the format?
                               "-no-browser")))
+                         (stop #~(make-kill-destructor))))))
+
+
+(define %local-gitlab
+  (simple-service 'local-gitlab home-shepherd-service-type
+                  (list (shepherd-service
+                         (provision '(local-gitlab))
+                         (documentation "Run local-gitlab as a shepherd (user) service")
+                         (start
+                          #~(make-forkexec-constructor
+                             (list
+                              #$(file-append local-gitlab "/bin/local-gitlab")
+                              "--serve")))
                          (stop #~(make-kill-destructor))))))
 
 (define %my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
@@ -196,6 +201,7 @@
    %bash
 
    ;; Various daemons
+   %local-gitlab
    %ssh-agent
    %syncthing
 
