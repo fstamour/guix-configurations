@@ -1,4 +1,10 @@
 (list (channel
+        (name 'fstamour_local-gitlab)
+        (url "https://github.com/fstamour/local-gitlab.git")
+        (branch "main")
+        (commit
+          "fd6690145815e1d2532058bb3f3037f89b7bafa6"))
+      (channel
         (name 'guix)
         (url "https://git.savannah.gnu.org/git/guix.git")
         (branch "master")
