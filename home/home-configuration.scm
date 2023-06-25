@@ -162,12 +162,15 @@
              "gforth"
 
              "w3m"
+
+             ;; Packages for spell pcheck
              "hunspell"
              "hunspell-dict-en-ca"
              "hunspell-dict-en-us"
              "hunspell-dict-en-gb"
              "hunspell-dict-fr-toutesvariantes"
              "miscfiles"
+             "python-codespell"
 
              ;; "anki" the version in guix is way too old, I'll use
              ;; the flatpak for now
@@ -177,6 +180,7 @@
              "freecad"
              "keepassxc"
              "rofi"
+             "flameshot"
 
              "pavucontrol"
 
