@@ -111,6 +111,10 @@ From guix cookbook:
 
 * REPL
 
+#+begin_src shell
+guix repl
+#+end_src
+
 #+begin_src scheme
   (use-modules
    (ice-9 pretty-print)
@@ -142,6 +146,43 @@ From guix cookbook:
   (for-each (lambda (x) (pretty-print x) (force-output)) %desktop-services)
 #+end_src
 
-* TODO
+* TODO LAN substitutes
+
+https://dataswamp.org/~solene/2021-06-07-guix-packages-publish.html
+
+no need to run =sudo guix archive --generate-key=
+
+* TODOg
 
 sudo guix archive --authorize < machines/phi/nonguix-substitutes-signing-key.pub
+
+* Whishlist/complains
+
+** Shepherd Services are not 100% declarative
+
+If you remove a service (e.g. cuirass) from your configuration
+- the service will still be running
+- you won't be able to use =herd= to stop it
+- the service's state (e.g. =/var/lib/.../= and databases) won't be
+  cleaned-up.
+- it's not easy to figure out _how_ to cleanup these things
+- that's one of the reasons trying out stuff in a container is
+  advantageous
+
+
+** Cuirass
+
+- I accidently disabled a specification, and I wasn't able to
+  re-enable it...
+- when an error occurs (e.g. bad specification), nothing is shown in
+  the web UI, you have to "manually" look at the logs.
+- it's hard to know what's going on (e.g. is it fetching the channel?
+  evaluating it? is it building anything?)
+- showing the logs would help a lot right out of the box
+
+su -l cuirass -s /bin/sh
+psql
+
+
+sudo -u cuirass dropdb cuirass
+sudo -u cuirass reatedb cuiras
