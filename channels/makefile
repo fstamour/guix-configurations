@@ -26,3 +26,6 @@ update:
 	guix pull --channels=$(CURDIR)/channels-no-commit.scm
 	# Saving the channels with the new commits
 	guix describe --format=channels > $(CURDIR)/channels.scm
+
+# TODO use this to update the system-wide (root) profile:
+# sudo -i guix pull -C /home/fstamour/.config/guix/channels.scm

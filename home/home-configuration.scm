@@ -1,3 +1,6 @@
+
+(define-module (home home-configuration))
+
 (use-modules
  (gnu home services)
  (gnu home services desktop)
@@ -11,7 +14,7 @@
  (gnu packages)
  (gnu services)
  (guix gexp)
- (local-gitlab))
+ (fstamour lisp))
 
 (define %environment-variables
   (simple-service 'some-useful-env-vars-service

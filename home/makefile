@@ -1,12 +1,16 @@
 
+GUIX := ~/.config/guix/current/bin/guix
 CONF := $(CURDIR)/home-configuration.scm
 
+build:
+	$(GUIX) home build $(CONF)
+
 test:
-	guix home container $(CONF)
+	$(GUIX) home container $(CONF)
 
 .PHONY: home
 home:
-	guix home reconfigure $(CONF)
+	$(GUIX) home reconfigure $(CONF)
 
 XSESSION := ~/.xsession
 .PHONY: xsession
