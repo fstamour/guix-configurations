@@ -5,26 +5,11 @@
   #:use-module (gnu system nss)
   #:use-module (nongnu packages nvidia)
   #:use-module (gnu services cuirass)
-  #:use-module (gnu services virtualization))
+  #:use-module (gnu services virtualization)
+  #:use-module (fstamour user))
 
 (use-service-modules cups desktop networking ssh xorg)
 
-(define %users/fstamour
-  (user-account
-   (name "fstamour")
-   (comment "Francis St-Amour")
-   (group "users")
-   (home-directory "/home/fstamour")
-   (supplementary-groups
-    '("audio"
-      "cdrom"
-      "dialout"
-      "disk"
-      "docker"
-      "lp"
-      "netdev"
-      "video"
-      "wheel"))))
 
 (define %cuirass-specs
   #~(list (specification
