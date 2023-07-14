@@ -121,6 +121,14 @@
  ;; Home profile, under ~/.guix-home/profile.
  (packages (specifications->packages
             (list
+             ;; This one is needed on my ubuntu host, because the
+             ;; GUIX...LOCPATH is not set correctly, it only contains
+             ;; the guix-home's profile
+             "glibc-locales"
+
+             ;; This should be installed on the OS (too?)
+             ;; The one in guix is newer than the on on my ubuntu host
+             "fish"
 
              "bat"
              "coreutils"
@@ -143,12 +151,21 @@
              ;; "cl-slynk"
              ;; "emacs-slime"
 
-             "sbcl-slynk"
+             ;; "sbcl-slynk"
              ;; "sbcl-swank" doesn't exists...
              "sbcl"
+             ;; to be able to load ssl without too much fuss
              "sbcl-cl+ssl"
+             "emacs-slime"
+             ;; "emacs-sly"
 
-             "stumpwm-with-slynk"
+             ;; "stumpwm-with-slynk"
+             "stumpwm"
+             "stumpish"
+
+
+             "local-gitlab"
+
 
              "emacs-next" ;; for emacs 29.0; for built-in eglot and use-package
              "emacs-magit"
@@ -157,8 +174,6 @@
              "emacs-vertico"
              "emacs-darkroom"
              "emacs-focus"
-             ;; "emacs-slime"
-             "emacs-sly"
 
              ;; TODO as of 2023-05-08 guix provides gforth 0.7.3,
              ;; which is very old...
@@ -192,9 +207,11 @@
 
              "xbacklight"
 
+             "playerctl"
              "xclip"
              "xmodmap" "setxkbmap"
              "xrandr"
+             "xdotool"
              )))
 
  ;; Below is the list of Home services.  To search for available
