@@ -10,7 +10,15 @@
   #:use-module (guix git)
   #:use-module (guix git-download)
   #:use-module (guix build-system asdf)
-  #:use-module (guix build-system trivial))
+  #:use-module (guix build-system trivial)
+  #:export (sbcl-simpbin
+            sbcl-local-gitlab
+            local-gitlab
+            %local-gitlab))
+
+;; TODO cl-simpbin cl-local-gitlab
+;; TODO other implementations (e.g. ecl)
+;; TODO my fork of stumpwm
 
 (define-public sbcl-simpbin
   (let ((commit "6f9f1c196ca8f363b478bab0a8623f53b89e5586")
@@ -94,3 +102,20 @@
                                                 "--eval" "(require 'asdf)"
                                                 "--load" #$local-gitlab-build-script))))))
    (inputs (list sbcl-local-gitlab))))
+
+(use-modules
+ (gnu packages admin)
+ (gnu home services shepherd)
+ (gnu services))
+
+(define-public %local-gitlab
+  (simple-service 'local-gitlab home-shepherd-service-type
+                  (list (shepherd-service
+                         (provision '(local-gitlab))
+                         (documentation "Run local-gitlab as a shepherd (user) service")
+                         (start
+                          #~(make-forkexec-constructor
+                             (list
+                              #$(file-append local-gitlab "/bin/local-gitlab")
+                              "--serve")))
+                         (stop #~(make-kill-destructor))))))

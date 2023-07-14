@@ -64,19 +64,6 @@
                               "-no-browser")))
                          (stop #~(make-kill-destructor))))))
 
-
-(define %local-gitlab
-  (simple-service 'local-gitlab home-shepherd-service-type
-                  (list (shepherd-service
-                         (provision '(local-gitlab))
-                         (documentation "Run local-gitlab as a shepherd (user) service")
-                         (start
-                          #~(make-forkexec-constructor
-                             (list
-                              #$(file-append local-gitlab "/bin/local-gitlab")
-                              "--serve")))
-                         (stop #~(make-kill-destructor))))))
-
 (define %my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
   (service home-redshift-service-type
            (home-redshift-configuration
