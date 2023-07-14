@@ -102,104 +102,128 @@
   (service home-files-service-type
            `(#|(".xsession" ,(local-file "xsession"))|#)))
 
+(define %command-line-stuff
+  (list
+   ;; This should be installed on the OS (too?)
+   ;; The one in guix is newer than the on on my ubuntu host
+   "fish"
+
+   "bat"
+   "coreutils"
+   "direnv"
+   "git"
+   "less"
+   "make"
+   "mosh"
+   "podman"
+   "readline"
+   "rlwrap"
+   "ripgrep"
+   "sqlite"
+   "tmux"
+   "tmux"
+   "fd"
+   "fzf"
+   "w3m"))
+
+(define %lisp-scheme-and-emacs
+  (list
+   ;; Not tested yet:
+   ;; "cl-slime-swank"
+   ;; "cl-slynk"
+   ;; "emacs-slime"
+
+   ;; "sbcl-slynk"
+   ;; "sbcl-swank" doesn't exists...
+   "sbcl"
+   ;; to be able to load ssl without too much fuss
+   "sbcl-cl+ssl"
+   "emacs-slime"
+   ;; "emacs-sly"
+
+   ;; "stumpwm-with-slynk"
+   "stumpwm"
+   "stumpish"
+
+   "guile"
+   "guile-readline"
+   "guile-colorized"
+
+   ;; "local-gitlab"
+
+   "emacs"
+   ;; "emacs-next" ;; for emacs 29.0; for built-in eglot and use-package
+   "emacs-magit"
+   "emacs-guix"
+   "emacs-paredit"
+   "emacs-vertico"
+   "emacs-darkroom"
+   "emacs-focus"))
+
+(define %spelling
+  (list
+   ;; Packages for spell pcheck
+   "hunspell"
+   "hunspell-dict-en-ca"
+   "hunspell-dict-en-us"
+   "hunspell-dict-en-gb"
+   "hunspell-dict-fr-toutesvariantes"
+   "miscfiles"
+   "python-codespell"))
+
+(define %desktop
+  (list
+   ;; "anki" the version in guix is way too old, I'll use
+   ;; the flatpak for now
+   "icecat"
+   "kitty"
+   "firefox" ;; nonguix
+   "freecad"
+   "keepassxc"
+   "rofi"
+   "flameshot"
+
+   "pavucontrol"
+
+   "flatpak"
+   "steam-nvidia" ;; nonguix
+
+   "xbacklight"
+
+   "playerctl"
+   "xclip"
+   "xmodmap" "setxkbmap"
+   "xrandr"
+   "xdotool"))
+
+(define %packages
+  (cons*
+   local-gitlab
+   (specifications->packages
+    (append
+     %command-line-stuff
+     %lisp-scheme-and-emacs
+     %spelling
+     %desktop
+     (unless (string= "nu" (gethostname))
+       ;; nonguix
+       (list "steam-nvidia"))
+     ;; Others...
+     (list
+      ;; This one is needed on my ubuntu host, because the
+      ;; GUIX...LOCPATH is not set correctly, it only contains
+      ;; the guix-home's profile
+      "glibc-locales"
+
+      ;; TODO as of 2023-05-08 guix provides gforth 0.7.3,
+      ;; which is very old...
+      "gforth")))))
+
 
 (home-environment
  ;; Below is the list of packages that will show up in your
  ;; Home profile, under ~/.guix-home/profile.
- (packages (specifications->packages
-            (list
-             ;; This one is needed on my ubuntu host, because the
-             ;; GUIX...LOCPATH is not set correctly, it only contains
-             ;; the guix-home's profile
-             "glibc-locales"
-
-             ;; This should be installed on the OS (too?)
-             ;; The one in guix is newer than the on on my ubuntu host
-             "fish"
-
-             "bat"
-             "coreutils"
-             "direnv"
-             "git"
-             "less"
-             "make"
-             "mosh"
-             "podman"
-             "readline"
-             "rlwrap"
-             "ripgrep"
-             "sqlite"
-             "tmux"
-             "tmux"
-             "fd"
-
-             ;; Not tested yet:
-             ;; "cl-slime-swank"
-             ;; "cl-slynk"
-             ;; "emacs-slime"
-
-             ;; "sbcl-slynk"
-             ;; "sbcl-swank" doesn't exists...
-             "sbcl"
-             ;; to be able to load ssl without too much fuss
-             "sbcl-cl+ssl"
-             "emacs-slime"
-             ;; "emacs-sly"
-
-             ;; "stumpwm-with-slynk"
-             "stumpwm"
-             "stumpish"
-
-
-             "local-gitlab"
-
-
-             "emacs-next" ;; for emacs 29.0; for built-in eglot and use-package
-             "emacs-magit"
-             "emacs-guix"
-             "emacs-paredit"
-             "emacs-vertico"
-             "emacs-darkroom"
-             "emacs-focus"
-
-             ;; TODO as of 2023-05-08 guix provides gforth 0.7.3,
-             ;; which is very old...
-             "gforth"
-
-             "w3m"
-
-             ;; Packages for spell pcheck
-             "hunspell"
-             "hunspell-dict-en-ca"
-             "hunspell-dict-en-us"
-             "hunspell-dict-en-gb"
-             "hunspell-dict-fr-toutesvariantes"
-             "miscfiles"
-             "python-codespell"
-
-             ;; "anki" the version in guix is way too old, I'll use
-             ;; the flatpak for now
-             "icecat"
-             "kitty"
-             "firefox" ;; nonguix
-             "freecad"
-             "keepassxc"
-             "rofi"
-             "flameshot"
-
-             "pavucontrol"
-
-             "flatpak"
-             "steam-nvidia" ;; nonguix
-
-             "xbacklight"
-
-             "playerctl"
-             "xclip"
-             "xmodmap" "setxkbmap"
-             "xrandr"
-             "xdotool"
-             )))
+ (packages %packages)
 
  ;; Below is the list of Home services.  To search for available
  ;; services, run 'guix home search KEYWORD' in a terminal.
