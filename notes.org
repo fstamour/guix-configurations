@@ -6,7 +6,9 @@
 
 *** DONE Swap () and {}
 
-*** TODO xmodmap service doesn't work anymore
+*** TODO Update my xmodmap to add caps-lock as compose-key on certain hosts only
+
+*** DONE xmodmap service doesn't work anymore
 
 - I thinks it happens since I updated...
 - OOOrrrr... since I'm using xsession...
@@ -29,13 +31,8 @@ For containers, obviously...
 
 I might be able to get away with running =guix shell --container=
 
-** DONE Put ~/.config/guix under git
-
-*** DONE Move into ~/dev/
-
-** TODO Stumpwm
-
-git@github.com:fstamour/stumpwm-config.git
+For now, on guixSD I'm using docker, and on ubuntu I'm using nix's
+podman.
 
 ** TODO Emacs
 
@@ -45,28 +42,12 @@ git@github.com:fstamour/stumpwm-config.git
 
 git@gitlab.com:fstamour/emacs-dot-files.git
 
-**** TODO See if I can do that using guix-home.
-
-From the manual:
-
-> It is possible to manage stateful data with Guix Home, this includes
-the ability to automatically clone Git repositories on the initial
-setup of the machine, and periodically running commands like rsync to
-sync data with another host. This functionality is still in an
-experimental stage, though.
+**** TODO See if I can do that using guix-home for emacs
 
 *** TODO Enable darkroom-mode and focus-mode with org-mode
 
 maybe all text-modes?
 maybe all programming modes???
-
-** DONE EDITOR env variable
-
-** TODO Clone repos
-
-start with git@gitlab.com:fstamour/catchall.git
-
-or Stumpwm's
 
 ** TODO fish is installed but is not in /etc/shells
 
@@ -83,13 +64,32 @@ didn't work, the latest version in the mirrors were 0.7.3
 ./autogen.sh: line 24: glibtoolize: command not found
 ./autogen.sh: line 30: aclocal: command not found
 
-* Guix home
+* TODO Dotfiles
 
-guix home import ~/dev/guix-configurations/home/
+** TODO tmux
 
-~/.local/var/log/shepherd.log
+** TODO guile
 
-** DONE pin
+** TODO sbcl
+
+** TODO fish
+
+** TODO kitty?
+
+** TODO ~/bin/
+
+I said I was going to keep using gnu stow for these, because it's much
+easier to update like thath (I think).
+
+** TODO streamdeck
+
+** TODO git
+
+** TODO ssh?
+
+** TODO vscode
+
+** TODO xrandr script
 
 * Snippets
 
@@ -120,10 +120,7 @@ guix repl
    (ice-9 pretty-print)
    (gnu))
 
-  1
-
-
-  %base-groups
+    %base-groups
 #+end_src
 
 
@@ -152,9 +149,9 @@ https://dataswamp.org/~solene/2021-06-07-guix-packages-publish.html
 
 no need to run =sudo guix archive --generate-key=
 
-* TODOg
+* TODO
 
-sudo guix archive --authorize < machines/phi/nonguix-substitutes-signing-key.pub
+sudo guix archive --authorize < modules/fstamour/nonguix-substitutes-signing-key.pub
 
 * Whishlist/complains
 
@@ -169,6 +166,9 @@ If you remove a service (e.g. cuirass) from your configuration
 - that's one of the reasons trying out stuff in a container is
   advantageous
 
+** Don't know how to see Shepherd's services' logs
+
+** The "graphical" shepherd services starts in non-graphical contexts
 
 ** Cuirass
 
@@ -186,3 +186,12 @@ psql
 
 sudo -u cuirass dropdb cuirass
 sudo -u cuirass reatedb cuiras
+
+** Guile's error message are aweful
+
+Sometimes (most of the time) I don't even have a stack trace...
+
+I lost a bunch of time because there was an error in an imported
+(used) module, but the error was in the module imporing the faulty
+module. Saying that the variable doesn't exist "did you forget to
+(use-modules (the-faulty-module))" -_-

@@ -17,7 +17,7 @@
             %local-gitlab))
 
 ;; TODO cl-simpbin cl-local-gitlab
-;; TODO other implementations (e.g. ecl)
+;; TODO other implementations (e.g. ecl) see see asdf-build-system/ecl
 ;; TODO my fork of stumpwm
 
 (define-public sbcl-simpbin
