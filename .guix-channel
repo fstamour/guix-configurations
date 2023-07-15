@@ -1,5 +1,22 @@
 ;; -*- mode: scheme; -*-
 
 (channel
-  (version 0)
-  (directory "fstamour"))
+ (version 0)
+ (directory "fstamour")
+ (dependencies
+  (channel
+   (name guix)
+   (url "https://git.savannah.gnu.org/git/guix.git")
+   (introduction
+    (channel-introduction
+     (version 0)
+     (commit "f25529b08e356f89ca7cecc44295085531a8faba")
+     (signer "BBB0 2DDF 2CEA F6A8 0D1D  E643 A2A0 6DF2 A33A 54FA"))))
+  (channel
+   (name nonguix)
+   (url "https://gitlab.com/nonguix/nonguix")
+   (introduction
+    (channel-introduction
+     (version 0)
+     (commit "69b05a57eed16218d607a90d7bc49ba79a2d850e")
+     (signer "2A39 3FFF 68F4 EF7A 3D29  12AF 6F51 20A0 22FB B2D5"))))))
