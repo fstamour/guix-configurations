@@ -124,7 +124,8 @@
    "tmux"
    "fd"
    "fzf"
-   "w3m"))
+   "w3m"
+   "mandoc"))
 
 (define %lisp-scheme-and-emacs
   (list
