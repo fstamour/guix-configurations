@@ -113,6 +113,7 @@
    "direnv"
    "git"
    "less"
+   "m4"
    "make"
    "mosh"
    "podman"
@@ -212,6 +213,8 @@
       ;; GUIX...LOCPATH is not set correctly, it only contains
       ;; the guix-home's profile
       "glibc-locales"
+
+      "rakudo" ; aka perl6
 
       ;; TODO as of 2023-05-08 guix provides gforth 0.7.3,
       ;; which is very old...
