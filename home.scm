@@ -121,7 +121,6 @@
    "ripgrep"
    "sqlite"
    "tmux"
-   "tmux"
    "fd"
    "fzf"
    "w3m"))
@@ -152,7 +151,6 @@
    ;; "local-gitlab"
 
    "emacs"
-   ;; "emacs-next" ;; for emacs 29.0; for built-in eglot and use-package
    "emacs-magit"
    "emacs-guix"
    "emacs-paredit"
@@ -168,7 +166,7 @@
    "hunspell-dict-en-us"
    "hunspell-dict-en-gb"
    "hunspell-dict-fr-toutesvariantes"
-   "miscfiles"
+   "miscfiles" ;; provides a wordlist
    "python-codespell"))
 
 (define %desktop
@@ -186,12 +184,12 @@
    "pavucontrol"
 
    "flatpak"
-   "steam-nvidia" ;; nonguix
 
    "xbacklight"
 
    "playerctl"
    "xclip"
+   "xbacklight" ;; laptop-only perhaps
    "xmodmap" "setxkbmap"
    "xrandr"
    "xdotool"))

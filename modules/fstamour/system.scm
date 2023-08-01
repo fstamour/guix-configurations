@@ -142,8 +142,16 @@
    (keyboard-layout %keyboard-layout)
    (name-service-switch %mdns-host-lookup-nss)
 
+   (kernel linux)
+   (initrd microcode-initrd)
+   (firmware (list linux-firmware
+                   amdgpu-firmware))
+
    (users (cons* %users/fstamour %base-user-accounts))
-   (packages (append %packages %base-packages))
+   (packages (append
+              (specifications->packages '("xf86-video-amdgpu"))
+              %packages
+              %base-packages))
 
    (services (append
               (list
