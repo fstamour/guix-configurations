@@ -112,6 +112,7 @@
    "coreutils"
    "direnv"
    "git"
+   "git-lfs"
    "less"
    "make"
    "mosh"
