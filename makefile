@@ -91,3 +91,10 @@ update:
 
 # TODO use this to update the system-wide (root) profile:
 # sudo -i $(GUIX) pull -C /home/fstamour/.config/guix/channels.scm
+
+######################################################################
+### Profiles
+
+# TODO make a directory for profiles, probably
+lisp-profile/:
+	guix install sbcl-slime-swank sbcl-slynk sbcl-breeze -p lisp-profile
