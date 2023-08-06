@@ -150,7 +150,7 @@
    "guile-readline"
    "guile-colorized"
 
-   ;; "local-gitlab"
+   ;; "cache-cache"
 
    "emacs"
    ;; "emacs-next" ;; for emacs 29.0; for built-in eglot and use-package
@@ -199,7 +199,7 @@
 
 (define %packages
   (cons*
-   local-gitlab
+   cache-cache
    (specifications->packages
     (append
      %command-line-stuff
@@ -237,7 +237,7 @@
    %bash
 
    ;; Various daemons
-   %local-gitlab
+   %cache-cache
    %ssh-agent
    %syncthing
 
