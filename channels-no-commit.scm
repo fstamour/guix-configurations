@@ -1,6 +1,7 @@
 (list (channel
-       (name 'fstamour_local-gitlab)
-       (url "https://github.com/fstamour/local-gitlab.git")
+       (name 'fstamour)
+       ;; (url "https://github.com/fstamour/guix-configurations.git")
+       (url "./")
        (branch "main"))
       (channel
        (name 'nonguix)

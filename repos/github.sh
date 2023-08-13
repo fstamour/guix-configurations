@@ -2,7 +2,7 @@
 #
 # Script to fetch a list of repositories from GitHub
 #
-# TODO Move all of this into `local-gitlab`, probably need to rename that project too
+# TODO Move all of this into `cache-cache`
 
 set -ueo pipefail
 

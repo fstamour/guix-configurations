@@ -112,6 +112,7 @@
    "coreutils"
    "direnv"
    "git"
+   "git-lfs"
    "less"
    "m4"
    "make"
@@ -124,7 +125,8 @@
    "tmux"
    "fd"
    "fzf"
-   "w3m"))
+   "w3m"
+   "mandoc"))
 
 (define %lisp-scheme-and-emacs
   (list
@@ -149,7 +151,7 @@
    "guile-readline"
    "guile-colorized"
 
-   ;; "local-gitlab"
+   ;; "cache-cache"
 
    "emacs"
    "emacs-magit"
@@ -197,7 +199,7 @@
 
 (define %packages
   (cons*
-   local-gitlab
+   cache-cache
    (specifications->packages
     (append
      %command-line-stuff
@@ -234,7 +236,7 @@
    %bash
 
    ;; Various daemons
-   %local-gitlab
+   %cache-cache
    %ssh-agent
    %syncthing
 
