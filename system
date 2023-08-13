@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+root="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
+
+export GUIX=~/.config/guix/current/bin/guix
+export GUIX_PACKAGE_PATH="$root/modules${GUIX_PACKAGE_PATH:+:$GUIX_PACKAGE_PATH}"
+
+host="$1"
+shift
+
+exec sudo -E "${GUIX}" system "$@" \
+  -e "(@@ (fstamour system) %hosts/$host)"

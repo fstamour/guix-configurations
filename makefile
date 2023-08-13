@@ -43,11 +43,11 @@ build: $(BUILD_HOSTS) home-build
 
 .PHONY: home
 home:
-	home reconfigure
+	./home reconfigure
 
 .PHONY: home-build
 home-build:
-	home build
+	./home build
 
 ######################################################################
 ### Hosts (systems)
@@ -55,17 +55,13 @@ home-build:
 .PHONY: host
 host: $(HOSTNAME)
 
-.PHONY: build-host
-build-host:
-	$(GUIX) system build hosts/$(HOSTNAME)/config.scm
-
 .PHONY: $(BUILD_HOSTS)
 $(BUILD_HOSTS):
-	$(GUIX) system build -e '(@@ (fstamour system) %hosts/$(@:build-host-%=%))'
+	./system $(@:build-host-%=%) build
 
 .PHONY: $(HOSTS)
 $(HOSTS):
-	$(GUIX) system reconfigure -e '(@@ (fstamour system) %hosts/$@)'
+	./system $@ reconfigure
 
 ######################################################################
 ### Channels

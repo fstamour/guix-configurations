@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+root="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
+
+export GUIX=~/.config/guix/current/bin/guix
+export GUIX_PACKAGE_PATH="$root/modules${GUIX_PACKAGE_PATH:+:$GUIX_PACKAGE_PATH}"
+
+export HOME_CONF="$root/home.scm"
+
+exec "${GUIX}" home "$@" "${HOME_CONF}"

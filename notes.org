@@ -34,6 +34,14 @@ I might be able to get away with running =guix shell --container=
 For now, on guixSD I'm using docker, and on ubuntu I'm using nix's
 podman.
 
+** DONE Put ~/.config/guix under git
+
+*** DONE Move into ~/dev/
+
+** DONE Stumpwm
+
+git@github.com:fstamour/stumpwm-config.git
+
 ** TODO Emacs
 
 *** TODO Use guix to install (most?) packages
