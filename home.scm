@@ -204,9 +204,6 @@
      %lisp-scheme-and-emacs
      %spelling
      %desktop
-     (unless (string= "nu" (gethostname))
-       ;; nonguix
-       (list "steam-nvidia"))
      ;; Others...
      (list
       ;; This one is needed on my ubuntu host, because the
