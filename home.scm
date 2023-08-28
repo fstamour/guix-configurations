@@ -7,6 +7,7 @@
  (gnu home services shells)
  (gnu home services shepherd)
  (gnu home services ssh)
+ (gnu packages ssh) ;; for autossh
  (gnu home)
  (gnu packages admin) ;; for shepherd
  (gnu packages shells)
@@ -93,6 +94,30 @@
            (home-ssh-agent-configuration
             ;; TODO maybe another time... (extra-options '("-t" "1h30m"))
             )))
+
+(define %autossh-vps
+  (simple-service 'autossh home-shepherd-service-type
+                  (list (shepherd-service
+                         (provision '(autossh))
+                         (documentation "Run autossh as a shepherd (user) service")
+                         (start
+                          #~(make-forkexec-constructor
+                             (list
+                              #$(file-append autossh "/bin/autossh")
+                              "-M" "2223"
+                              "-C" ; compression of all data
+                              ;; "-g"
+                              "-o" "ServerAliveCountMax=3"
+                              "-o" "ServerAliveInterval=60"
+                              "-o" "ExitOnForwardFailure=yes"
+                              ;; No tty
+                              "-T"
+                              ;; Do not execute a remote command.
+                              "-N"
+                              ;; Remote forward: port 2222 on "sartre"
+                              ;; is forwarded to localhost's port 22
+                              "-R" "2222:localhost:22" "sartre")))
+                         (stop #~(make-kill-destructor))))))
 
 ;; .xsession seems not to work when it's a symlink
 ;; update: .xession not being a symlink doesn't seem to be the source
@@ -239,6 +264,7 @@
    %cache-cache
    %ssh-agent
    %syncthing
+   %autossh-vps
 
    ;; Desktop
    %xmodmap
