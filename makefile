@@ -57,7 +57,7 @@ host: $(HOSTNAME)
 
 .PHONY: $(BUILD_HOSTS)
 $(BUILD_HOSTS):
-	./system $(@:build-host-%=%) build
+	host=$(@:build-host-%=%) ./system build
 
 .PHONY: $(HOSTS)
 $(HOSTS):
