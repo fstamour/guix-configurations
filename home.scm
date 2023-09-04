@@ -13,6 +13,7 @@
  (gnu packages shells)
  (gnu packages syncthing)
  (gnu packages)
+ (gnu packages dunst)
  (gnu services)
  (guix gexp)
  (fstamour lisp))
@@ -117,6 +118,17 @@
                               ;; Remote forward: port 2222 on "sartre"
                               ;; is forwarded to localhost's port 22
                               "-R" "2222:localhost:22" "sartre")))
+                         (stop #~(make-kill-destructor))))))
+
+(define %dunst
+  (simple-service 'dunst home-shepherd-service-type
+                  (list (shepherd-service
+                         (provision '(dunst))
+                         (documentation "Run dunst as a shepherd (user) service")
+                         (start
+                          #~(make-forkexec-constructor
+                             (list
+                              #$(file-append dunst "/bin/dunst"))))
                          (stop #~(make-kill-destructor))))))
 
 ;; .xsession seems not to work when it's a symlink
