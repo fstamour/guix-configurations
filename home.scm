@@ -74,7 +74,7 @@
             (latitude 45.4215)
             (longitude -75.6972))))
 
-(define %where-have-you-been-all-my-life
+(define %unclutter ; hide the mouse after some time of inactivity
   (service home-unclutter-service-type
            (home-unclutter-configuration
             (idle-timeout 2))))
@@ -265,23 +265,28 @@
  ;; Below is the list of Home services.  To search for available
  ;; services, run 'guix home search KEYWORD' in a terminal.
  (services
-  (list
-   ;; Essentials
-   %environment-variables
+  (filter
+   (compose not unspecified?)
+   (list
+    ;; Essentials
+    %environment-variables
 
-   ;; Shell
-   %bash
+    ;; Shell
+    %bash
 
-   ;; Various daemons
-   %cache-cache
-   %ssh-agent
-   %syncthing
-   %autossh-vps
+    ;; Various daemons
+    %cache-cache
+    %ssh-agent
+    %syncthing
 
-   ;; Desktop
-   %xmodmap
-   %my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
-   %where-have-you-been-all-my-life
+    (when (string= "nu" (gethostname)) %autossh-vps)
 
-   ;; Files
-   %files)))
+    ;; Desktop
+    %xmodmap
+    ;; TODO laptop-only
+    %my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
+    %unclutter
+    %dunst
+
+    ;; Files
+    %files))))
