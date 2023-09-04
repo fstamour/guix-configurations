@@ -145,25 +145,29 @@
    ;; The one in guix is newer than the on on my ubuntu host
    "fish"
 
-   "bat"
+   "git" "git-lfs"
+
+   "bind:utils"                         ; nslookup, dig, etc
    "coreutils"
    "direnv"
-   "git"
-   "git-lfs"
+   "fd"
+   "fzf"
    "less"
    "m4"
    "make"
+   "mandoc"
    "mosh"
    "podman"
    "readline"
-   "rlwrap"
-   "ripgrep"
+   "ripgrep" ; grep -R
+   "rlwrap" ; add readline to other command
    "sqlite"
-   "tmux"
-   "fd"
-   "fzf"
-   "w3m"
-   "mandoc"))
+   "tmux" ; terminal multiplexer
+   "tree" ; list file
+   "w3m" ; browser
+   "xxd" ; hex
+   "bat" ; viewer
+   ))
 
 (define %lisp-scheme-and-emacs
   (list
@@ -209,6 +213,20 @@
    "miscfiles" ;; provides a wordlist
    "python-codespell"))
 
+;; TODO STM
+;; TODO AVR (define %embedded-dev (list "microcom" "avr-toolchain" "avrdude" "avr-gdb"))
+
+(define %cad
+  (list
+   "f3d"                                ; VTK-based viewer
+   "openscad"
+   "freecad"
+   "kicad"))
+
+;; TODO Not used yet
+(define %video
+  (list "ffmpeg" "shotcut"))
+
 (define %desktop
   (list
    ;; "anki" the version in guix is way too old, I'll use
@@ -221,18 +239,30 @@
    "rofi"
    "flameshot"
 
+   "dunst"                              ; for notifications
+
    "pavucontrol"
 
    "flatpak"
 
-   "xbacklight"
-
    "playerctl"
    "xclip"
-   "xbacklight" ;; laptop-only perhaps
+   "xbacklight"                         ; TODO laptop-only
    "xmodmap" "setxkbmap"
    "xrandr"
-   "xdotool"))
+   "xdotool"
+
+   ;; PDF viewers
+   "mupdf"
+   ;; "zathura-pdf-mupdf"
+   ;; ;; Other document formats
+   ;; "zathura"
+   ;; "zathura-ps"
+   ;; "zathura-djvu"
+   ;; ;; Comic books
+   ;; "zathura-cb"
+   ;; "mcomix"
+   ))
 
 (define %packages
   (cons*
@@ -242,6 +272,7 @@
      %command-line-stuff
      %lisp-scheme-and-emacs
      %spelling
+     %cad
      %desktop
      ;; Others...
      (list
@@ -254,7 +285,17 @@
 
       ;; TODO as of 2023-05-08 guix provides gforth 0.7.3,
       ;; which is very old...
-      "gforth")))))
+      "gforth"
+
+      ;; TODO Add a home-service for this too
+      "laminar"
+
+      ;; TODO I only need these packages on non-GuixSD systems
+      ;; set -xU SSL_CERT_FILE ~/.guix-home/profile/etc/ssl/certs/ca-certificates.crt
+      "le-certs"
+      "nss-certs"
+      "shepherd"
+      )))))
 
 
 (home-environment
