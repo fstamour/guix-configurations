@@ -7,6 +7,7 @@
   #:use-module (gnu system nss)
   #:use-module (gnu system shadow)
   #:use-module (gnu)
+  #:use-module (gnu packages shells)
   #:use-module (nongnu packages linux)
   #:use-module (nongnu packages nvidia)
   #:use-module (nongnu system linux-initrd))
@@ -132,7 +133,8 @@
       "lp"
       "netdev"
       "video"
-      "wheel"))))
+      "wheel"))
+   (shell (file-append fish "/bin/fish"))))
 
 (define-public %hosts/nu
   (operating-system
