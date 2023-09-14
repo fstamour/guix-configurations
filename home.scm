@@ -137,7 +137,8 @@
 ;; symlink.
 (define %files
   (service home-files-service-type
-           `(#|(".xsession" ,(local-file "xsession"))|#)))
+           `(#|(".xsession" ,(local-file "dotfiles/xsession"))|#
+             (".tmux.conf" ,(local-file "dotfiles/tmux.conf")))))
 
 (define %command-line-stuff
   (list
