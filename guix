@@ -1,0 +1,11 @@
+#!/usr/bin/env -S bash -eux -o pipefail
+#
+# Small wrapper around guix, to setup GUIX_PATH before calling guix
+# (and calling the (probably) right version of guix)
+
+root="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
+
+export GUIX=~/.config/guix/current/bin/guix
+export GUIX_PACKAGE_PATH="$root/modules${GUIX_PACKAGE_PATH:+:$GUIX_PACKAGE_PATH}"
+
+exec "${GUIX}" "$@"
