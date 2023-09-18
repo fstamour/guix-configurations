@@ -49,7 +49,7 @@
             (guix-defaults? #t)
             (aliases %shell-aliases)
             (bashrc
-             (list (plain-file "bashrc" "eval \"$(direnv hook bash)\""))))))
+             (list (local-file "dotfiles/bashrc.bash"))))))
 
 (define %syncthing
   (simple-service 'syncthing home-shepherd-service-type
@@ -138,6 +138,7 @@
 (define %files
   (service home-files-service-type
            `(#|(".xsession" ,(local-file "dotfiles/xsession"))|#
+             (".config/fish/config.fish" ,(local-file "dotfiles/fish.conf"))
              (".tmux.conf" ,(local-file "dotfiles/tmux.conf")))))
 
 (define %command-line-stuff
@@ -145,6 +146,7 @@
    ;; This should be installed on the OS (too?)
    ;; The one in guix is newer than the on on my ubuntu host
    "fish"
+   "fish-foreign-env"
 
    "git" "git-lfs"
 
