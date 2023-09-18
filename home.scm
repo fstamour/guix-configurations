@@ -16,7 +16,20 @@
  (gnu packages dunst)
  (gnu services)
  (guix gexp)
- (fstamour lisp))
+ (fstamour lisp)
+ ;; WIP (fstamour streamdeck)
+ )
+
+(define (host-nu?)
+  (string= "nu" (gethostname)))
+
+(define (host-phi?)
+  (string= "phi" (gethostname)))
+
+(define (host-other?)
+  (and
+   (not (host-nu?))
+   (not (host-phi?))))
 
 (define %environment-variables
   (simple-service 'some-useful-env-vars-service
@@ -51,6 +64,7 @@
             (bashrc
              (list (local-file "dotfiles/bashrc.bash"))))))
 
+;; TODO a syncthing home-service was added recently, use that instead
 (define %syncthing
   (simple-service 'syncthing home-shepherd-service-type
                   (list (shepherd-service
@@ -270,6 +284,7 @@
 (define %packages
   (cons*
    cache-cache
+   ;; WIP python-elgato-streamdeck
    (specifications->packages
     (append
      %command-line-stuff
@@ -284,7 +299,7 @@
       ;; the guix-home's profile
       "glibc-locales"
 
-      "rakudo" ; aka perl6
+      "rakudo"                          ; aka perl6
 
       ;; TODO as of 2023-05-08 guix provides gforth 0.7.3,
       ;; which is very old...
@@ -298,6 +313,10 @@
       "le-certs"
       "nss-certs"
       "shepherd"
+
+      ;; TODO add syncthing's command line on the right hosts
+      ;; to be able to run commands like =syncthing -paths=
+      ;; "syncthing"
       )))))
 
 
@@ -321,9 +340,8 @@
     ;; Various daemons
     %cache-cache
     %ssh-agent
-    %syncthing
-
-    (when (string= "nu" (gethostname)) %autossh-vps)
+    (unless (host-other?) %syncthing)
+    (when (host-nu?) %autossh-vps)
 
     ;; Desktop
     %xmodmap
