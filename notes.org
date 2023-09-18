@@ -1,26 +1,12 @@
 * Tasks
 
-** TODO Keyboard
-
-*** DONE Add caps-lock as compose-key
-
-*** DONE Swap () and {}
-
-*** TODO Update my xmodmap to add caps-lock as compose-key on certain hosts only
-
-*** DONE xmodmap service doesn't work anymore
-
-- I thinks it happens since I updated...
-- OOOrrrr... since I'm using xsession...
-- I only have the error =Service xmodmap could not be started.=
-
-** DONE ssh-agent
-
 ** TODO Nvidia drivers
 
 - To be able to change the brightness of the backlight
 - I noticed that I can change the brightness of the screen in gdm
   (e.g. the keys work on the login screen).
+- when using gnome, I can also change the brightness using the keys
+  for that.
 - But xbacklight doesn't work...
 - Maybe gdm uses wayland... and magically knows how to change the
   backlight's brightness...
@@ -46,20 +32,31 @@ git@github.com:fstamour/stumpwm-config.git
 
 *** TODO Use guix to install (most?) packages
 
-*** TODO Clone my emacs configs
+*** DONE Clone my emacs configs
 
 git@gitlab.com:fstamour/emacs-dot-files.git
 
 **** TODO See if I can do that using guix-home for emacs
+
+That would be a single-shot shepherd home service... like xmodmap's
+home-service.
 
 *** TODO Enable darkroom-mode and focus-mode with org-mode
 
 maybe all text-modes?
 maybe all programming modes???
 
-** TODO fish is installed but is not in /etc/shells
+** DONE fish is installed but is not in /etc/shells
 
-So I can't chsh just yet...
+- You can set the a user's shell.
+- There are some more configurations to do to make fish use guix's
+  environment variables (see .
+
+* Packages
+
+** TODO streamdeck-ui
+
+I've started something in [[file:modules/fstamour/streamdeck.scm][modules/fstamour/streamdeck.scm]]
 
 ** TODO Gforth 0.7.9 instead of 0.7.3
 
@@ -72,15 +69,40 @@ didn't work, the latest version in the mirrors were 0.7.3
 ./autogen.sh: line 24: glibtoolize: command not found
 ./autogen.sh: line 30: aclocal: command not found
 
-* TODO Dotfiles
+* Home Services
 
-** TODO tmux
+** TODO xmodmap
+
+Note: xmodmap doesn't work with wayland
+
+*** DONE Add caps-lock as compose-key
+
+*** DONE Swap () and {}
+
+*** TODO Update my xmodmap to add caps-lock as compose-key on certain hosts only
+
+*** DONE xmodmap service doesn't work anymore
+
+- I thinks it happens since I updated...
+- OOOrrrr... since I'm using xsession...
+- I only have the error =Service xmodmap could not be started.=
+
+** DONE ssh-agent
+
+- logs into =~/.local/state/shepherd/ssh-agent.log=
+- should it be =~/.local/state/log/=?
+
+* Dotfiles
+
+** DONE tmux
 
 ** TODO guile
 
 ** TODO sbcl
 
-** TODO fish
+** fish
+
+*** DONE set guix-home's environment variables
 
 ** TODO kitty?
 
@@ -91,7 +113,7 @@ easier to update like thath (I think).
 
 ** TODO streamdeck
 
-** TODO git
+** TODO [#A] git
 
 ** TODO ssh?
 
@@ -155,9 +177,12 @@ guix repl
 
 https://dataswamp.org/~solene/2021-06-07-guix-packages-publish.html
 
-no need to run =sudo guix archive --generate-key=
+no need to run =sudo guix archive --generate-key=, it's done
+automatically (on guixSD at least)
 
-* TODO
+* TODO Document how to add substitute
+
+for non-guixSD deployments
 
 sudo guix archive --authorize < modules/fstamour/nonguix-substitutes-signing-key.pub
 
@@ -175,6 +200,10 @@ If you remove a service (e.g. cuirass) from your configuration
   advantageous
 
 ** Don't know how to see Shepherd's services' logs
+
+- =~/.local/state/log/shepherd.log=, when started from guix-home's
+  =on-first-login= scripts, or
+- =~/.local/state/shepherd/shepherd.log= otherwise
 
 ** The "graphical" shepherd services starts in non-graphical contexts
 
@@ -195,7 +224,7 @@ psql
 sudo -u cuirass dropdb cuirass
 sudo -u cuirass reatedb cuiras
 
-** Guile's error message are aweful
+** Guile's error messages are aweful
 
 Sometimes (most of the time) I don't even have a stack trace...
 
@@ -203,3 +232,38 @@ I lost a bunch of time because there was an error in an imported
 (used) module, but the error was in the module imporing the faulty
 module. Saying that the variable doesn't exist "did you forget to
 (use-modules (the-faulty-module))" -_-
+
+** I've had issues with shepherd's sockets
+
+Sometimes, I can't run =herd= because shepherd's socket
+(=/var/run/user/1000/shepherd/socket=) simply doesn't exist...
+
+I have no idea how to reproduce this.
+
+** Sometimes =herd= hangs
+
+I don't know why, nor how to reproduce.
+
+I ran =strace herd status=, and it seems to be waiting for an answer
+from shepherd (on the socket).
+
+#+begin_src text
+socket(AF_UNIX, SOCK_STREAM, 0)         = 10
+connect(10, {sa_family=AF_UNIX, sun_path="/run/user/1000/shepherd/socket"}, 32) = 0
+getcwd("/home/fstamour/", 100) = 39
+write(10, "(shepherd-command (version 0) (a"..., 129) = 129
+read(10,
+#+end_src
+
+It hangs there, with the last line seeminly incomplete =read(10, =.
+
+I deleted the socket.
+
+shepherd is still running, but it didn't re-create the socket.
+
+There's nothing in shepherd's logs.
+
+=/run/user/1000/on-first-login-executed=
+
+I _think_ it was because there were multiple services failing to start
+repeatedly...
