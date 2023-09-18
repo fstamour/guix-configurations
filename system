@@ -8,7 +8,7 @@ export GUIX_PACKAGE_PATH="$root/modules${GUIX_PACKAGE_PATH:+:$GUIX_PACKAGE_PATH}
 #host="$1"
 #shift
 
-if [ "${1:-}" = "configure" ]; then
+if [ "${1:-}" = "reconfigure" ]; then
     exec sudo -E "${GUIX}" system "$@" \
          -e "(@@ (fstamour system) %hosts/$host)"
 else

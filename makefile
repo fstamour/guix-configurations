@@ -61,7 +61,7 @@ $(BUILD_HOSTS):
 
 .PHONY: $(HOSTS)
 $(HOSTS):
-	./system $@ reconfigure
+	host=$@ ./system reconfigure
 
 ######################################################################
 ### Channels
