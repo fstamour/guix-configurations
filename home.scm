@@ -240,7 +240,13 @@
    "f3d"                                ; VTK-based viewer
    "openscad"
    "freecad"
-   "kicad"))
+   "kicad"
+   "kicad-templates"
+   "kicad-symbols"
+   "kicad-packages3d"
+   "kicad-footprints"
+   "kicad-doc"
+   ))
 
 ;; TODO Not used yet
 (define %video
