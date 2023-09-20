@@ -325,6 +325,9 @@
       ;; add syncthing's command line on the right hosts to be able to
       ;; run commands like =syncthing -paths=
       "syncthing"
+
+      "plantuml"
+      "graphviz"
       )))))
 
 
