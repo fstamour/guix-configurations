@@ -322,9 +322,9 @@
       "nss-certs"
       "shepherd"
 
-      ;; TODO add syncthing's command line on the right hosts
-      ;; to be able to run commands like =syncthing -paths=
-      ;; "syncthing"
+      ;; add syncthing's command line on the right hosts to be able to
+      ;; run commands like =syncthing -paths=
+      "syncthing"
       )))))
 
 
