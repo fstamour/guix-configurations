@@ -184,6 +184,8 @@
    "w3m" ; browser
    "xxd" ; hex
    "bat" ; viewer
+   "ranger" ; file manager
+   "mc" ; file manager
    ))
 
 (define %lisp-scheme-and-emacs
