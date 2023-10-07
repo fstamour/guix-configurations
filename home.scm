@@ -250,6 +250,15 @@
    "kicad-doc"
    ))
 
+(define %voice
+  (list
+   "nerd-dictation"
+   ;; "nerd-dictation-xdotool"
+   "nerd-dictation-sox-ydotool"
+   ;; "nerd-dictation-sox-xdotool"
+   ;; "nerd-dictation-sox-wtype"
+   ))
+
 ;; TODO Not used yet
 (define %video
   (list "ffmpeg" "shotcut"))
@@ -301,6 +310,7 @@
      %lisp-scheme-and-emacs
      %spelling
      %cad
+     %voice
      %desktop
      ;; Others...
      (list
