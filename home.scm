@@ -190,6 +190,8 @@
    "zip" "unzip"
    ))
 
+;; bsd-games
+
 (define %lisp-scheme-and-emacs
   (list
    ;; Not tested yet:
@@ -208,6 +210,7 @@
    ;; "stumpwm-with-slynk"
    "stumpwm"
    "stumpish"
+   ;; TODO try "sawfish"
 
    "guile"
    "guile-readline"
