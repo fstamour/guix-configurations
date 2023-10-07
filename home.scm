@@ -175,7 +175,7 @@
    "make"
    "mandoc"
    "mosh"
-   "podman"
+   ;; "podman"
    "readline"
    "ripgrep" ; grep -R
    "rlwrap" ; add readline to other command
