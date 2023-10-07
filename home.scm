@@ -168,6 +168,7 @@
    "coreutils"
    "direnv"
    "fd"
+   "file"
    "fzf"
    "less"
    "m4"
@@ -186,6 +187,7 @@
    "bat" ; viewer
    "ranger" ; file manager
    "mc" ; file manager
+   "zip" "unzip"
    ))
 
 (define %lisp-scheme-and-emacs
@@ -326,6 +328,7 @@
       ;; run commands like =syncthing -paths=
       "syncthing"
 
+      "ditaa"
       "plantuml"
       "graphviz"
       )))))
