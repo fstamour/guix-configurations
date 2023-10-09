@@ -81,12 +81,13 @@ setup: ~/.config/guix/channels.scm
 .PHONY: update
 update:
 	# Pulling a new commit of the channels
-	$(GUIX) pull --channels=$(CURDIR)/channels-no-commit.scm
+	./guix pull --channels=$(CURDIR)/channels-no-commit.scm
 	# Saving the channels with the new commits
-	$(GUIX) describe --format=channels > $(CURDIR)/channels.scm
-
-# TODO use this to update the system-wide (root) profile:
-# sudo -i $(GUIX) pull -C /home/fstamour/.config/guix/channels.scm
+	./guix describe --format=channels > $(CURDIR)/channels.scm
+	# TODO use this to update the system-wide (root) profile:
+	# sudo -i $(GUIX) pull -C /home/fstamour/.config/guix/channels.scm
+	# Update the home profile:
+	# make home
 
 ######################################################################
 ### Profiles
