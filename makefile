@@ -77,6 +77,20 @@ setup: ~/.config/guix/channels.scm
 ~/.config/guix/:
 	mkdir -p $@
 
+# It's worth noting that I try to keep multiple systems on the exact
+# same commit of multiple channels, to avoid re-downloading and
+# re-compiling too much stuff (especially on my poor old laptop).
+#
+# https://guix.gnu.org/manual/en/html_node/Upgrading-Guix.html
+#
+# TODO find better names for theses targets (update and pull)
+#
+# Here's part of the process (might be worth a diagram):
+# 1. bump channels.scm (using channels-no-commit.scm)
+# 2. commit & push
+# 3. (on another computer) git pull
+# 4. guix pull using channels.scm
+
 # Target to update the commits in channels.scm
 .PHONY: update
 update:
@@ -88,6 +102,10 @@ update:
 	# sudo -i $(GUIX) pull -C /home/fstamour/.config/guix/channels.scm
 	# Update the home profile:
 	# make home
+
+.PHONY: pull
+pull:
+	./guix pull --channels=$(CURDIR)/channels.scm
 
 ######################################################################
 ### Profiles
