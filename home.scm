@@ -20,6 +20,8 @@
  ;; WIP (fstamour streamdeck)
  )
 
+;; TODO libreoffice
+
 (define (host-nu?)
   (string= "nu" (gethostname)))
 

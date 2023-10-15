@@ -121,6 +121,12 @@ easier to update like thath (I think).
 
 ** TODO xrandr script
 
+* TODO add "clean" targets to makfile
+
+#+begin_src shell
+./system delete-generations 1m
+#+end_src
+
 * Snippets
 
 #+begin_src shell
