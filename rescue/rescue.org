@@ -1,0 +1,30 @@
+* How to fix the boot loader
+
+2023-10-14 A few days ago, my system stopped booting apparently out of
+nowhere.
+
+1. I made a backup
+2. I put Guix SD installer on a USB key
+3. From the USB key, I was that I was able to mount all the
+   file systems, but the root one was complaining that there was
+   multiple file system signatures.
+4. I used wipefs to fix some extraneous file system signatures
+5. I used fsck to make sure everything else was fine
+6. I followed [[https://guix.gnu.org/manual/devel/en/html_node/Chrooting-into-an-existing-system.html][Chrooting into an existing system]] to try to re-install
+   the boot loader (I thought it was corrupt or something).
+7. In the end, I switched the boot loader from =grub-efi-bootloader= to
+   =grub-efi-removable-bootloader=, on the hypothesis that the issue
+   is either the motherboard's battery is dead and it keeps forgetting
+   the efivars, or the efivars are "full. In any case, this fixed my
+   issue. I hate UEFI.
+
+
+Because I tried to chroot, try something, reboot many times, I ended
+up writing some scripts. In the end, it looked like this:
+
+1. Boot on the Guix SD installer
+2. Mount the root partition ~mount /dev/nvme0n1p3 /mnt~
+3. Mount the remaining partitions using a script ~/mnt/root/mount.sh~
+4. chroot using a script ~/mnt/root/chroot.sh~
+5. do some changes to the configurations
+6. guix system reconfigure using a script ~./system reconfigure~

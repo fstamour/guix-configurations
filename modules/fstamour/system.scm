@@ -163,7 +163,7 @@
               %services
               %fstamour/desktop-services))
    (bootloader (bootloader-configuration
-                (bootloader grub-efi-bootloader)
+                (bootloader grub-efi-removable-bootloader)
                 (targets (list "/boot/efi"))
                 (keyboard-layout %keyboard-layout)))
    (swap-devices (list (swap-space
