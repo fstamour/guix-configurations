@@ -5,7 +5,10 @@
 
 root="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
 
-export GUIX=~/.config/guix/current/bin/guix
+user="$(logname)"
+user_home=$(bash -c "cd ~$(printf %q "$user") && pwd")
+
+export GUIX=${user_home}/.config/guix/current/bin/guix
 export GUIX_PACKAGE_PATH="$root/modules${GUIX_PACKAGE_PATH:+:$GUIX_PACKAGE_PATH}"
 
 exec "${GUIX}" "$@"

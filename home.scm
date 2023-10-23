@@ -253,6 +253,7 @@
    "kicad-packages3d"
    "kicad-footprints"
    "kicad-doc"
+   "paraview"
    ))
 
 (define %voice
@@ -305,6 +306,13 @@
    ;; "mcomix"
    ))
 
+(define %screencast
+  (list
+   "python-screenkey"
+   "obs"
+   ;; "obs-vkcapture"
+   ))
+
 (define %packages
   (cons*
    cache-cache
@@ -317,6 +325,7 @@
      %cad
      %voice
      %desktop
+     %screencast
      ;; Others...
      (list
       ;; This one is needed on my ubuntu host, because the
