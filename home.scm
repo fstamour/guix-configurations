@@ -46,6 +46,7 @@
 ;; defined for both!
 ;;
 ;; I'll have to decide which ones I would prefer to have abbrevs instead
+;; TODO https://fishshell.com/docs/current/cmds/alias.html
 (define %shell-aliases
   '(("..." . "cd ../..")
     ;; This one is not needed in fish though... that works out of the box
@@ -168,15 +169,19 @@
 
    "bind:utils"                         ; nslookup, dig, etc
    "coreutils"
+   "curl"
    "direnv"
    "fd"
    "file"
    "fzf"
+   "htop"
    "less"
    "m4"
    "make"
    "mandoc"
    "mosh"
+   "net-tools" ; netstat (and much more)
+   "netcat-openbsd"
    ;; "podman"
    "readline"
    "ripgrep" ; grep -R
@@ -226,7 +231,11 @@
    "emacs-paredit"
    "emacs-vertico"
    "emacs-darkroom"
-   "emacs-focus"))
+   "emacs-focus"
+
+   ;; emacs-gitlab-ci-mode
+   ;; emacs-gitlab-snip-helm
+   ))
 
 (define %spelling
   (list
