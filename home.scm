@@ -297,6 +297,8 @@
    "flatpak"
 
    "playerctl"
+   "vlc"
+
    "xclip"
    "xbacklight"                         ; TODO laptop-only
    "xmodmap" "setxkbmap"
