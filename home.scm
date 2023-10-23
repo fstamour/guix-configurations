@@ -278,6 +278,11 @@
 (define %video
   (list "ffmpeg" "shotcut"))
 
+(define %formal-methods
+  (list
+   ;; TLA+
+   "tla2tools"))
+
 (define %desktop
   (list
    ;; "anki" the version in guix is way too old, I'll use
