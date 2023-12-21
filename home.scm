@@ -20,8 +20,6 @@
  ;; WIP (fstamour streamdeck)
  )
 
-;; TODO libreoffice
-
 (define (host-nu?)
   (string= "nu" (gethostname)))
 
@@ -320,6 +318,8 @@
    ;; ;; Comic books
    ;; "zathura-cb"
    ;; "mcomix"
+
+   "libreoffice"
    ))
 
 (define %screencast
