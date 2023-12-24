@@ -198,7 +198,7 @@
 ;; bsd-games
 
 (define %lisp-scheme-and-emacs
-  (list
+  `(
    ;; Not tested yet:
    ;; "cl-slime-swank"
    ;; "cl-slynk"
@@ -226,10 +226,50 @@
    "emacs"
    "emacs-magit"
    "emacs-guix"
+   "emacs-envrc"
+
+   ;;; Editing stuff
+   "emacs-aggressive-indent"
+   "emacs-emmet-mode"
+   "emacs-lispy"
    "emacs-paredit"
-   "emacs-vertico"
+   "emacs-prettier"
+   ;; "emacs-sqlformat" ; not in guix
+   "emacs-tempel"
+
+   ;;; Aesthetic stuff
    "emacs-darkroom"
    "emacs-focus"
+   "emacs-page-break-lines"
+   "emacs-rainbow-delimiters"
+   "emacs-diminish"
+
+   ;;; Window/frame/navigation/search stuff
+   "emacs-ace-window"
+   "emacs-deadgrep"
+
+   ;;; Org-mode stuff
+   "emacs-org-download"
+   "emacs-org-roam"
+   ;; "emacs-org-hugo" ; not in guix
+
+   ;;; Completion stuff
+   "emacs-vertico"
+   ;; "emacs-vertico-prescient" ; not in guix
+
+   ;; language modes
+   "emacs-cmake-mode"
+   "emacs-fish-mode"
+   ;; "emacs-forth" ; not in guix
+   "emacs-nix-mode"
+   "emacs-jedi"
+   ;; "emacs-virtualenvwrapper"  ; not in guix
+   "emacs-terraform-mode"
+   "emacs-yaml-mode"
+   "emacs-docker"
+   ;; "emacs-docker-tramp" by "tramp-container", which is not in guix
+   "emacs-dockerfile-mode"
+   "emacs-docker-compose-mode"
 
    ;; emacs-gitlab-ci-mode
    ;; emacs-gitlab-snip-helm
