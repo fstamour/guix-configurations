@@ -338,6 +338,9 @@
    "pavucontrol"
 
    "flatpak"
+   "flatpak-xdg-utils"
+   "xdg-desktop-portal"                 ; this is also for flatpak
+   "xdg-desktop-portal-gtk"             ; this is also for flatpak
 
    "playerctl"
    "vlc"
