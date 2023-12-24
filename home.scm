@@ -392,6 +392,11 @@
       ;; the guix-home's profile
       "glibc-locales"
 
+      ;; Music Player Daemon
+      "mpd"
+      "mpd-mpc"
+      "ncmpc"
+
       "rakudo"                          ; aka perl6
 
       ;; TODO as of 2023-05-08 guix provides gforth 0.7.3,
