@@ -349,6 +349,7 @@
    "xbacklight"                         ; TODO laptop-only
    "xmodmap" "setxkbmap"
    "xrandr"
+   "arandr"
    "xdotool"
 
    ;; PDF viewers
