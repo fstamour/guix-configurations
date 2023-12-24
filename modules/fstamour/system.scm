@@ -56,6 +56,9 @@
      "nss-certs"
      "podman"
 
+     "btrfs-progs"
+     "btrbk"
+
      ;; These are added system-wide to make it easier
      ;; to use them from ssh. (The default .bashrc
      ;; that guix provides doesn't source the
