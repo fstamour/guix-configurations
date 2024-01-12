@@ -275,6 +275,19 @@
    ;; emacs-gitlab-snip-helm
    ))
 
+(define %vim
+  (list
+   "neovim"
+   "vim-full"
+
+   ;; common lisp stuff
+   "vim-vlime"
+   "vim-slime"
+   "vim-paredit"
+
+   ;; N.B. parinfer-rust is a plugin for vim, nvim, emacs, and kakoune
+   "parinfer-rust"))
+
 (define %spelling
   (list
    ;; Packages for spell pcheck
@@ -381,6 +394,7 @@
     (append
      %command-line-stuff
      %lisp-scheme-and-emacs
+     %vim
      %spelling
      %cad
      %voice
