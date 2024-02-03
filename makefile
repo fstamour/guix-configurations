@@ -99,7 +99,7 @@ update:
 	# Saving the channels with the new commits
 	./guix describe --format=channels > $(CURDIR)/channels.scm
 	# TODO use this to update the system-wide (root) profile:
-	# sudo -i $(GUIX) pull -C /home/fstamour/.config/guix/channels.scm
+	# sudo -i $(CURDIR)/guix pull -C ~/.config/guix/channels.scm
 	# Update the home profile:
 	# make home
 

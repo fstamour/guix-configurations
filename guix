@@ -5,7 +5,7 @@
 
 root="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
 
-user="$(logname)"
+user="$(logname 2>/dev/null || echo ${SUDO_USER:-${USER}})"
 user_home=$(bash -c "cd ~$(printf %q "$user") && pwd")
 
 export GUIX=${user_home}/.config/guix/current/bin/guix

@@ -2,16 +2,12 @@
 
 root="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
 
-export GUIX=~/.config/guix/current/bin/guix
-export GUIX_PACKAGE_PATH="$root/modules${GUIX_PACKAGE_PATH:+:$GUIX_PACKAGE_PATH}"
-
-#host="$1"
-#shift
+guix="$root/guix"
 
 if [ "${1:-}" = "reconfigure" ]; then
-    exec sudo -E "${GUIX}" system "$@" \
+    exec sudo -E "${guix}" system "$@" \
          -e "(@@ (fstamour system) %hosts/$host)"
 else
-    exec "${GUIX}" system "$@" \
+    exec "${guix}" system "$@" \
          -e "(@@ (fstamour system) %hosts/$host)"
 fi
