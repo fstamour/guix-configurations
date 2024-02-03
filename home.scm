@@ -13,7 +13,7 @@
  (gnu packages shells)
  (gnu packages syncthing)
  (gnu packages)
- (gnu packages dunst)
+ (gnu packages wm) ;; for dunst
  (gnu services)
  (guix gexp)
  (fstamour lisp)
@@ -192,6 +192,7 @@
    "bat" ; viewer
    "ranger" ; file manager
    "mc" ; file manager
+   "strace"
    "zip" "unzip"
    ))
 
@@ -199,81 +200,81 @@
 
 (define %lisp-scheme-and-emacs
   `(
-   ;; Not tested yet:
-   ;; "cl-slime-swank"
-   ;; "cl-slynk"
-   ;; "emacs-slime"
+    ;; Not tested yet:
+    ;; "cl-slime-swank"
+    ;; "cl-slynk"
+    ;; "emacs-slime"
 
-   ;; "sbcl-slynk"
-   ;; "sbcl-swank" doesn't exists...
-   "sbcl"
-   ;; to be able to load ssl without too much fuss
-   "sbcl-cl+ssl"
-   "emacs-slime"
-   ;; "emacs-sly"
+    ;; "sbcl-slynk"
+    ;; "sbcl-swank" doesn't exists...
+    "sbcl"
+    ;; to be able to load ssl without too much fuss
+    "sbcl-cl+ssl"
+    ;; "emacs-slime"
+    ;; "emacs-sly"
 
-   ;; "stumpwm-with-slynk"
-   "stumpwm"
-   "stumpish"
-   ;; TODO try "sawfish"
+    ;; "stumpwm-with-slynk"
+    "stumpwm"
+    "stumpish"
+    ;; TODO try "sawfish"
 
-   "guile"
-   "guile-readline"
-   "guile-colorized"
+    "guile"
+    "guile-readline"
+    "guile-colorized"
 
-   ;; "cache-cache"
+    ;; "cache-cache"
 
-   "emacs"
-   "emacs-magit"
-   "emacs-guix"
-   "emacs-envrc"
+    "emacs"
+    "emacs-magit"
+    "emacs-guix"
+    "emacs-envrc"
 
    ;;; Editing stuff
-   "emacs-aggressive-indent"
-   "emacs-emmet-mode"
-   "emacs-lispy"
-   "emacs-paredit"
-   "emacs-prettier"
-   ;; "emacs-sqlformat" ; not in guix
-   "emacs-tempel"
+    "emacs-aggressive-indent"
+    "emacs-emmet-mode"
+    "emacs-lispy"
+    "emacs-paredit"
+    "emacs-prettier"
+    ;; "emacs-sqlformat" ; not in guix
+    "emacs-tempel"
 
    ;;; Aesthetic stuff
-   "emacs-darkroom"
-   "emacs-focus"
-   "emacs-page-break-lines"
-   "emacs-rainbow-delimiters"
-   "emacs-diminish"
+    "emacs-darkroom"
+    "emacs-focus"
+    "emacs-page-break-lines"
+    "emacs-rainbow-delimiters"
+    "emacs-diminish"
 
    ;;; Window/frame/navigation/search stuff
-   "emacs-ace-window"
-   "emacs-deadgrep"
+    "emacs-ace-window"
+    "emacs-deadgrep"
 
    ;;; Org-mode stuff
-   "emacs-org-download"
-   "emacs-org-roam"
-   ;; "emacs-org-hugo" ; not in guix
+    "emacs-org-download"
+    "emacs-org-roam"
+    ;; "emacs-org-hugo" ; not in guix
 
    ;;; Completion stuff
-   "emacs-vertico"
-   ;; "emacs-vertico-prescient" ; not in guix
+    "emacs-vertico"
+    ;; "emacs-vertico-prescient" ; not in guix
 
-   ;; language modes
-   "emacs-cmake-mode"
-   "emacs-fish-mode"
-   ;; "emacs-forth" ; not in guix
-   "emacs-nix-mode"
-   "emacs-jedi"
-   ;; "emacs-virtualenvwrapper"  ; not in guix
-   "emacs-terraform-mode"
-   "emacs-yaml-mode"
-   "emacs-docker"
-   ;; "emacs-docker-tramp" by "tramp-container", which is not in guix
-   "emacs-dockerfile-mode"
-   "emacs-docker-compose-mode"
+    ;; language modes
+    "emacs-cmake-mode"
+    "emacs-fish-mode"
+    ;; "emacs-forth" ; not in guix
+    "emacs-nix-mode"
+    "emacs-jedi"
+    ;; "emacs-virtualenvwrapper"  ; not in guix
+    "emacs-terraform-mode"
+    "emacs-yaml-mode"
+    "emacs-docker"
+    ;; "emacs-docker-tramp" by "tramp-container", which is not in guix
+    "emacs-dockerfile-mode"
+    "emacs-docker-compose-mode"
 
-   ;; emacs-gitlab-ci-mode
-   ;; emacs-gitlab-snip-helm
-   ))
+    ;; emacs-gitlab-ci-mode
+    ;; emacs-gitlab-snip-helm
+    ))
 
 (define %vim
   (list
@@ -358,6 +359,7 @@
    "playerctl"
    "vlc"
 
+   "xdg-utils"
    "xclip"
    "xbacklight"                         ; TODO laptop-only
    "xmodmap" "setxkbmap"
@@ -411,6 +413,10 @@
       "mpd"
       "mpd-mpc"
       "ncmpc"
+
+      "quodlibet"
+      ;; TODO ffmpeg plugin for gstreamer, to be able to play wma files
+      "gst-libav"
 
       "rakudo"                          ; aka perl6
 

@@ -3,7 +3,7 @@
         (url "https://git.savannah.gnu.org/git/guix.git")
         (branch "master")
         (commit
-          "00a28bc435606dc98925fbae1ebe314881f35c90")
+          "a8196632647b343f8e03c8f12fbdc0cc84ff90f6")
         (introduction
           (make-channel-introduction
             "9edb3f66fd807b096b48283debdcddccfea34bad"
@@ -14,11 +14,11 @@
         (url "https://gitlab.com/nonguix/nonguix")
         (branch "master")
         (commit
-          "5e5167168efbdaf561a53edd5622531f411a051b")
+          "71a53faf2e1925a309b480f17e5b836740ce54bc")
         (introduction
           (make-channel-introduction
             "897c1a470da759236cc11798f4e0a5f7d4d59fbc"
             (openpgp-fingerprint
               "2A39 3FFF 68F4 EF7A 3D29  12AF 6F51 20A0 22FB B2D5")))))
 
-;; warning: GUIX_PACKAGE_PATH="/home/fstamour/dev/guix-configurations/modules"
+;; warning: GUIX_PACKAGE_PATH="/home/fstamour/dev/guix-configurations/modules:/home/fstamour/dev/guix-configurations/modules"
