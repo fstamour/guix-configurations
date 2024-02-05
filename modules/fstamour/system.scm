@@ -41,9 +41,8 @@
                (authorized-keys
                 (append (list
                          (local-file "./nonguix-substitutes-signing-key.pub")
-;;; forgot to commit...
-                         ;; (local-file "../phi.pub")
-                         )
+                         (local-file "./phi.pub")
+                         (local-file "./nu.pub"))
                         %default-authorized-guix-keys))))))
 
 (define-public %packages
