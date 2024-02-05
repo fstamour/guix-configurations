@@ -181,6 +181,7 @@
    "mosh"
    "net-tools" ; netstat (and much more)
    "netcat-openbsd"
+   "nmap"
    ;; "podman"
    "readline"
    "ripgrep" ; grep -R
