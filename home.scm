@@ -37,6 +37,7 @@
                   `(("EDITOR" . "emacsclient -nw -a emacs -nw")
                     ;; Meh
                     ;; ("VISUAL" . "emacsclient -a emacs")
+                    ("PAGER" . "less")
                     )))
 
 ;; Putting those in a variable because I'm using bash for now, but
