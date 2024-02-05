@@ -362,6 +362,7 @@
    "vlc"
 
    "xdg-utils"
+   "xbindkeys"
    "xclip"
    "xbacklight"                         ; TODO laptop-only
    "xmodmap" "setxkbmap"
