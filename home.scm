@@ -224,8 +224,6 @@
     "guile-readline"
     "guile-colorized"
 
-    ;; "cache-cache"
-
     "emacs"
     "emacs-magit"
     "emacs-guix"
@@ -393,7 +391,6 @@
 
 (define %packages
   (cons*
-   cache-cache
    ;; WIP python-elgato-streamdeck
    (specifications->packages
     (append
@@ -464,7 +461,6 @@
     %bash
 
     ;; Various daemons
-    %cache-cache
     %ssh-agent
     (unless (host-other?) %syncthing)
     (when (host-nu?) %autossh-vps)
