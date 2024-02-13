@@ -196,6 +196,7 @@
    "mc" ; file manager
    "strace"
    "zip" "unzip"
+   "sshfs"
    ))
 
 ;; bsd-games
