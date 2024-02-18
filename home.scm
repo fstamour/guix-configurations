@@ -353,9 +353,9 @@
    "pavucontrol"
 
    "flatpak"
-   "flatpak-xdg-utils"
-   "xdg-desktop-portal"                 ; this is also for flatpak
-   "xdg-desktop-portal-gtk"             ; this is also for flatpak
+   ;; "flatpak-xdg-utils"
+   ;; "xdg-desktop-portal"                 ; this is also for flatpak
+   ;; "xdg-desktop-portal-gtk"             ; this is also for flatpak
 
    "playerctl"
    "vlc"
@@ -424,6 +424,7 @@
       ;; TODO as of 2023-05-08 guix provides gforth 0.7.3,
       ;; which is very old...
       "gforth"
+      "gauche" ;; gosh
 
       ;; TODO Add a home-service for this too
       "laminar"
@@ -443,6 +444,8 @@
       "graphviz"
       )))))
 
+
+;; TODO maybe heroic and steam; although I use flatpak for these atm
 
 (home-environment
  ;; Below is the list of packages that will show up in your
