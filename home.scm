@@ -363,6 +363,8 @@
    "playerctl"
    "vlc"
 
+   "x11vnc"
+
    "xdg-utils"
    "xbindkeys"
    "xclip"
