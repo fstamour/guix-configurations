@@ -167,8 +167,10 @@
 
    "git" "git-lfs"
 
+   "alsa-utils"  ; amixer, aplay
    "bind:utils"                         ; nslookup, dig, etc
    "coreutils"
+   "moreutils" ; sponge, ts, etc.
    "curl"
    "direnv"
    "entr"
