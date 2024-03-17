@@ -53,7 +53,6 @@
      "gnome"
      "dmenu"
      "nss-certs"
-     "podman"
 
      "btrfs-progs"
      "btrbk"
