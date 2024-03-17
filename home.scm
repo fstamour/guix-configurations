@@ -190,6 +190,7 @@
    "ripgrep" ; grep -R
    "rlwrap" ; add readline to other command
    "sqlite"
+   "screen"
    "tmux" ; terminal multiplexer
    "tree" ; list file
    "w3m" ; browser
