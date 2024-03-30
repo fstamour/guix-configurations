@@ -10,6 +10,7 @@
  (gnu packages ssh) ;; for autossh
  (gnu home)
  (gnu packages admin) ;; for shepherd
+ ((gnu packages lisp) #:prefix lisp:)
  (gnu packages shells)
  (gnu packages syncthing)
  (gnu packages)
@@ -82,6 +83,25 @@
                               ;; -logflag=... To specify the format?
                               "-no-browser")))
                          (stop #~(make-kill-destructor))))))
+
+(define %myelin
+  (let ((entrypoint (string-append (getenv "HOME")
+                                   "/dev/myelin/scripts/dev.lisp")))
+    (when (file-exists? entrypoint)
+      (simple-service 'myelin home-shepherd-service-type
+                      (list (shepherd-service
+                             (provision '(myelin))
+                             (documentation "Run myelin as a shepherd (user) service")
+                             (start
+                              #~(make-forkexec-constructor
+                                 (list
+                                  #$(file-append lisp:sbcl "/bin/sbcl")
+                                  "--noinform"
+                                  "--load"
+                                  (string-append (getenv "HOME")
+                                                 "/dev/myelin/scripts/dev.lisp")
+                                  "--eval" "(loop (sleep 1))")))
+                             (stop #~(make-kill-destructor))))))))
 
 (define %my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
   (service home-redshift-service-type
@@ -475,6 +495,8 @@
     %ssh-agent
     (unless (host-other?) %syncthing)
     (when (host-nu?) %autossh-vps)
+
+    %myelin
 
     ;; Desktop
     %xmodmap
