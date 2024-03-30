@@ -1,3 +1,11 @@
+# -*- mode: shell-script; -*-
+
 if [ -e ~/.profile ]; then source ~/.profile; fi
 
-exec dbus-launch stumpwm
+wm=~/quicklisp/local-projects/stumpwm/stumpwm
+
+if [ ! -x $diy_stumpwm ]; then
+    wm=stumpwm
+fi
+
+exec dbus-launch $wm
