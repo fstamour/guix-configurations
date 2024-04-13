@@ -1,3 +1,4 @@
+;; -*- compile-command: "sh -c \"echo ',use (fstamour system)' | ./repl\""; -*-
 
 (define-module (fstamour system)
   #:use-module (gnu services cuirass)
@@ -6,14 +7,28 @@
   #:use-module (gnu services virtualization)
   #:use-module (gnu system nss)
   #:use-module (gnu system shadow)
-  ;; WARNING: (fstamour system): imported module (gnu) overrides core binding `delete'
   #:use-module (gnu)
-  #:use-module (gnu packages shells)
+  ;; #:use-module ((gnu) #:select (use-service-modules))
+  ;; #:use-module ((gnu system keyboard) #:select (keyboard-layout))
+  ;; #:use-module ((gnu services) #:select (service modify-services))
+  #:use-module ((gnu services) #:prefix gnu:services:)
+  ;; #:use-module ((gnu services base)
+  ;;               #:select (%default-authorized-guix-keys
+  ;;                         guix-service-type
+  ;;                         guix-configuration))
+  ;; #:use-module (gnu packages shells)
+  #:use-module ((guix store) #:prefix store:)
+  ;; #:use-module ((guix gexp) #:select (local-file))
+  ;; ;; #:use-module ((guix gexp) #:select (local-file))
+  ;; ;; #:use-module ((guix gexp) #:prefix gexp)
+  ;; #:use-module ((gnu packages) #:select (specifications->packages))
+  #:use-module ((gnu packages shells) #:select (fish))
   #:use-module (nongnu packages linux)
   #:use-module (nongnu packages nvidia)
   #:use-module (nongnu system linux-initrd))
 
 (use-service-modules cups desktop networking ssh xorg)
+;; (use-service-modules cups desktop networking ssh xorg)
 
 (define-public %keyboard-layout
   (keyboard-layout "us" #:options '("compose:caps")))
@@ -27,24 +42,24 @@
 
 (define-public %fstamour/desktop-services
   (modify-services
-   %desktop-services
+      %desktop-services
 
-   ;; I use sddm instead of gdm
-   (delete gdm-service-type)
+    ;; I use sddm instead of gdm
+    (gnu:services:delete gdm-service-type)
 
-   ;; Add nonguix
-   (guix-service-type
-    config => (guix-configuration
-               (inherit config)
-               (substitute-urls
-                (append (list "https://substitutes.nonguix.org")
-                        %default-substitute-urls))
-               (authorized-keys
-                (append (list
-                         (local-file "./nonguix-substitutes-signing-key.pub")
-                         (local-file "./phi.pub")
-                         (local-file "./nu.pub"))
-                        %default-authorized-guix-keys))))))
+    ;; Add nonguix
+    (guix-service-type
+     config => (guix-configuration
+                (inherit config)
+                (substitute-urls
+                 (append (list "https://substitutes.nonguix.org")
+                         store:%default-substitute-urls))
+                (authorized-keys
+                 (append (list
+                          (local-file "./nonguix-substitutes-signing-key.pub")
+                          (local-file "./phi.pub")
+                          (local-file "./nu.pub"))
+                         %default-authorized-guix-keys))))))
 
 (define-public %packages
   (specifications->packages
@@ -150,90 +165,90 @@
 
 (define-public %hosts/nu
   (operating-system
-   (host-name "nu")
-   (locale "en_CA.utf8")
-   (timezone "America/New_York")
-   (keyboard-layout %keyboard-layout)
-   (name-service-switch %mdns-host-lookup-nss)
+    (host-name "nu")
+    (locale "en_CA.utf8")
+    (timezone "America/New_York")
+    (keyboard-layout %keyboard-layout)
+    (name-service-switch %mdns-host-lookup-nss)
 
-   (kernel linux)
-   (initrd microcode-initrd)
-   (firmware (list linux-firmware
-                   amdgpu-firmware))
+    (kernel linux)
+    (initrd microcode-initrd)
+    (firmware (list linux-firmware
+                    amdgpu-firmware))
 
-   (users (cons* %users/fstamour %base-user-accounts))
-   (packages (append
-              (specifications->packages '("xf86-video-amdgpu"))
-              %packages
-              %base-packages))
+    (users (cons* %users/fstamour %base-user-accounts))
+    (packages (append
+               (specifications->packages '("xf86-video-amdgpu"))
+               %packages
+               %base-packages))
 
-   (services (append
-              (list
-               %sddm                                ; instead of gdm
-               %cuirass-service
-               %qemu-binfmt-service)
-              %services
-              %fstamour/desktop-services))
-   (bootloader (bootloader-configuration
-                (bootloader grub-efi-removable-bootloader)
-                (targets (list "/boot/efi"))
-                (keyboard-layout %keyboard-layout)))
-   (swap-devices (list (swap-space
-                        (target (uuid
-                                 "5cc04005-8263-4bc7-9532-1d5180cf9dc1")))))
-   (file-systems (cons* (file-system
-                         (mount-point "/boot/efi")
-                         (device (uuid "9EB9-A785"
-                                       'fat32))
-                         (type "vfat"))
-                        (file-system
-                         (mount-point "/")
-                         (device (uuid
-                                  "8f881dd3-b8e4-477f-9c56-e41c1d1d0eea"
-                                  'ext4))
-                         (type "ext4")) %base-file-systems))))
+    (services (append
+               (list
+                %sddm                                ; instead of gdm
+                %cuirass-service
+                %qemu-binfmt-service)
+               %services
+               %fstamour/desktop-services))
+    (bootloader (bootloader-configuration
+                 (bootloader grub-efi-removable-bootloader)
+                 (targets (list "/boot/efi"))
+                 (keyboard-layout %keyboard-layout)))
+    (swap-devices (list (swap-space
+                         (target (uuid
+                                  "5cc04005-8263-4bc7-9532-1d5180cf9dc1")))))
+    (file-systems (cons* (file-system
+                           (mount-point "/boot/efi")
+                           (device (uuid "9EB9-A785"
+                                         'fat32))
+                           (type "vfat"))
+                         (file-system
+                           (mount-point "/")
+                           (device (uuid
+                                    "8f881dd3-b8e4-477f-9c56-e41c1d1d0eea"
+                                    'ext4))
+                           (type "ext4")) %base-file-systems))))
 
 
 (define-public %hosts/phi
   (operating-system
-   (host-name "phi")
+    (host-name "phi")
 
-   (locale "en_CA.utf8")
-   (timezone "America/New_York")
-   (keyboard-layout (keyboard-layout "us"))
-   (name-service-switch %mdns-host-lookup-nss)
+    (locale "en_CA.utf8")
+    (timezone "America/New_York")
+    (keyboard-layout (keyboard-layout "us"))
+    (name-service-switch %mdns-host-lookup-nss)
 
-   (kernel linux)
+    (kernel linux)
 
-   ;; Intel Wi-Fi
-   (initrd microcode-initrd)
-   (firmware (cons* iwlwifi-firmware
-                    %base-firmware))
+    ;; Intel Wi-Fi
+    (initrd microcode-initrd)
+    (firmware (cons* iwlwifi-firmware
+                     %base-firmware))
 
-   (users (cons* %users/fstamour
-                 %base-user-accounts))
+    (users (cons* %users/fstamour
+                  %base-user-accounts))
 
-   (packages (append %packages
-                     %base-packages))
+    (packages (append %packages
+                      %base-packages))
 
-   (services (append
-              (list
-               ;; instead of gdm
-               %sddm)
-              %services
-              %fstamour/desktop-services))
+    (services (append
+               (list
+                ;; instead of gdm
+                %sddm)
+               %services
+               %fstamour/desktop-services))
 
-   (bootloader (bootloader-configuration
-                (bootloader grub-bootloader)
-                (targets (list "/dev/sda"))
-                (keyboard-layout %keyboard-layout)))
-   (mapped-devices (list (mapped-device
-                          (source (uuid
-                                   "149df863-0e36-4b84-b92b-9767999e406a"))
-                          (target "cryptroot")
-                          (type luks-device-mapping))))
-   (file-systems (cons* (file-system
-                         (mount-point "/")
-                         (device "/dev/mapper/cryptroot")
-                         (type "ext4")
-                         (dependencies mapped-devices)) %base-file-systems))))
+    (bootloader (bootloader-configuration
+                 (bootloader grub-bootloader)
+                 (targets (list "/dev/sda"))
+                 (keyboard-layout %keyboard-layout)))
+    (mapped-devices (list (mapped-device
+                           (source (uuid
+                                    "149df863-0e36-4b84-b92b-9767999e406a"))
+                           (target "cryptroot")
+                           (type luks-device-mapping))))
+    (file-systems (cons* (file-system
+                           (mount-point "/")
+                           (device "/dev/mapper/cryptroot")
+                           (type "ext4")
+                           (dependencies mapped-devices)) %base-file-systems))))
