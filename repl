@@ -1,0 +1,7 @@
+#!/usr/bin/env -S bash -eux -o pipefail
+
+root="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
+
+guix="$root/guix"
+
+exec "${guix}" repl -L "$root/modules" "$@"
