@@ -23,6 +23,7 @@
   ;; ;; #:use-module ((guix gexp) #:prefix gexp)
   ;; #:use-module ((gnu packages) #:select (specifications->packages))
   #:use-module ((gnu packages shells) #:select (fish))
+  #:use-module ((gnu packages linux) #:select (acpilight))
   #:use-module (nongnu packages linux)
   #:use-module (nongnu packages nvidia)
   #:use-module (nongnu system linux-initrd))
@@ -64,6 +65,7 @@
 (define-public %packages
   (specifications->packages
    '(
+     "acpilight"
      "fish"
      ;; "xfce"
      "gnome"
@@ -107,11 +109,10 @@
 (define %backlight-udev-rule
   (udev-rule
    "90-backlight.rules"
-   (string-append "ACTION==\"add\", SUBSYSTEM==\"backlight\", "
-                  "RUN+=\"/run/current-system/profile/bin/chgrp video /sys/class/backlight/%k/brightness\""
-                  "\n"
-                  "ACTION==\"add\", SUBSYSTEM==\"backlight\", "
-                  "RUN+=\"/run/current-system/profile/bin/chmod g+w /sys/class/backlight/%k/brightness\"")))
+   (string-append
+    "ACTION==\"add\", SUBSYSTEM==\"backlight\", "
+    "RUN+=\"/run/current-system/profile/bin/chgrp video $sys$devpath/brightness\", "
+    "RUN+=\"/run/current-system/profile/bin/chmod g+w $sys$devpath/brightness\"")))
 
 ;; support for transparent emulation of program binaries built for
 ;; different architectures
@@ -211,44 +212,52 @@
 
 (define-public %hosts/phi
   (operating-system
-    (host-name "phi")
+   (host-name "phi")
 
-    (locale "en_CA.utf8")
-    (timezone "America/New_York")
-    (keyboard-layout (keyboard-layout "us"))
-    (name-service-switch %mdns-host-lookup-nss)
+   (locale "en_CA.utf8")
+   (timezone "America/New_York")
+   (keyboard-layout (keyboard-layout "us"))
+   (name-service-switch %mdns-host-lookup-nss)
 
-    (kernel linux)
+   (kernel linux)
 
-    ;; Intel Wi-Fi
-    (initrd microcode-initrd)
-    (firmware (cons* iwlwifi-firmware
-                     %base-firmware))
+   ;; Intel Wi-Fi
+   (initrd microcode-initrd)
+   (firmware (cons* iwlwifi-firmware
+                    %base-firmware))
 
-    (users (cons* %users/fstamour
-                  %base-user-accounts))
+   (users (cons* %users/fstamour
+                 %base-user-accounts))
 
-    (packages (append %packages
-                      %base-packages))
+   (packages (append %packages
+                     %base-packages))
 
-    (services (append
-               (list
-                ;; instead of gdm
-                %sddm)
-               %services
-               %fstamour/desktop-services))
+   (services (append
+              (list
+               ;; instead of gdm
+               %sddm
+               ;; I gotta be honest, I'm not sure which udev rule made
+               ;; it work.
+               ;;
+               ;; I used `ll /sys/class/backlight/nv_backlight/` to
+               ;; validate that the file `brightness` was editable by
+               ;; the group "video".
+               (udev-rules-service 'backlight %backlight-udev-rule)
+               (udev-rules-service 'backlight acpilight #:groups '("video")))
+              %services
+              %fstamour/desktop-services))
 
-    (bootloader (bootloader-configuration
-                 (bootloader grub-bootloader)
-                 (targets (list "/dev/sda"))
-                 (keyboard-layout %keyboard-layout)))
-    (mapped-devices (list (mapped-device
-                           (source (uuid
-                                    "149df863-0e36-4b84-b92b-9767999e406a"))
-                           (target "cryptroot")
-                           (type luks-device-mapping))))
-    (file-systems (cons* (file-system
-                           (mount-point "/")
-                           (device "/dev/mapper/cryptroot")
-                           (type "ext4")
-                           (dependencies mapped-devices)) %base-file-systems))))
+   (bootloader (bootloader-configuration
+                (bootloader grub-bootloader)
+                (targets (list "/dev/sda"))
+                (keyboard-layout %keyboard-layout)))
+   (mapped-devices (list (mapped-device
+                          (source (uuid
+                                   "149df863-0e36-4b84-b92b-9767999e406a"))
+                          (target "cryptroot")
+                          (type luks-device-mapping))))
+   (file-systems (cons* (file-system
+                         (mount-point "/")
+                         (device "/dev/mapper/cryptroot")
+                         (type "ext4")
+                         (dependencies mapped-devices)) %base-file-systems))))
