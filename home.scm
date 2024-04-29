@@ -179,50 +179,53 @@
              (".tmux.conf" ,(local-file "dotfiles/tmux.conf")))))
 
 (define %command-line-stuff
-  (list
-   ;; This should be installed on the OS (too?)
-   ;; The one in guix is newer than the on on my ubuntu host
-   "fish"
-   "fish-foreign-env"
+  `(
+    ;; This should be installed on the OS (too?)
+    ;; The one in guix is newer than the on on my ubuntu host
+    "fish"
+    "fish-foreign-env"
 
-   "git" "git-lfs"
-
-   "alsa-utils"  ; amixer, aplay
-   "bind:utils"                         ; nslookup, dig, etc
-   "coreutils"
-   "moreutils" ; sponge, ts, etc.
-   "curl"
-   "direnv"
-   "entr"
-   "fd"
-   "file"
-   "fzf"
-   "htop"
-   "jq"
-   "less"
-   "m4"
-   "make"
-   "mandoc"
-   "mosh"
-   "net-tools" ; netstat (and much more)
-   "netcat-openbsd"
-   "nmap"
-   "readline"
-   "ripgrep" ; grep -R
-   "rlwrap" ; add readline to other command
-   "sqlite"
-   "screen"
-   "tmux" ; terminal multiplexer
-   "tree" ; list file
-   "w3m" ; browser
-   "xxd" ; hex
-   "bat" ; viewer
-   "ranger" ; file manager
-   "mc" ; file manager
-   "strace"
-   "zip" "unzip"
-   "sshfs"
-   ))
+    "git" "git-lfs"
+    ,@(if (host-other?)
+          (list)
+          ;; amixer, aplay
+          `("alsa-utils"))
+    "bind:utils"                        ; nslookup, dig, etc
+    "coreutils"
+    "moreutils"                         ; sponge, ts, etc.
+    "curl"
+    "direnv"
+    "entr"
+    "fd"
+    "file"
+    "fzf"
+    "htop"
+    "jq"
+    "less"
+    "m4"
+    "make"
+    "mandoc"
+    "mosh"
+    "net-tools"                         ; netstat (and much more)
+    "netcat-openbsd"
+    "nmap"
+    "readline"
+    "ripgrep"                          ; grep -R
+    "rlwrap"                           ; add readline to other command
+    "skopeo"                           ; to copy containers around
+    "screen"
+    "sqlite"
+    "tmux"                              ; terminal multiplexer
+    "tree"                              ; list file
+    "w3m"                               ; browser
+    "xxd"                               ; hex
+    "bat"                               ; viewer
+    "ranger"                            ; file manager
+    "mc"                                ; file manager
+    "strace"
+    "zip" "unzip"
+    "sshfs"
+    ))
 
 ;; bsd-games
 
