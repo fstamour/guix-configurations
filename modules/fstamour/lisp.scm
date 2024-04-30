@@ -10,8 +10,7 @@
   #:use-module (guix git)
   #:use-module (guix git-download)
   #:use-module (guix build-system asdf)
-  #:use-module (guix build-system trivial)
-  #:export (sbcl-simpbin))
+  #:use-module (guix build-system trivial))
 
 ;; TODO other implementations (e.g. ecl) see see asdf-build-system/ecl
 ;; TODO my fork of stumpwm
@@ -78,6 +77,13 @@
      (description "Experiments on workflow with common lisp.")
      (license license:bsd-2))))
 
+(define-public cl-breeze
+  (sbcl-package->cl-source-package sbcl-breeze))
+
+(define-public ecl-breeze
+  (sbcl-package->ecl-package sbcl-breeze))
+
+
 (define-public sbcl-simpbin
   (let ((commit "6f9f1c196ca8f363b478bab0a8623f53b89e5586")
         (repo-url "https://github.com/fstamour/simpbin"))
@@ -99,11 +105,8 @@
      (description "")
      (license license:gpl3))))
 
-;; sbcl-package->cl-source-package is supposed to be exported by (guix
-;; build-system asdf), but...
-;;
-;; (define-public cl-simpbin
-;;   (sbcl-package->cl-source-package sbcl-simpbin))
+(define-public cl-simpbin
+  (sbcl-package->cl-source-package sbcl-simpbin))
 
-;; (define-public ecl-simpbin
-;;   (sbcl-package->ecl-source-package sbcl-simpbin))
+(define-public ecl-simpbin
+  (sbcl-package->ecl-package sbcl-simpbin))

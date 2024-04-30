@@ -59,6 +59,13 @@
      (description "Caching gitlab issues and more locally, for bazingly fast search")
      (license license:expat))))
 
+(define-public cl-cache-cache
+  (sbcl-package->cl-source-package sbcl-cache-cache))
+
+(define-public ecl-cache-cache
+  (sbcl-package->ecl-package sbcl-cache-cache))
+
+
 (define-public cache-cache
   (package
    (inherit sbcl-cache-cache)
