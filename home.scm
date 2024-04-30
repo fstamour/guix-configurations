@@ -17,7 +17,7 @@
   #:use-module (guix gexp)
   #:use-module (fstamour lisp)
   ;; WIP (fstamour streamdeck)
-  #:use-module ((fstamour home-services) :select (%syncthing)))
+  #:use-module ((fstamour syncthing) #:select (%syncthing)))
 
 (use-modules
  (gnu home services)

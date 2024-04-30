@@ -1,4 +1,4 @@
-(define-module (fstamour home-services)
+(define-module (fstamour syncthing)
   #:use-module (gnu services)
   #:use-module (guix gexp)
   #:use-module (gnu home services shepherd)
