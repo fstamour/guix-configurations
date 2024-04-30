@@ -1,5 +1,23 @@
 
-(define-module (home home-configuration))
+(define-module (home home-configuration)
+  #:use-module (gnu home services)
+  #:use-module (gnu home services desktop)
+  #:use-module (gnu home services shells)
+  #:use-module (gnu home services shepherd)
+  #:use-module (gnu home services ssh)
+  #:use-module (gnu packages ssh) ;; for autossh
+  #:use-module (gnu home)
+  #:use-module (gnu packages admin) ;; for shepherd
+  #:use-module ((gnu packages lisp) #:prefix lisp:)
+  #:use-module (gnu packages shells)
+  #:use-module (gnu packages syncthing)
+  #:use-module (gnu packages)
+  #:use-module (gnu packages wm) ;; for dunst
+  #:use-module (gnu services)
+  #:use-module (guix gexp)
+  #:use-module (fstamour lisp)
+  ;; WIP (fstamour streamdeck)
+  #:use-module ((fstamour home-services) :select (%syncthing)))
 
 (use-modules
  (gnu home services)
@@ -68,21 +86,7 @@
             (bashrc
              (list (local-file "dotfiles/bashrc.bash"))))))
 
-;; TODO a syncthing home-service was added recently, use that instead
-(define %syncthing
-  (simple-service 'syncthing home-shepherd-service-type
-                  (list (shepherd-service
-                         (provision '(syncthing))
-                         (documentation "Run syncthing as a shepherd (user) service")
-                         (start
-                          #~(make-forkexec-constructor
-                             (list
-                              #$(file-append syncthing "/bin/syncthing")
-                              ;; TODO Put synchting's log in its own file
-                              ;; -logfile=...
-                              ;; -logflag=... To specify the format?
-                              "-no-browser")))
-                         (stop #~(make-kill-destructor))))))
+
 
 (define %myelin
   (let ((entrypoint (string-append (getenv "HOME")
