@@ -22,22 +22,25 @@
 ;;; on guix, asdf is patched to search for configurations files in xdg-config-dirs and? xdg-home
 
 (define-public sbcl-breeze
-  (let ((commit "e76ce087980fdb30a4124c77177d06748ad5c73e")
-        (repo-url "https://github.com/fstamour/breeze"))
+  (let ((commit
+         ;; main branch as of 2024-04-29
+         "1fadd31dd3d10e5cafe90467c6e202ff09b2695f")
+        ;; (repo-url "https://github.com/fstamour/breeze")
+        (repo-url "https://gitlab.com/fstamour/breeze"))
     (package
      (name "sbcl-breeze")
      (version "0")
-     ;; (source (origin
-     ;;          (method git-fetch)
-     ;;          (uri (git-reference
-     ;;                (url repo-url)
-     ;;                (commit commit)))
-     ;;          (file-name (git-file-name name version))
-     ;;          (sha256 (base32 "0rq57ccbbxp48g37xrpcqj07asxrl1xd3iql49r0msqjhhys6n8n"))))
-     (source (local-file "/home/fstamour/quicklisp/local-projects/breeze"
-                         #:recursive? #t))
+     (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url repo-url)
+                    (commit commit)))
+              (file-name (git-file-name name version))
+              (sha256 (base32 "11nlgsdh8cy3s2q7vqpxwykanz21dgz3c16hhzirnnnirj9fzkgq"))))
+     ;; (source (local-file "/home/fstamour/quicklisp/local-projects/breeze" #:recursive? #t))
      (build-system asdf-build-system/sbcl)
      ;; TODO I removed most of these dependencies since I created that package definition
+     ;; 2024-04-29 (it's not merged in the main branch though...)
      (inputs (list
               sbcl-3bmd
               sbcl-spinneret
