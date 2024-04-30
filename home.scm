@@ -375,7 +375,6 @@
    "icecat"
    "kitty"
    "firefox" ;; nonguix
-   "freecad"
    "keepassxc"
    "rofi"
    "flameshot"
