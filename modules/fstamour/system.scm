@@ -6,6 +6,7 @@
   #:use-module (gnu services virtualization)
   #:use-module (gnu system nss)
   #:use-module (gnu system shadow)
+  ;; WARNING: (fstamour system): imported module (gnu) overrides core binding `delete'
   #:use-module (gnu)
   #:use-module (gnu packages shells)
   #:use-module (nongnu packages linux)
@@ -52,7 +53,6 @@
      ;; "xfce"
      "gnome"
      "dmenu"
-     "nss-certs"
 
      "btrfs-progs"
      "btrbk"

@@ -340,7 +340,8 @@
   (list
    "f3d"                                ; VTK-based viewer
    "openscad"
-   "freecad"
+   ;; 2024-04-29 freecad's pivy (bindings to coin3d) fails to build
+   ;; "freecad"
    "kicad"
    "kicad-templates"
    "kicad-symbols"

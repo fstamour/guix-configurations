@@ -41,6 +41,7 @@
      (source (local-file "/home/fstamour/quicklisp/local-projects/breeze"
                          #:recursive? #t))
      (build-system asdf-build-system/sbcl)
+     ;; TODO I removed most of these dependencies since I created that package definition
      (inputs (list
               sbcl-3bmd
               sbcl-spinneret
