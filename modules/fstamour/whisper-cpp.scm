@@ -91,6 +91,16 @@
 - C-style API")
     (license license:expat)))
 
+;; WIP Common lisp bindings...
+;; (define-public sbcl-whisper-cpp
+;;   (package
+;;     (name "sbcl-whisper")
+;;     (version "0.0.1")
+;;     `((in-package :whisper)
+;;       (cffi:define-foreign-library
+;;        libwhisper
+;;        (t (:default ,(search-input-file inputs "/lib/libwhisper.so")))))))
+
 ;; This allows you to run guix shell -f guix-packager.scm.
 ;; Remove this line if you just want to define a package.
 whisper-cpp
