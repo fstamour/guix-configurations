@@ -207,7 +207,14 @@
                            (device (uuid
                                     "8f881dd3-b8e4-477f-9c56-e41c1d1d0eea"
                                     'ext4))
-                           (type "ext4")) %base-file-systems))))
+                           (type "ext4"))
+                         (file-system
+                           (mount-point "/home/fstamour/data")
+                           (device (uuid
+                                  "5f17883e-732e-4e86-b3d9-2fc7b3c96600"
+                                  'btrfs))
+                           (type "btrfs"))
+                         %base-file-systems))))
 
 
 (define-public %hosts/phi
