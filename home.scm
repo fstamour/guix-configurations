@@ -266,7 +266,46 @@
     "emacs-rainbow-delimiters"
     "emacs-diminish"
 
-   ;;; Window/frame/navigation/search stuff
+    ;; Themes (I don't know which one I want 😅)
+    ;; guix search emacs theme | grep name: | grep -e '-theme$' | awk '{print $2}' | copy
+    ,@`("emacs-spacemacs-theme"
+        "emacs-tao-theme"
+        "emacs-rebecca-theme"
+        "emacs-abyss-theme"
+        "emacs-cyberpunk-theme"
+        "emacs-zenburn-theme"
+        "emacs-sweet-theme"
+        "emacs-suneater-theme"
+        "emacs-dream-theme"
+        "emacs-zeno-theme"
+        "emacs-spacegray-theme"
+        "emacs-monokai-theme"
+        "emacs-exotica-theme"
+        "emacs-dracula-theme"
+        "emacs-danneskjold-theme"
+        "emacs-chocolate-theme"
+        "emacs-acme-theme"
+        "emacs-weyland-yutani-theme"
+        "emacs-starlit-theme"
+        "emacs-solarized-theme"
+        "emacs-sakura-theme"
+        "emacs-railscasts-theme"
+        "emacs-poet-theme"
+        "emacs-atom-one-dark-theme"
+        "emacs-ample-theme"
+        "emacs-ahungry-theme"
+        "emacs-zerodark-theme"
+        "emacs-soothe-theme"
+        "emacs-punpun-theme"
+        "emacs-base16-theme"
+        "emacs-afternoon-theme"
+        "emacs-nord-theme"
+        "emacs-org-beautify-theme"
+        "emacs-adwaita-dark-theme"
+        "emacs-gruvbox-theme"
+        )
+
+;;; Window/frame/navigation/search stuff
     "emacs-ace-window"
     "emacs-deadgrep"
 
