@@ -82,11 +82,7 @@
   (service home-bash-service-type
            (home-bash-configuration
             (guix-defaults? #t)
-            (aliases %shell-aliases)
-            (bashrc
-             (list (local-file "dotfiles/bashrc.bash"))))))
-
-
+            (aliases %shell-aliases))))
 
 (define %myelin
   (let ((entrypoint (string-append (getenv "HOME")
@@ -171,16 +167,6 @@
                              (list
                               #$(file-append dunst "/bin/dunst"))))
                          (stop #~(make-kill-destructor))))))
-
-;; .xsession seems not to work when it's a symlink
-;; update: .xession not being a symlink doesn't seem to be the source
-;; of the problem, because now it works with a "manually" created
-;; symlink.
-(define %files
-  (service home-files-service-type
-           `(#|(".xsession" ,(local-file "dotfiles/xsession"))|#
-             (".config/fish/config.fish" ,(local-file "dotfiles/fish.conf"))
-             (".tmux.conf" ,(local-file "dotfiles/tmux.conf")))))
 
 (define %command-line-stuff
   `(
@@ -272,8 +258,10 @@
     "emacs-tempel"
 
    ;;; Aesthetic stuff
-    "emacs-darkroom"
+    ;; "emacs-darkroom" ; doesn't work (arithmetic error)
     "emacs-focus"
+    "emacs-writeroom"
+
     "emacs-page-break-lines"
     "emacs-rainbow-delimiters"
     "emacs-diminish"
@@ -510,7 +498,4 @@
     ;; TODO laptop-only
     %my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
     %unclutter
-    %dunst
-
-    ;; Files
-    %files))))
+    %dunst))))
