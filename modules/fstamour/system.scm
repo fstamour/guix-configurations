@@ -67,8 +67,8 @@
    '(
      "acpilight"
      "fish"
-     ;; "xfce"
-     "gnome"
+     "xfce"
+     ;; "gnome"
      "dmenu"
 
      "btrfs-progs"
@@ -79,8 +79,8 @@
      ;; that guix provides doesn't source the
      ;; guix-home's /etc/profile)
      "git"
-     "mosh"
-     )))
+     "mosh")))
+     
 
 (define-public %cuirass-specs
   #~(list (specification
@@ -98,10 +98,10 @@
            (systems (list
                      "x86_64-linux"
                      ;; for raspberry pi, perhaps
-                     "aarch64-linux"
+                     "aarch64-linux")))))
                      ;; sbcl seems to be broken for armhf
                      ;; "armhf-linux"
-                     )))))
+                     
 
 
 ;; TODO
@@ -211,8 +211,8 @@
                          (file-system
                            (mount-point "/home/fstamour/data")
                            (device (uuid
-                                  "5f17883e-732e-4e86-b3d9-2fc7b3c96600"
-                                  'btrfs))
+                                    "5f17883e-732e-4e86-b3d9-2fc7b3c96600"
+                                    'btrfs))
                            (type "btrfs"))
                          %base-file-systems))))
 
