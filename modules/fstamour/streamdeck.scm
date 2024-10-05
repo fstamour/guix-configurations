@@ -249,6 +249,166 @@
           python-virtualenv))))
 
 
+;; One unit test fails
+;; (define-public python-packaging-20.9
+;;   (package
+;;    (inherit python-packaging)
+;;    (version "20.9")
+;;    (source
+;;     (origin
+;;      (method url-fetch)
+;;      (uri (pypi-uri "packaging" version))
+;;      (sha256
+;;       (base32
+;;        "1rgadxvzvhac6wqa512bfj313ww6q3n18i9glzf67j0d6b0plcjv"))))))
+
+;; Also has a unit test failing...
+(define-public python-packaging-20.8
+  (package
+   (inherit python-packaging)
+   (version "20.8")
+   (source
+    (origin
+     (method url-fetch)
+     (uri (pypi-uri "packaging" version))
+     (sha256
+      (base32
+       "14wh232acfxinsggr07j72949alsvrcq0sjjch6lg2h0ly2q2nbq"))))
+   ;; (propagated-inputs
+   ;;  (list
+   ;;   ;; python-pyparsing
+   ;;   python-pyparsing-2.4.7
+   ;;   python-six-bootstrap))
+   (arguments `(#:tests? #f))))
+
+;; Also has a unit test failing...
+(define-public python-packaging-20.4
+  (package
+   (inherit python-packaging)
+   (version "20.4")
+   (source
+    (origin
+     (method url-fetch)
+     (uri (pypi-uri "packaging" version))
+     (sha256
+      (base32
+       "1y3rc1ams1i25calk6b9jf1gl85ix5a23a146swjvhdr8x7zfms3"))))))
+
+;; error: in phase 'build': uncaught exception:
+;; misc-error #f "no setup.py found" () #f
+(define-public python-packaging-20.5
+  (package
+   (inherit python-packaging)
+   (version "20.5")
+   (source
+    (origin
+     (method url-fetch)
+     (uri (pypi-uri "packaging" version))
+     (sha256
+      (base32
+       "0rd64p56s32167967bd67nwv9gvi2fmasphra0l11svbjcyys8ax"))))))
+
+;; error: in phase 'build': uncaught exception:
+;; misc-error #f "no setup.py found" () #f
+(define-public python-packaging-20.6
+  (package
+   (inherit python-packaging)
+   (version "20.6")
+   (source
+    (origin
+     (method url-fetch)
+     (uri (pypi-uri "packaging" version))
+     (sha256
+      (base32
+       "11dwq5g76cps5kysl6w6wdkd9lwfq4nmxirq3pi0rgkp5cq4sq1z"))))))
+
+;; error: in phase 'build': uncaught exception:
+;; misc-error #f "no setup.py found" () #f
+(define-public python-packaging-20.7
+  (package
+   (inherit python-packaging)
+   (version "20.7")
+   (source
+    (origin
+     (method url-fetch)
+     (uri (pypi-uri "packaging" version))
+     (sha256
+      (base32
+       "0dhjz2hihzj0k9d6h42lpyy7w6hf0nmm9whw53dpf0rjbnw3pbq5"))))))
+
+;;; ContextualVersionConflict(cleo 0.8.1 (/gnu/store/hqr3iykf3118x53xwi06xwzn60izzlml-python-cleo-0.8.1/lib/python3.10/site-packages), Requirement.parse('cleo<2.0.0,>=1.0.0a4')
+
+
+;; Checking requirements: ERROR: cleo==1.0.0 DistributionNotFound(Requirement.parse('rapidfuzz<3.0.0,>=2.2.0'), {'cleo'})
+
+;; ModuleNotFoundError: No module named 'backend'
+(define-public python-rapidfuzz
+  (package
+   (name "python-rapidfuzz")
+   (version "2.2.0")
+   (source
+    (origin
+     (method url-fetch)
+     (uri (pypi-uri "rapidfuzz" version))
+     (sha256
+      (base32 "0bvy4jhzp9nxiikh8gfmpqhwvrm6x2cqgp4z84dccbj5mjd87f5c"))))
+   (build-system pyproject-build-system)
+   (home-page "https://github.com/rapidfuzz/RapidFuzz")
+   (synopsis "rapid fuzzy string matching")
+   (description "rapid fuzzy string matching")
+   (license license:expat)))
+
+(define-public python-cleo-1.0.0
+  (package
+   (inherit python-cleo)
+   (version "1.0.0")
+   (source (origin
+            (method url-fetch)
+            (uri (pypi-uri "cleo" version))
+            (sha256
+             (base32
+              "10l3nw1hr99ylabxp8zy9j9q1ganzkc1wsn8brbrg9c3vdq4ypmv"))))
+   (arguments `( ;; It uses "rapidfuzz" for the tests, but it's not packaged yet...
+                #:tests? #f))))
+
+(define-public poetry-1.2.0b1
+  (package
+   (inherit poetry-1.2.0b1-base)
+   (build-system pyproject-build-system)
+   (arguments `(#:tests? #f
+                #:phases %standard-phases
+                ;; #:phases (modify-phases %standard-phases (delete 'sanity-check))
+                ))
+   ;; (propagated-inputs
+   ;;  `(,python-poetry-core
+   ;;    ,@(map cdar (filter (lambda (x) (not (string= "python-poetry-core" (car x))))
+   ;;                        (package-propagated-inputs poetry)))))
+   (propagated-inputs
+    (list python-cachecontrol
+          python-cachy
+          ;; python-cleo
+          python-cleo-1.0.0
+          python-crashtest
+          python-entrypoints
+          python-html5lib
+          python-keyring
+                                        ; Use of deprecated version of msgpack reported upstream:
+                                        ; https://github.com/python-poetry/poetry/issues/3607
+          python-msgpack-transitional
+          ;; python-packaging
+          python-packaging-20.8
+          python-pexpect
+          python-pip
+          python-pkginfo
+          ;; python-poetry-core-1.0
+          python-poetry-core-1.1.0
+          python-requests
+          python-requests-toolbelt
+          python-shellingham
+          python-tomlkit
+          python-virtualenv))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; ...checking requirements: ERROR: poetry==1.2.0 DistributionNotFound(Requirement.parse('poetry-plugin-export<2.0.0,>=1.0.6'), {'poetry'})
 (define-public poetry-1.2.0
@@ -291,19 +451,214 @@
           python-tomlkit
           python-virtualenv))))
 
-(define-public poetry-1.8.2
-  ;; TODO try python-poetry-core instead of python-poetry-core-1.0
-  ;; e.g. ((options->transformation '((with-input . "...")))
+;; poetry-plugin-export<2.0.0,>=1.0.6'
+
+
+(define-public poetry-plugin-export
+  (package
+   (name "poetry-plugin-export")
+   (version "1.0.6")
+   (source
+    (origin
+     (method url-fetch)
+     (uri (pypi-uri "poetry-plugin-export" version))
+     (sha256 (base32 "1nrsq5rs1crbh35svb2swdsbspnkbkxavkvvlnpq7r9qxgy0m1xg"))))
+   (build-system pyproject-build-system)
+   (arguments `(;; The tests tries to download packages with pip install...
+                #:tests? #f))
+   (home-page "https://python-poetry.org/")
+   (synopsis "Poetry plugin to export the dependencies to various formats")
+   (description "Poetry plugin to export the dependencies to various formats")
+   (license license:expat)
+   (native-inputs (list poetry python-poetry-core-1.1.0))))
+
+;; FFS
+;; poetry-1.2.0 requires poetry-plugin-export<2.0.0,>=1.0.6
+;; poetry-plugin-export 1.0.6 requires poetry<2.0.0,>=1.2.0b3
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; checking requirements: ERROR: poetry==1.2.0b3 DistributionNotFound(Requirement.parse('poetry-plugin-export<2.0.0,>=1.0.5'), {'poetry'})
+(define-public poetry-1.2.0b3
   (package
    (inherit poetry)
-   (version "1.8.2")
+   (version "1.2.0b3")
    (source
     (origin
      (method url-fetch)
      (uri (pypi-uri "poetry" version))
      (sha256
       (base32
-       "0wyb55x6izlhka23zlqqrh23f1f62d7kl7q2w71lfihh70wfpk29"))))
+       "1fi6p97rh0aky4qv2vhv3z4q33qsz6qmy2rr977cxgwg2a399lpk"))))
    (build-system pyproject-build-system)
    (arguments `(#:tests? #f
-                #:phases %standard-phases))))
+                ;; #:phases %standard-phases
+                ;; #:phases (modify-phases %standard-phases (delete 'sanity-check))
+                ))
+   (propagated-inputs
+    (list python-cachecontrol
+          python-cachy
+          python-cleo
+          python-crashtest
+          python-entrypoints
+          python-html5lib
+          python-keyring
+                                        ; Use of deprecated version of msgpack reported upstream:
+                                        ; https://github.com/python-poetry/poetry/issues/3607
+          python-msgpack-transitional
+          python-packaging
+          python-pexpect
+          python-pip
+          python-pkginfo
+          ;; python-poetry-core-1.0
+          python-poetry-core-1.1.0
+          python-requests
+          python-requests-toolbelt
+          python-shellingham
+          python-tomlkit
+          python-virtualenv
+
+          ;; poetry-plugin-export
+          ))))
+
+(define-public poetry-1.2.0b2
+  (package
+   (inherit poetry)
+   (version "1.2.0b2")
+   (source
+    (origin
+     (method url-fetch)
+     (uri (pypi-uri "poetry" version))
+     (sha256
+      (base32
+       "10s9gvc58d89ic6hw5dnhflkjij5pbv2zk3a6l9cyn5nsan54mc7"))))
+   (build-system pyproject-build-system)
+   (arguments `(#:tests? #f
+                ;; #:phases %standard-phases
+                ;; #:phases (modify-phases %standard-phases (delete 'sanity-check))
+                ))
+   (propagated-inputs
+    (list python-cachecontrol
+          python-cachy
+          python-cleo
+          python-crashtest
+          python-entrypoints
+          python-html5lib
+          python-keyring
+                                        ; Use of deprecated version of msgpack reported upstream:
+                                        ; https://github.com/python-poetry/poetry/issues/3607
+          python-msgpack-transitional
+          python-packaging
+          python-pexpect
+          python-pip
+          python-pkginfo
+          ;; python-poetry-core-1.0
+          python-poetry-core-1.1.0
+          python-requests
+          python-requests-toolbelt
+          python-shellingham
+          python-tomlkit
+          python-virtualenv
+
+          ;; poetry-plugin-export
+          ))))
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-public poetry-1.2.0
+  (package
+   (inherit poetry)
+   (version "1.2.0")
+   (source
+    (origin
+     (method url-fetch)
+     (uri (pypi-uri "poetry" version))
+     (sha256
+      (base32
+       "17x5pcqfas6y1i9j2qqq3z7l7mkpy23qsd0lbiy5lnjhspajgi8p"))))
+   (build-system pyproject-build-system)
+   (arguments `(#:tests? #f
+                #:phases %standard-phases
+                ;; #:phases (modify-phases %standard-phases (delete 'sanity-check))
+                ))
+   (propagated-inputs
+    (list python-cachecontrol
+          python-cachy
+          python-cleo
+          python-crashtest
+          python-entrypoints
+          python-html5lib
+          python-keyring
+                                        ; Use of deprecated version of msgpack reported upstream:
+                                        ; https://github.com/python-poetry/poetry/issues/3607
+          python-msgpack-transitional
+          python-packaging
+          python-pexpect
+          python-pip
+          python-pkginfo
+          ;; python-poetry-core-1.0
+          python-poetry-core-1.1.0
+          python-requests
+          python-requests-toolbelt
+          python-shellingham
+          python-tomlkit
+          python-virtualenv
+
+          poetry-plugin-export))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; (define-public poetry-1.8.2
+;;   ;; TODO try python-poetry-core instead of python-poetry-core-1.0
+;;   ;; e.g. ((options->transformation '((with-input . "...")))
+;;   (package
+;;    (inherit poetry)
+;;    (version "1.8.2")
+;;    (source
+;;     (origin
+;;      (method url-fetch)
+;;      (uri (pypi-uri "poetry" version))
+;;      (sha256
+;;       (base32
+;;        "0wyb55x6izlhka23zlqqrh23f1f62d7kl7q2w71lfihh70wfpk29"))))
+;;    (build-system pyproject-build-system)
+;;    (arguments `(#:tests? #f
+;;                 #:phases %standard-phases))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; (define-public poetry-1.8.2
+;;   (package
+;;    (inherit poetry)
+;;    (version "1.8.2")
+;;    (source
+;;     (origin
+;;      (method git-fetch)
+;;      (uri (git-reference
+;;            (url "https://github.com/python-poetry/poetry")
+;;            (commit "c3e22d63f50256f588bd1438eedcd761a1507a43")))
+;;      (sha256 (base32 "058vyrby3q4632rgwfyix7fw0wjy51rqh7nmg3g9q7nl5xwra59h"))))
+;;    (build-system pyproject-build-system)
+;;    (arguments `(#:tests? #f
+;;                 #:phases %standard-phases))))
+
+(define-public poetry
+  (package
+   (name "poetry")
+   (version "1.8.2")
+   (source
+    (origin
+     (method url-fetch)
+     (uri (pypi-uri "poetry" version))
+     (sha256
+      (base32 "0wyb55x6izlhka23zlqqrh23f1f62d7kl7q2w71lfihh70wfpk29"))))
+   (build-system pyproject-build-system)
+
+   (home-page "https://python-poetry.org/")
+   (synopsis "Python dependency management and packaging made easy.")
+   (description "Python dependency management and packaging made easy.")
+   (license license:expat)))
