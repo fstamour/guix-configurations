@@ -382,7 +382,8 @@
    "kicad-packages3d"
    "kicad-footprints"
    "kicad-doc"
-   "paraview"
+   ;; "paraview"
+   "blender"
    ))
 
 (define %voice
