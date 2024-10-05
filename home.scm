@@ -405,52 +405,60 @@
    "tla2tools"))
 
 (define %desktop
-  (list
-   ;; "anki" the version in guix is way too old, I'll use
-   ;; the flatpak for now
-   "icecat"
-   "kitty"
-   "firefox" ;; nonguix
-   "keepassxc"
-   "rofi"
-   "flameshot"
+  (filter
+   (compose not unspecified?)
+   (list
+    ;; "anki" the version in guix is way too old, I'll use
+    ;; the flatpak for now
+    "icecat"
+    "kitty"
 
-   "dunst"                              ; for notifications
+    ;; For some reason, firefox started crashing on ubuntu...
+    (unless (host-other?)
+      ;; nonguix
+      "firefox")
 
-   "pavucontrol"
+    "keepassxc"
+    "rofi"
+    "flameshot"
 
-   "flatpak"
-   ;; "flatpak-xdg-utils"
-   ;; "xdg-desktop-portal"                 ; this is also for flatpak
-   ;; "xdg-desktop-portal-gtk"             ; this is also for flatpak
+    "dunst"                              ; for notifications
 
-   "playerctl"
-   "vlc"
+    "pavucontrol"
 
-   "x11vnc"
+    "flatpak"
+    ;; "flatpak-xdg-utils"
+    ;; "xdg-desktop-portal"                 ; this is also for flatpak
+    ;; "xdg-desktop-portal-gtk"             ; this is also for flatpak
 
-   "xdg-utils"
-   "xbindkeys"
-   "xclip"
-   "xbacklight"                         ; TODO laptop-only
-   "xmodmap" "setxkbmap"
-   "xrandr"
-   "arandr"
-   "xdotool"
+    "playerctl"
+    "vlc"
 
-   ;; PDF viewers
-   "mupdf"
-   ;; "zathura-pdf-mupdf"
-   ;; ;; Other document formats
-   ;; "zathura"
-   ;; "zathura-ps"
-   ;; "zathura-djvu"
-   ;; ;; Comic books
-   ;; "zathura-cb"
-   ;; "mcomix"
+    "x11vnc"
 
-   "libreoffice"
-   ))
+    "xdg-utils"
+    "xbindkeys"
+    "slop" ; select a region and print its bound
+    "xclip"
+    "xbacklight"                         ; TODO laptop-only
+    "xmodmap" "setxkbmap"
+    "xrandr"
+    "arandr"
+    "xdotool"
+
+    ;; PDF viewers
+    "mupdf"
+    ;; "zathura-pdf-mupdf"
+    ;; ;; Other document formats
+    ;; "zathura"
+    ;; "zathura-ps"
+    ;; "zathura-djvu"
+    ;; ;; Comic books
+    ;; "zathura-cb"
+    ;; "mcomix"
+
+    "libreoffice"
+    )))
 
 (define %screencast
   (list
