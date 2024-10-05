@@ -218,6 +218,7 @@
     "ranger"                            ; file manager
     "mc"                                ; file manager
     "strace"
+    "tesseract-ocr"
     "zip" "unzip"
     "sshfs"
     ))
