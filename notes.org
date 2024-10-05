@@ -273,3 +273,12 @@ There's nothing in shepherd's logs.
 
 I _think_ it was because there were multiple services failing to start
 repeatedly...
+
+** the =herd= command could use some polish
+
+- when you call =herd start= on a service that is disabled it just
+  prints "failed to staet the service", in shepherd's logs, you can
+  see "service is disabled". =herd= should tell the user *why* it
+  wasn't able to start the service.
+- =herd restart= could start the service if it is stopped instead of
+  just printing "<service> is not running"
