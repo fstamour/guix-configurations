@@ -113,3 +113,20 @@ pull:
 # TODO make a directory for profiles, probably
 lisp-profile/:
 	guix install sbcl-slime-swank sbcl-slynk sbcl-breeze -p lisp-profile
+
+
+######################################################################
+### Trying to build specific packages
+
+sbcl-cache-cache: sbcl-simpbin
+cache-cache: sbcl-simpbin
+PACKAGES := cl-simpbin ecl-simpbin sbcl-simpbin \
+	cl-breeze ecl-breeze sbcl-breeze \
+	cl-cache-cache ecl-cache-cache sbcl-cache-cache cache-cache \
+	python-elgato-streamdeck streamdeck-linux-ui
+
+.PHONY: all-packages
+all-packages: ${PACKAGES}
+
+${PACKAGES}:
+	./guix build $@
