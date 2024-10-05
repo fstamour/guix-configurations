@@ -97,6 +97,11 @@
                                  (list
                                   #$(file-append lisp:sbcl "/bin/sbcl")
                                   "--noinform"
+                                  "--non-interactive"
+                                  "--disable-debugger"
+                                  "--load"
+                                  (string-append (getenv "HOME")
+                                                 "/dev/myelin/loader.lisp")
                                   "--load"
                                   (string-append (getenv "HOME")
                                                  "/dev/myelin/scripts/dev.lisp")
