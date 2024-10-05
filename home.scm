@@ -519,6 +519,7 @@
       "ditaa"
       "plantuml"
       "graphviz"
+      "gnuplot"
       )))))
 
 
