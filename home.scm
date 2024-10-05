@@ -237,6 +237,7 @@
     "sbcl"
     ;; to be able to load ssl without too much fuss
     "sbcl-cl+ssl"
+    "sbcl-cffi"
     ;; "emacs-slime"
     ;; "emacs-sly"
 
