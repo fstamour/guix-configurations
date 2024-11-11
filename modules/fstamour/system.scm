@@ -43,24 +43,26 @@
 
 (define-public %fstamour/desktop-services
   (modify-services
-      %desktop-services
+   %desktop-services
 
-    ;; I use sddm instead of gdm
-    (gnu:services:delete gdm-service-type)
+   ;; I use sddm instead of gdm
+   (gnu:services:delete gdm-service-type)
 
-    ;; Add nonguix
-    (guix-service-type
-     config => (guix-configuration
-                (inherit config)
-                (substitute-urls
-                 (append (list "https://substitutes.nonguix.org")
-                         store:%default-substitute-urls))
-                (authorized-keys
-                 (append (list
-                          (local-file "./nonguix-substitutes-signing-key.pub")
-                          (local-file "./phi.pub")
-                          (local-file "./nu.pub"))
-                         %default-authorized-guix-keys))))))
+   ;; Add nonguix
+   (guix-service-type
+    config => (guix-configuration
+               (inherit config)
+               (substitute-urls
+                (append (list "https://substitutes.nonguix.org")
+                        store:%default-substitute-urls))
+               (authorized-keys
+                (append (list
+                         (local-file "./nonguix-substitutes-signing-key.pub")
+                         (local-file "./phi.pub")
+                         (local-file "./nu.pub"))
+                        %default-authorized-guix-keys))
+               ;; discover substitute servers using mdns
+               (discover? #t)))))
 
 (define-public %packages
   (specifications->packages
@@ -80,7 +82,7 @@
      ;; guix-home's /etc/profile)
      "git"
      "mosh")))
-     
+
 
 (define-public %cuirass-specs
   #~(list (specification
@@ -98,11 +100,10 @@
            (systems (list
                      "x86_64-linux"
                      ;; for raspberry pi, perhaps
-                     "aarch64-linux")))))
+                     "aarch64-linux"
                      ;; sbcl seems to be broken for armhf
                      ;; "armhf-linux"
-                     
-
+                     )))))
 
 ;; TODO
 ;; adjust brightness without sudo
@@ -126,9 +127,6 @@
            (cuirass-configuration
             (specifications %cuirass-specs)
             ;; (specifications #~(list))
-            ;; Allows using substitutes to avoid building every
-            ;; dependencies of a job from source.
-            (use-substitutes? #t)
             ;; When substituting a pre-built binary fails, fall back
             ;; to building packages locally.
             (fallback? #t))))
@@ -138,12 +136,17 @@
    ;; To configure OpenSSH, pass an 'openssh-configuration'
    ;; record as a second argument to 'service' below.
    (service openssh-service-type)
+   ;; make it possible to serve guix's store
    (service guix-publish-service-type
             (guix-publish-configuration
              (host "0.0.0.0")
              (port 9876)
              (advertise? #t)))
+   ;; add containerd, required by dockerd
+   (service containerd-service-type)
+   ;; add docker
    (service docker-service-type)
+   ;; add CUPS
    (service cups-service-type)))
 
 (define-public %users/fstamour
