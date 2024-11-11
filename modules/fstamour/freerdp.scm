@@ -5,7 +5,7 @@
   #:use-module (guix packages)
   #:use-module (guix download)
   #:use-module (guix git-download)
-  #:use-module (guix build-systems cmake-build-system)
+  #:use-module (guix build-system cmake)
   #:use-module (guix transformations))
 
 (define-public freerdp-3.5.1
