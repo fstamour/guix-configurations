@@ -282,3 +282,31 @@ repeatedly...
   wasn't able to start the service.
 - =herd restart= could start the service if it is stopped instead of
   just printing "<service> is not running"
+
+* How to fix ssh hostkey issues
+
+Example error:
+
+#+begin_src shell
+> guix pull
+Updating channel 'nonguix' from Git repository at 'https://gitlab.com/nonguix/nonguix'...
+guix pull: error: Git error: invalid or unknown remote ssh hostkey
+#+end_src
+
+Example fix:
+
+#+begin_src shell
+ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts
+#+end_src
+
+* TODO fix ABI mismatch
+
+#+begin_src shell
+exec /home/fstamour/.config/guix/current/bin/guix system build -e '(@@ (fstamour system) %hosts/phi)'
+guix system: error: failed to evaluate expression '(@@ (fstamour system) %hosts/phi)':
+In procedure abi-check: #<record-type <guix-configuration>>: record ABI mismatch; recompilation needed
+#+end_src
+
+It means the =guix-configuration= record is wrong.
+
+Solution: delete guile's cache =rm -rf  ~/.cache/guile/ccache=
