@@ -1,5 +1,5 @@
 
-(define-module (home home-configuration)
+(define-module (fstamour home)
   #:use-module (gnu home services)
   #:use-module (gnu home services desktop)
   #:use-module (gnu home services shells)
@@ -15,29 +15,11 @@
   #:use-module (gnu packages wm) ;; for dunst
   #:use-module (gnu services)
   #:use-module (guix gexp)
-  #:use-module (fstamour lisp)
+  ;; #:use-module (fstamour lisp)
   ;; WIP (fstamour streamdeck)
+  ;; #:use-module (fstamour stumpwm)
+  #:use-module ((fstamour stumpwm) #:select (stumpwm+swank))
   #:use-module ((fstamour syncthing) #:select (%syncthing)))
-
-(use-modules
- (gnu home services)
- (gnu home services desktop)
- (gnu home services shells)
- (gnu home services shepherd)
- (gnu home services ssh)
- (gnu packages ssh) ;; for autossh
- (gnu home)
- (gnu packages admin) ;; for shepherd
- ((gnu packages lisp) #:prefix lisp:)
- (gnu packages shells)
- (gnu packages syncthing)
- (gnu packages)
- (gnu packages wm) ;; for dunst
- (gnu services)
- (guix gexp)
- (fstamour lisp)
- ;; WIP (fstamour streamdeck)
- )
 
 (define (host-nu?)
   (string= "nu" (gethostname)))
@@ -242,7 +224,8 @@
     ;; "emacs-sly"
 
     ;; "stumpwm-with-slynk"
-    "stumpwm"
+    "stumpwm-with-swank"
+    ;; "stumpwm"
     "stumpish"
     ;; TODO try "sawfish"
 
@@ -418,6 +401,9 @@
       ;; nonguix
       "firefox")
 
+    (unless (host-other?)
+      "vscodium")
+
     "keepassxc"
     "rofi"
     "flameshot"
@@ -445,6 +431,7 @@
     "xrandr"
     "arandr"
     "xdotool"
+    "xset" ;; for "xset -dpms", to disable shutting down the screen automatically
 
     ;; PDF viewers
     "mupdf"
@@ -525,33 +512,35 @@
 
 ;; TODO maybe heroic and steam; although I use flatpak for these atm
 
-(home-environment
- ;; Below is the list of packages that will show up in your
- ;; Home profile, under ~/.guix-home/profile.
- (packages %packages)
 
- ;; Below is the list of Home services.  To search for available
- ;; services, run 'guix home search KEYWORD' in a terminal.
- (services
-  (filter
-   (compose not unspecified?)
-   (list
-    ;; Essentials
-    %environment-variables
+(define-public %home
+  (home-environment
+   ;; Below is the list of packages that will show up in your
+   ;; Home profile, under ~/.guix-home/profile.
+   (packages %packages)
 
-    ;; Shell
-    %bash
+   ;; Below is the list of Home services.  To search for available
+   ;; services, run 'guix home search KEYWORD' in a terminal.
+   (services
+    (filter
+     (compose not unspecified?)
+     (list
+      ;; Essentials
+      %environment-variables
 
-    ;; Various daemons
-    %ssh-agent
-    (unless (host-other?) %syncthing)
-    (when (host-nu?) %autossh-vps)
+      ;; Shell
+      %bash
 
-    %myelin
+      ;; Various daemons
+      %ssh-agent
+      (unless (host-other?) %syncthing)
+      (when (host-nu?) %autossh-vps)
 
-    ;; Desktop
-    %xmodmap
-    ;; TODO laptop-only
-    %my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
-    %unclutter
-    %dunst))))
+      %myelin
+
+      ;; Desktop
+      %xmodmap
+      ;; TODO laptop-only
+      %my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
+      %unclutter
+      %dunst)))))

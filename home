@@ -6,4 +6,4 @@ guix="$root/guix"
 
 export HOME_CONF="$root/home.scm"
 
-exec "${guix}" home "$@" "${HOME_CONF}"
+exec "${guix}" home "$@" -e '(@@ (fstamour home) %home)'
