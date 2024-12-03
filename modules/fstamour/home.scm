@@ -329,15 +329,23 @@
 ;;; Window/frame/navigation/search stuff
     "emacs-ace-window"
     "emacs-deadgrep"
+    "emacs-avy" ;; for "jumping to visible text using a char-based decision tree"
 
-   ;;; Org-mode stuff
+;;; Org-mode stuff
     "emacs-org-download"
     "emacs-org-roam"
     ;; "emacs-org-hugo" ; not in guix
 
-   ;;; Completion stuff
+    "emacs-howm" ;; note-taking tool for Emacs
+
+;;; Completion stuff
     "emacs-vertico"
     ;; "emacs-vertico-prescient" ; not in guix
+    "emacs-prescient"
+
+    ;; nerdtree for emacs (kinda)
+    ;;"emacs-neotree" ;; the guix's package is missing icons
+    "emacs-treemacs"
 
     ;; language modes
     "emacs-cmake-mode"
@@ -352,6 +360,17 @@
     ;; "emacs-docker-tramp" by "tramp-container", which is not in guix
     "emacs-dockerfile-mode"
     "emacs-docker-compose-mode"
+
+    "emacs-geiser"
+    "emacs-geiser-guile"
+
+    ;; Inspector for emacs lisp
+    "emacs-inspector"
+    "emacs-tree-inspector"
+
+    ;; Formatter
+    "emacs-prettier"
+
 
     ;; emacs-gitlab-ci-mode
     ;; emacs-gitlab-snip-helm
