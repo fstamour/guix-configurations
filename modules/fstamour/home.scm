@@ -455,17 +455,33 @@
    ;; TLA+
    "tla2tools"))
 
-(define %desktop
+(define %mail
+  (list
+   "mutt"))
+
+(define %browsers
   (filter
    (compose not unspecified?)
    (list
     "icecat"
-    "kitty"
-
+    ;; chromium as of 2024-11-14
+    ;; version from guix: 112
+    ;; version from nix : 124
+    ;; "ungoogled-chromium"
     ;; For some reason, firefox started crashing on ubuntu...
     (unless (host-other?)
       ;; nonguix
-      "firefox")
+      "firefox"))))
+
+(define %image
+  (list
+   "gimp"))
+
+(define %desktop
+  (filter
+   (compose not unspecified?)
+   (list
+    "kitty"
 
     (unless (host-other?)
       "vscodium")
@@ -532,7 +548,10 @@
      ;; (unless (host-other?) %cad)
      %voice
      %desktop
+     %browsers
+     %image
      %screencast
+     %mail
      %rust
      %golang
      %prolog
