@@ -529,7 +529,7 @@
      %lisp-scheme-and-emacs
      %vim
      %spelling
-     %cad
+     ;; (unless (host-other?) %cad)
      %voice
      %desktop
      %screencast
