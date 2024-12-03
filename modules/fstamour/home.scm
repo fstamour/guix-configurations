@@ -192,6 +192,7 @@
     "fish-foreign-env"
 
     "git" "git-lfs"
+    "tig"
     ,@(if (host-other?)
           (list)
           ;; amixer, aplay
@@ -210,6 +211,7 @@
     "less"
     "m4"
     "make"
+    "just"
     "mandoc"
     "mosh"
     "net-tools"                         ; netstat (and much more)
