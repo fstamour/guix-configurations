@@ -378,6 +378,22 @@
     ;; "picolisp" ,lisp:picolisp
     ))
 
+(define %rust
+  (list
+   "rust-analyzer"))
+
+(define %golang
+  (list
+   "go"
+   ;; gopls in guix is out of date -_-
+   ;; "gopls" ;; Official language server
+   "emacs-go-mode"))
+
+(define %prolog
+  (list
+   "emacs-ediprolog" ;; to interact with SWI-Prolog
+   "swi-prolog"))
+
 (define %vim
   (list
    "neovim"
@@ -517,6 +533,9 @@
      %voice
      %desktop
      %screencast
+     %rust
+     %golang
+     %prolog
      ;; Others...
      (list
       ;; This one is needed on my ubuntu host, because the
