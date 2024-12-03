@@ -374,6 +374,8 @@
 
     ;; emacs-gitlab-ci-mode
     ;; emacs-gitlab-snip-helm
+
+    ;; "picolisp" ,lisp:picolisp
     ))
 
 (define %vim
@@ -401,7 +403,7 @@
    "python-codespell"))
 
 ;; TODO STM
-;; TODO AVR (define %embedded-dev (list "microcom" "avr-toolchain" "avrdude" "avr-gdb"))
+;; TODO AVR (define %embedded-dev (list "microcom" "avr-toolchain" "avrdude" "avr-gdb" "picom"))
 
 (define %cad
   (list
@@ -441,8 +443,6 @@
   (filter
    (compose not unspecified?)
    (list
-    ;; "anki" the version in guix is way too old, I'll use
-    ;; the flatpak for now
     "icecat"
     "kitty"
 
@@ -458,15 +458,14 @@
     "rofi"
     "flameshot"
 
-    "dunst"                              ; for notifications
-
-    "pavucontrol"
+    "dunst"                             ; for notifications
 
     "flatpak"
     ;; "flatpak-xdg-utils"
     ;; "xdg-desktop-portal"                 ; this is also for flatpak
     ;; "xdg-desktop-portal-gtk"             ; this is also for flatpak
 
+    "pavucontrol"
     "playerctl"
     "vlc"
 
@@ -474,9 +473,9 @@
 
     "xdg-utils"
     "xbindkeys"
-    "slop" ; select a region and print its bound
+    "slop"                       ; select a region and print its bound
     "xclip"
-    "xbacklight"                         ; TODO laptop-only
+    "xbacklight"                        ; TODO laptop-only
     "xmodmap" "setxkbmap"
     "xrandr"
     "arandr"
@@ -493,6 +492,7 @@
     ;; ;; Comic books
     ;; "zathura-cb"
     ;; "mcomix"
+    "python-pdftotext" ;; Simple PDF text extraction
 
     "libreoffice"
     )))
