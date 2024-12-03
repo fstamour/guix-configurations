@@ -124,7 +124,8 @@ cache-cache: sbcl-simpbin
 PACKAGES := cl-simpbin ecl-simpbin sbcl-simpbin \
 	cl-breeze ecl-breeze sbcl-breeze \
 	cl-cache-cache ecl-cache-cache sbcl-cache-cache cache-cache \
-	python-elgato-streamdeck streamdeck-linux-ui
+	python-elgato-streamdeck streamdeck-linux-ui \
+	stumpwm-with-swank # TODO test `make stumpwm-with-swank`
 
 .PHONY: all-packages
 all-packages: ${PACKAGES}
