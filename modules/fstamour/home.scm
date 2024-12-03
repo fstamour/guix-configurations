@@ -557,7 +557,8 @@
       "plantuml"
       "graphviz"
       "gnuplot"
-      )))))
+
+      "shellcheck")))))
 
 
 ;; TODO maybe heroic and steam; although I use flatpak for these atm
