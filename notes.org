@@ -1,50 +1,8 @@
 * Tasks
 
-** TODO Nvidia drivers
-
-- To be able to change the brightness of the backlight
-- I noticed that I can change the brightness of the screen in gdm
-  (e.g. the keys work on the login screen).
-- when using gnome, I can also change the brightness using the keys
-  for that.
-- But xbacklight doesn't work...
-- Maybe gdm uses wayland... and magically knows how to change the
-  backlight's brightness...
-
-** TODO Podman
-
-For containers, obviously...
-
-I might be able to get away with running =guix shell --container=
-
-For now, on guixSD I'm using docker, and on ubuntu I'm using nix's
-podman.
-
-** DONE Put ~/.config/guix under git
-
-*** DONE Move into ~/dev/
-
-** DONE Stumpwm
-
-git@github.com:fstamour/stumpwm-config.git
-
 ** TODO Emacs
 
 *** TODO Use guix to install (most?) packages
-
-*** DONE Clone my emacs configs
-
-git@gitlab.com:fstamour/emacs-dot-files.git
-
-**** TODO See if I can do that using guix-home for emacs
-
-That would be a single-shot shepherd home service... like xmodmap's
-home-service.
-
-*** TODO Enable darkroom-mode and focus-mode with org-mode
-
-maybe all text-modes?
-maybe all programming modes???
 
 ** DONE fish is installed but is not in /etc/shells
 
@@ -52,79 +10,27 @@ maybe all programming modes???
 - There are some more configurations to do to make fish use guix's
   environment variables (see .
 
-* Packages
-
 ** TODO streamdeck-ui
 
 I've started something in [[file:modules/fstamour/streamdeck.scm][modules/fstamour/streamdeck.scm]]
 
-** TODO Gforth 0.7.9 instead of 0.7.3
+** Home Services
 
---with-source="mirror://gnu/gforth/gforth-0.7.9.tar.gz"
-didn't work, the latest version in the mirrors were 0.7.3
-
---with-git-url=gforth="https://git.savannah.gnu.org/git/gforth/"
-
-./autogen.sh: line 24: libtoolize: command not found
-./autogen.sh: line 24: glibtoolize: command not found
-./autogen.sh: line 30: aclocal: command not found
-
-* Home Services
-
-** TODO xmodmap
-
-Note: xmodmap doesn't work with wayland
-
-*** DONE Add caps-lock as compose-key
-
-*** DONE Swap () and {}
-
-*** TODO Update my xmodmap to add caps-lock as compose-key on certain hosts only
-
-*** DONE xmodmap service doesn't work anymore
-
-- I thinks it happens since I updated...
-- OOOrrrr... since I'm using xsession...
-- I only have the error =Service xmodmap could not be started.=
-
-** DONE ssh-agent
+*** DONE ssh-agent
 
 - logs into =~/.local/state/shepherd/ssh-agent.log=
 - should it be =~/.local/state/log/=?
 
-* Dotfiles
-
-** DONE tmux
-
-** TODO guile
-
-** TODO sbcl
-
-** fish
-
-*** DONE set guix-home's environment variables
-
-** TODO kitty?
-
-** TODO ~/bin/
-
-I said I was going to keep using gnu stow for these, because it's much
-easier to update like thath (I think).
-
-** TODO streamdeck
-
-** TODO [#A] git
-
-** TODO ssh?
-
-** TODO vscode
-
-** TODO xrandr script
-
-* TODO add "clean" targets to makfile
+** TODO add "clean" targets to makfile
 
 #+begin_src shell
 ./system delete-generations 1m
+#+end_src
+
+** TODO add "clean-guile-cache" target to makefile
+
+#+begin_src shell
+rm -rf ~/.cache/guile/ccache
 #+end_src
 
 * Snippets
@@ -132,7 +38,6 @@ easier to update like thath (I think).
 #+begin_src shell
 guix package --list-profiles
 #+end_src
-
 
 #+begin_src shell
 guix package \
@@ -192,6 +97,19 @@ for non-guixSD deployments
 
 sudo guix archive --authorize < modules/fstamour/nonguix-substitutes-signing-key.pub
 
+* add "substitute discovery" on ubuntu
+
+Looking at the installer script
+(https://git.savannah.gnu.org/cgit/guix.git/plain/etc/guix-install.sh)
+was very useful to figure out which file to change. For =systemd=, we
+just need to add =--discover=yes= to the =ExecStart= line in
+=/etc/systemd/system/guix-daemon.service=.
+
+1. edit =guix-daemon.service=
+2. =sudo systemctl daemon-reload=
+3. =sudo systemctl restart guix-daemon=
+4. =systemctl status guix-daemon=
+
 * Whishlist/complains
 
 ** Shepherd Services are not 100% declarative
@@ -225,7 +143,6 @@ If you remove a service (e.g. cuirass) from your configuration
 
 su -l cuirass -s /bin/sh
 psql
-
 
 sudo -u cuirass dropdb cuirass
 sudo -u cuirass reatedb cuiras
@@ -310,3 +227,8 @@ In procedure abi-check: #<record-type <guix-configuration>>: record ABI mismatch
 It means the =guix-configuration= record is wrong.
 
 Solution: delete guile's cache =rm -rf  ~/.cache/guile/ccache=
+
+* TODO add this to public notes
+
+guix package -l
+guix package -d
