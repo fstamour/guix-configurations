@@ -29,6 +29,7 @@ help:
 	@echo $$'  home                 Reconfigure guix home.'
 	@echo $$'  home-build           Build guix home.'
 	@echo $$'  update               guix pull, and update channels.scm'
+	@echo $$'  pull                 pull the pinned channels'
 	@echo $$'  setup                Create symlink to channels.scm into ~/.config/guix/'
 	@echo $$'  help                 Show this help.'
 
@@ -89,7 +90,7 @@ setup: ~/.config/guix/channels.scm
 # 1. bump channels.scm (using channels-no-commit.scm)
 # 2. commit & push
 # 3. (on another computer) git pull
-# 4. guix pull using channels.scm
+# 4. make pull
 
 # Target to update the commits in channels.scm
 .PHONY: update
