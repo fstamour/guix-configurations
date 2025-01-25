@@ -255,6 +255,18 @@
     ;; "emacs-slime"
     ;; "emacs-sly"
 
+    ;; Other common lisp implementations
+    "abcl"
+    "ecl"
+    "clisp"
+    "clasp-cl"
+    "gcl"
+    "ccl"
+    "allegro-cl"
+
+    "roswell"
+    "cl-all"
+
     ;; "stumpwm-with-slynk"
     "stumpwm-with-swank"
     ;; "stumpwm"
