@@ -543,6 +543,8 @@
 (define %screencast
   (list
    "python-screenkey"
+   ;; 2025-01-07 flatpak _might_ be a better way to use OBS... depending on which plugins one wants to use
+   ;; guix search obs-
    "obs"
    ;; "obs-vkcapture"
    ))
