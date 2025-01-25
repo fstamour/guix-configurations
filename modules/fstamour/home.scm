@@ -39,7 +39,7 @@
                     ;; Meh
                     ;; ("VISUAL" . "emacsclient -a emacs")
                     ("PAGER" . "less")
-                    ("PATH" . "$HOME/.local/bin:$PATH")
+                    ("PATH" . "$HOME/go/bin:$HOME/.local/bin:$PATH")
                     )))
 
 ;; Putting those in a variable because I'm using bash for now, but
