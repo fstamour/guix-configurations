@@ -270,7 +270,10 @@
     "emacs-guix"
     "emacs-envrc"
 
-   ;;; Editing stuff
+    ;; workarounds
+    "emacs-straight-el"
+
+;;; Editing stuff
     "emacs-aggressive-indent"
     "emacs-emmet-mode"
     "emacs-lispy"
@@ -347,6 +350,13 @@
     ;; nerdtree for emacs (kinda)
     ;;"emacs-neotree" ;; the guix's package is missing icons
     "emacs-treemacs"
+
+    ;; Emacs ❤️ Debug Adapter Protocol
+    ;; https://github.com/emacs-lsp/dap-mode
+    ;; "emacs-dap-mode" ;; work only with lsp-mode, not eglot
+
+    ;; Debug Adapter Protocol for Emacs https://github.com/svaante/dape
+    "emacs-dape"
 
     ;; language modes
     "emacs-cmake-mode"
