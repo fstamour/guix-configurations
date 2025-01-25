@@ -233,6 +233,7 @@
     "strace"
     "tesseract-ocr"
     "zip" "unzip"
+    "lzip" "lunzip"
     "sshfs"
     ))
 
