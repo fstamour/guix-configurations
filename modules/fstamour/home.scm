@@ -212,6 +212,7 @@
     "m4"
     "make"
     "just"
+    "libiconv"                          ; for iconv — character encoding conversion
 
     ;; "man-db" ; included by the "host"... somewhere
     "man-pages" ; Development manual pages from the Linux project
