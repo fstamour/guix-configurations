@@ -212,7 +212,10 @@
     "m4"
     "make"
     "just"
-    "mandoc"
+
+    ;; "man-db" ; included by the "host"... somewhere
+    "man-pages" ; Development manual pages from the Linux project
+
     "mosh"
     "net-tools"                         ; netstat (and much more)
     "netcat-openbsd"
