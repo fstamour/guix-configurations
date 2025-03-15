@@ -480,7 +480,13 @@
 (define %formal-methods
   (list
    ;; TLA+
-   "tla2tools"))
+   "tla2tools"
+   "tree-sitter-tlaplus"
+
+   "coq"
+   "proof-general"
+   "opam" ; ocaml's package manager, used by coq
+   ))
 
 (define %mail
   (list
@@ -584,6 +590,7 @@
      %rust
      %golang
      %prolog
+     %formal-methods
      ;; Others...
      (list
       ;; This one is needed on my ubuntu host, because the
