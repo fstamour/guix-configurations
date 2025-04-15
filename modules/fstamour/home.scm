@@ -232,11 +232,13 @@
     "w3m"                               ; browser
     "xxd"                               ; hex
     "bat"                               ; viewer
+    "recutils"
     "ranger"                            ; file manager
     "mc"                                ; file manager
     "strace"
     "tesseract-ocr"
     "zip" "unzip"
+    "zoxide"
     "lzip" "lunzip"
     "sshfs"
     ))
@@ -297,6 +299,7 @@
     "emacs-prettier"
     ;; "emacs-sqlformat" ; not in guix
     "emacs-tempel"
+    "emacs-rec-mode"		      ; for editing recutils databases
 
    ;;; Aesthetic stuff
     ;; "emacs-darkroom" ; doesn't work (arithmetic error)
