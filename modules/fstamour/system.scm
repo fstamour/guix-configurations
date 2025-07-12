@@ -4,6 +4,7 @@
   #:use-module (gnu services cuirass)
   #:use-module (gnu services docker)
   #:use-module (gnu services sddm)
+  #:use-module (gnu services databases) ; for postgres
   #:use-module (gnu services virtualization)
   #:use-module (gnu system nss)
   #:use-module (gnu system shadow)
@@ -28,6 +29,7 @@
   #:use-module (nongnu packages nvidia)
   #:use-module (nongnu system linux-initrd))
 
+(use-package-modules databases) ; for postgres
 (use-service-modules cups desktop networking ssh xorg)
 ;; (use-service-modules cups desktop networking ssh xorg)
 
@@ -120,7 +122,23 @@
 (define-public %qemu-binfmt-service
   (service qemu-binfmt-service-type
            (qemu-binfmt-configuration
-            (platforms (lookup-qemu-platforms "arm" "aarch64")))))
+             (platforms (lookup-qemu-platforms "arm" "aarch64")))))
+
+(define-public %postgres-service
+  (service postgresql-service-type
+           (postgresql-configuration
+             (postgresql postgresql-16))))
+
+(define-public %postgres-roles
+  (service postgresql-role-service-type
+           (postgresql-role-configuration
+            (roles
+             (list (postgresql-role
+                     (name "cuirass")
+                     (create-database? #t))
+                   (postgresql-role
+                     (name "fstamour")
+                     (create-database? #t)))))))
 
 (define-public %cuirass-service
   (service cuirass-service-type
@@ -189,6 +207,8 @@
     (services (append
                (list
                 %sddm                                ; instead of gdm
+                %postgres-service
+                %postgres-roles
                 %cuirass-service
                 %qemu-binfmt-service)
                %services
