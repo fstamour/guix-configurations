@@ -13,13 +13,14 @@
   #:use-module (guix build-system trivial))
 
 ;; TODO other implementations (e.g. ecl) see see asdf-build-system/ecl
-;; TODO my fork of stumpwm
+;; See stumpwm.scm for stumpwm
 
 ;;; tips:
 ;;; guix hash -rx . on the target's repo
 ;;; https://github.com/drewc/guix/blob/master/guix/licenses.scm
 ;;; on guix, asdf is patched to search for configurations files in xdg-config-dirs and? xdg-home
 
+;; TODO update
 (define-public sbcl-breeze
   (let ((commit
          ;; main branch as of 2024-04-29
@@ -84,6 +85,7 @@
   (sbcl-package->ecl-package sbcl-breeze))
 
 
+;; TODO update
 (define-public sbcl-simpbin
   (let ((commit "6f9f1c196ca8f363b478bab0a8623f53b89e5586")
         (repo-url "https://github.com/fstamour/simpbin"))

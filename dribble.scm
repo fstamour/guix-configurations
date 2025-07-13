@@ -1,8 +1,19 @@
 ;;;; Taking notes about how to use the repl.
 
-;; Configure emacs to start a repl with the right guix and paths:
-;; (setf geiser-guile-binary (expand-file-name "~/dev/guix-configurations/repl"))
+;; Configure EMACS to start a repl with the right guix and paths:
+;; (setf geiser-guile-binary (expand-file-name "~/dev/git/guix-configurations/repl"))
 ;; M-x geiser
+
+In geiser's repl:
+,use (guix)
+,help
+,help guix
+,verbosity 3
+
+,build (@ (fstamour stumpwm) stumpwm+swank)
+
+
+
 
 ;; Checking some configurations
 ;; %load-path
@@ -30,5 +41,26 @@
 (module-filename (resolve-module '(fstamour system)))
 
 (@ (fstamour system) %hosts/phi)
+(@ (fstamour lisp) cl-simpbin)
+(@ (fstamour stumpwm) stumpwm+swank)
 
 (use-modules ((fstamour system) #:prefix s:))
+
+
+(use-modules (guix)) ;; == ,use (guix)
+
+;; guile's repl's metacommands are defind in `monad-repl.scm'
+;; (e.g. /gnu/store/7fxv49j14rxg2h793kqcxjz76rwx3hwc-guix-module-union/share/guile/site/3.0/guix/monad-repl.scm)
+;;
+;; using the macro `define-meta-command', imported from the module
+;; (system repl command)
+
+;; TODO make a patch so that "verbosity level is actually documented..."
+,verbosity LEVEL - Change build verbosity to LEVEL.
+
+;; I found `logger-for-level' in status.scm (next to the monad-repl
+;; file)
+;; LEVEL 0 = minimal logs
+;; LEVEL 1 = "quiet"
+;; LEVEL 2 = "quiet with urls"
+;; else = all?

@@ -2,19 +2,9 @@
 
 ** TODO Emacs
 
-*** TODO Use guix to install (most?) packages
-
-** DONE fish is installed but is not in /etc/shells
-
-- You can set the a user's shell.
-- There are some more configurations to do to make fish use guix's
-  environment variables (see .
-
-** TODO streamdeck-ui
-
-I've started something in [[file:modules/fstamour/streamdeck.scm][modules/fstamour/streamdeck.scm]]
-
 ** Home Services
+
+*** TODO Create a home service to launch flameshot
 
 *** DONE ssh-agent
 
@@ -51,6 +41,8 @@ From guix cookbook:
 > Using multiple, small profiles provides more flexibility and usability.
 
 * REPL
+
+See [[file:dribble.scm][dribble.scm]]
 
 #+begin_src shell
 guix repl
@@ -95,7 +87,11 @@ automatically (on guixSD at least)
 
 for non-guixSD deployments
 
+#+begin_src shell
 sudo guix archive --authorize < modules/fstamour/nonguix-substitutes-signing-key.pub
+sudo guix archive --authorize < modules/fstamour/nu.pub
+sudo guix archive --authorize < modules/fstamour/phi.pub
+#+end_src
 
 * add "substitute discovery" on ubuntu
 
@@ -129,7 +125,7 @@ If you remove a service (e.g. cuirass) from your configuration
   =on-first-login= scripts, or
 - =~/.local/state/shepherd/shepherd.log= otherwise
 
-** The "graphical" shepherd services starts in non-graphical contexts
+** TODO The "graphical" shepherd services starts in non-graphical contexts
 
 ** Cuirass
 
@@ -147,7 +143,7 @@ psql
 sudo -u cuirass dropdb cuirass
 sudo -u cuirass reatedb cuiras
 
-** Guile's error messages are aweful
+** Guile's error messages are awful
 
 Sometimes (most of the time) I don't even have a stack trace...
 
@@ -232,3 +228,36 @@ Solution: delete guile's cache =rm -rf  ~/.cache/guile/ccache=
 
 guix package -l
 guix package -d
+
+* How to install on non-guixSD
+
+
+** How to use a shell installed with guix
+
+As root:
+
+#+begin_src shell
+guix install fish
+echo $(readlink -f /root/.guix-profile/bin/fish) >> /etc/shells
+#+end_src
+
+This step will need to be repeated if the root user's packages are
+updated.
+
+As user:
+
+#+begin_src shell
+chsh -s $(grep fish /etc/shells)
+#+end_src
+
+* Issue running chromium on ubuntu - "No usable sandbox!"
+
+From https://issues.guix.gnu.org/44891:
+
+1. sudo sysctl -w kernel.unprivileged_userns_clone=1
+2. sudo su -c "echo 'kernel.unprivileged_userns_clone=1' > /etc/sysctl.d/00-local-userns.conf"
+
+This is because (ungoogled-)chromium sandbox relies on user namespaces
+support in the kernel but Debian [2] disables user namespaces by
+default, the above commands enables them for your current boot session
+and permanently for next reboots.

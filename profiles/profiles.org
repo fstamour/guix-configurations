@@ -1,0 +1,14 @@
+#+title Guix profiles
+
+* TODO add a profile that contains =fish=
+
+- then add =fish= (from that profile) to =/etc/shells=
+- and =chsh -s <path-to-fish>=
+
+* TODO profile for games
+
+* TODO profile for CAD
+
+* TODO profile for formal-methods
+
+* TODO maybe try to manage profiles using recutils
