@@ -19,7 +19,9 @@
   ;; WIP (fstamour streamdeck)
   ;; #:use-module (fstamour stumpwm)
   #:use-module ((fstamour stumpwm) #:select (stumpwm+swank))
-  #:use-module ((fstamour syncthing) #:select (%syncthing)))
+  #:use-module ((fstamour syncthing) #:select (%syncthing))
+  #:use-module ((fstamour home lisp) #:select (%lisp-packages))
+  #:use-module ((fstamour home emacs) #:select (%emacs-packages)))
 
 (define (host-nu?)
   (string= "nu" (gethostname)))
@@ -247,32 +249,6 @@
 
 (define %lisp-scheme-and-emacs
   `(
-    ;; Not tested yet:
-    ;; "cl-slime-swank"
-    ;; "cl-slynk"
-    ;; "emacs-slime"
-
-    ;; "sbcl-slynk"
-    ;; "sbcl-swank" doesn't exists...
-    "sbcl"
-    ;; to be able to load ssl without too much fuss
-    "sbcl-cl+ssl"
-    "sbcl-cffi"
-    ;; "emacs-slime"
-    ;; "emacs-sly"
-
-    ;; Other common lisp implementations
-    "abcl"
-    "ecl"
-    "clisp"
-    "clasp-cl"
-    "gcl"
-    "ccl"
-    "allegro-cl"
-
-    "roswell"
-    "cl-all"
-
     ;; "stumpwm-with-slynk"
     "stumpwm-with-swank"
     ;; "stumpwm"
@@ -283,127 +259,51 @@
     "guile-readline"
     "guile-colorized"
 
-    "emacs"
-    "emacs-magit"
-    "emacs-guix"
-    "emacs-envrc"
-
-    ;; workarounds
-    "emacs-straight-el"
-
-;;; Editing stuff
-    "emacs-aggressive-indent"
-    "emacs-emmet-mode"
-    "emacs-lispy"
-    "emacs-paredit"
-    "emacs-prettier"
-    ;; "emacs-sqlformat" ; not in guix
-    "emacs-tempel"
-    "emacs-rec-mode"		      ; for editing recutils databases
-
-   ;;; Aesthetic stuff
-    ;; "emacs-darkroom" ; doesn't work (arithmetic error)
-    "emacs-focus"
-    "emacs-writeroom"
-
-    "emacs-page-break-lines"
-    "emacs-rainbow-delimiters"
-    "emacs-diminish"
 
     ;; Themes (I don't know which one I want 😅)
     ;; guix search emacs theme | grep name: | grep -e '-theme$' | awk '{print $2}' | copy
-    ,@`("emacs-spacemacs-theme"
-        "emacs-tao-theme"
-        "emacs-rebecca-theme"
-        "emacs-abyss-theme"
-        "emacs-cyberpunk-theme"
-        "emacs-zenburn-theme"
-        "emacs-sweet-theme"
-        "emacs-suneater-theme"
-        "emacs-dream-theme"
-        "emacs-zeno-theme"
-        "emacs-spacegray-theme"
-        "emacs-monokai-theme"
-        "emacs-exotica-theme"
-        "emacs-dracula-theme"
-        "emacs-danneskjold-theme"
-        "emacs-chocolate-theme"
-        "emacs-acme-theme"
-        "emacs-weyland-yutani-theme"
-        "emacs-starlit-theme"
-        "emacs-solarized-theme"
-        "emacs-sakura-theme"
-        "emacs-railscasts-theme"
-        "emacs-poet-theme"
-        "emacs-atom-one-dark-theme"
-        "emacs-ample-theme"
-        "emacs-ahungry-theme"
-        "emacs-zerodark-theme"
-        "emacs-soothe-theme"
-        "emacs-punpun-theme"
-        "emacs-base16-theme"
-        "emacs-afternoon-theme"
-        "emacs-nord-theme"
-        "emacs-org-beautify-theme"
-        "emacs-adwaita-dark-theme"
-        "emacs-gruvbox-theme"
-        )
+    ;; ,@`("emacs-spacemacs-theme"
+    ;;     "emacs-tao-theme"
+    ;;     "emacs-rebecca-theme"
+    ;;     "emacs-abyss-theme"
+    ;;     "emacs-cyberpunk-theme"
+    ;;     "emacs-zenburn-theme"
+    ;;     "emacs-sweet-theme"
+    ;;     "emacs-suneater-theme"
+    ;;     "emacs-dream-theme"
+    ;;     "emacs-zeno-theme"
+    ;;     "emacs-spacegray-theme"
+    ;;     "emacs-monokai-theme"
+    ;;     "emacs-exotica-theme"
+    ;;     "emacs-dracula-theme"
+    ;;     "emacs-danneskjold-theme"
+    ;;     "emacs-chocolate-theme"
+    ;;     "emacs-acme-theme"
+    ;;     "emacs-weyland-yutani-theme"
+    ;;     "emacs-starlit-theme"
+    ;;     "emacs-solarized-theme"
+    ;;     "emacs-sakura-theme"
+    ;;     "emacs-railscasts-theme"
+    ;;     "emacs-poet-theme"
+    ;;     "emacs-atom-one-dark-theme"
+    ;;     "emacs-ample-theme"
+    ;;     "emacs-ahungry-theme"
+    ;;     "emacs-zerodark-theme"
+    ;;     "emacs-soothe-theme"
+    ;;     "emacs-punpun-theme"
+    ;;     "emacs-base16-theme"
+    ;;     "emacs-afternoon-theme"
+    ;;     "emacs-nord-theme"
+    ;;     "emacs-org-beautify-theme"
+    ;;     "emacs-adwaita-dark-theme"
+    ;;     "emacs-gruvbox-theme"
+    ;;     )
 
-;;; Window/frame/navigation/search stuff
-    "emacs-ace-window"
-    "emacs-deadgrep"
-    "emacs-avy" ;; for "jumping to visible text using a char-based decision tree"
 
-;;; Org-mode stuff
-    "emacs-org-download"
-    "emacs-org-roam"
-    ;; "emacs-org-hugo" ; not in guix
-
-    "emacs-howm" ;; note-taking tool for Emacs
-
-;;; Completion stuff
-    "emacs-vertico"
-    ;; "emacs-vertico-prescient" ; not in guix
-    "emacs-prescient"
-
-    ;; nerdtree for emacs (kinda)
-    ;;"emacs-neotree" ;; the guix's package is missing icons
-    "emacs-treemacs"
-
-    ;; Emacs ❤️ Debug Adapter Protocol
-    ;; https://github.com/emacs-lsp/dap-mode
-    ;; "emacs-dap-mode" ;; work only with lsp-mode, not eglot
-
-    ;; Debug Adapter Protocol for Emacs https://github.com/svaante/dape
-    "emacs-dape"
-
-    ;; language modes
-    "emacs-cmake-mode"
-    "emacs-fish-mode"
-    ;; "emacs-forth" ; not in guix
-    "emacs-nix-mode"
-    "emacs-jedi"
-    ;; "emacs-virtualenvwrapper"  ; not in guix
-    "emacs-terraform-mode"
-    "emacs-yaml-mode"
-    "emacs-docker"
-    ;; "emacs-docker-tramp" by "tramp-container", which is not in guix
-    "emacs-dockerfile-mode"
-    "emacs-docker-compose-mode"
 
     "emacs-geiser"
     "emacs-geiser-guile"
 
-    ;; Inspector for emacs lisp
-    "emacs-inspector"
-    "emacs-tree-inspector"
-
-    ;; Formatter
-    "emacs-prettier"
-
-
-    ;; emacs-gitlab-ci-mode
-    ;; emacs-gitlab-snip-helm
 
     ;; "picolisp" ,lisp:picolisp
     ))
@@ -580,6 +480,9 @@
    (specifications->packages
     (append
      %command-line-stuff
+
+     %emacs-packages
+     %lisp-packages
      %lisp-scheme-and-emacs
      %vim
      %spelling
