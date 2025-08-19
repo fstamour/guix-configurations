@@ -315,6 +315,7 @@
 (define %golang
   (list
    "go"
+   "gccgo"
    ;; gopls in guix is out of date -_-
    ;; "gopls" ;; Official language server
    "emacs-go-mode"))
