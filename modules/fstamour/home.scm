@@ -6,6 +6,7 @@
   #:use-module (gnu home services shepherd)
   #:use-module (gnu home services ssh)
   #:use-module (gnu packages ssh) ;; for autossh
+  #:use-module (gnu packages fonts)
   #:use-module (gnu home)
   #:use-module (gnu packages admin) ;; for shepherd
   #:use-module ((gnu packages lisp) #:prefix lisp:)
@@ -467,6 +468,24 @@
     "python-pdftotext" ;; Simple PDF text extraction
 
     "libreoffice"
+
+    ;;   # fonts.fonts = with pkgs; [
+    ;; #   noto-fonts
+    ;; #   noto-fonts-cjk
+    ;; #   noto-fonts-emoji
+    ;; #   liberation_ttf
+    ;; #   fira-code
+    ;; #   fira-code-symbols
+    ;; #   mplus-outline-fonts
+    ;; #   dina-font
+    ;; #   proggyfonts
+    ;; # ];
+
+    "font-fira-mono"
+    "font-fira-code"
+    "font-google-noto"
+    "font-google-noto-emoji"
+
     )))
 
 (define %screencast
