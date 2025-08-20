@@ -493,8 +493,6 @@
       ;; TODO ffmpeg plugin for gstreamer, to be able to play wma files
       "gst-libav"
 
-      "rakudo"                          ; aka perl6
-
       ;; TODO as of 2023-05-08 guix provides gforth 0.7.3,
       ;; which is very old...
       "gforth"
