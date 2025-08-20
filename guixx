@@ -1,0 +1,12 @@
+#!/usr/bin/env  sh
+
+set -x
+guix shell \
+     --container \
+     --user=user \
+     --preserve='^TERM$' \
+     --preserve='^XAUTHORITY$' --expose="${XAUTHORITY}" \
+     --preserve='^DISPLAY$' \
+     --network \
+     --no-cwd --expose=$PWD=$HOME/pwd \
+     "$@"
