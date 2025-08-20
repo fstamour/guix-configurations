@@ -25,7 +25,8 @@
   #:use-module ((fstamour stumpwm) #:select (stumpwm+swank))
   #:use-module ((fstamour syncthing) #:select (%syncthing))
   #:use-module ((fstamour home lisp) #:select (%lisp-packages))
-  #:use-module ((fstamour home emacs) #:select (%emacs-packages)))
+  #:use-module ((fstamour home emacs) #:select (%emacs-packages))
+  #:use-module ((fstamour home xmodmap) #:select (%xmodmap)))
 
 (define (host-nu?)
   (string= "nu" (gethostname)))
@@ -100,46 +101,6 @@
   (service home-unclutter-service-type
            (home-unclutter-configuration
             (idle-timeout 2))))
-
-(define %xmodmap
-  (service home-xmodmap-service-type
-           (home-xmodmap-configuration
-            ;; TIPS: use =xmodmap -pm= to print the current modifiers
-            (key-map '(
-                       ;; Use CapsLock key (keycode 66) for compose key (called "multi key")
-                       ("keycode 66" . "Multi_key")
-                       ;; Remove shift lock functionality
-                       "clear Lock"
-                       ;; I use () the most often, make it easier to
-                       ;; type.
-                       ;;
-                       ;; the keys for [] becomes ()
-                       ;; the keys for () becomes {}
-                       ;; the keys for {} becomes []
-                       ("keycode 18" . "9 braceleft")
-                       ("keycode 19" . "0 braceright")
-                       ("keycode 34" . "parenleft bracketleft")
-                       ("keycode 35" . "parenright bracketright")
-                       ;; Alternative:
-                       ;; ! Swap () <=> []
-                       ;; keycode  18 = 9 bracketleft 9 bracketleft
-                       ;; keycode  19 = 0 bracketright 0 bracketright
-                       ;; keycode  34 = parenleft braceleft parenleft braceleft
-                       ;; keycode  35 = parenright braceright parenright braceright
-
-
-                       ;; This make "right control" a plain key (i.e. not a modifier)
-                       "remove control = Control_R"
-                       ;; Map "rigth control" to "hyper"
-                       ("keycode 105" . "Hyper_L")
-                       ;; This make the "left hyper" a plain key
-                       "remove mod4 = Hyper_L"
-                       ;; This make the "left hyper" a different kind of modifier
-                       "add mod3 = Hyper_L"
-
-                       ;; "add mod3 = Control_R"
-                       ;;  ("keycode 108" ;; Alt_R
-                       )))))
 
 (define %ssh-agent
   (service home-ssh-agent-service-type
