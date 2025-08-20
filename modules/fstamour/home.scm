@@ -2,31 +2,26 @@
 (define-module (fstamour home)
   #:use-module (gnu home services)
   #:use-module ((gnu home services desktop)
-                #:select (home-unclutter-service-type
-                          home-unclutter-configuration
-                          home-x11-service-type))
+                #:select (home-x11-service-type))
   #:use-module (gnu home services shells)
   #:use-module (gnu home services shepherd)
   #:use-module (gnu home services ssh)
   #:use-module (gnu packages ssh) ;; for autossh
-  #:use-module (gnu packages fonts)
   #:use-module (gnu home)
   #:use-module (gnu packages admin) ;; for shepherd
   #:use-module ((gnu packages lisp) #:prefix lisp:)
   #:use-module (gnu packages shells)
   #:use-module (gnu packages syncthing)
   #:use-module (gnu packages)
-  #:use-module (gnu packages wm) ;; for dunst
   #:use-module (gnu services)
   #:use-module (guix gexp)
-  ;; #:use-module (fstamour lisp)
-  ;; WIP (fstamour streamdeck)
-  ;; #:use-module (fstamour stumpwm)
   #:use-module ((fstamour stumpwm) #:select (stumpwm+swank))
   #:use-module ((fstamour syncthing) #:select (%syncthing))
   #:use-module ((fstamour home lisp) #:select (%lisp-packages))
   #:use-module ((fstamour home emacs) #:select (%emacs-packages))
-  #:use-module ((fstamour home xmodmap) #:select (%xmodmap)))
+  #:use-module ((fstamour home xmodmap) #:select (%xmodmap))
+  #:use-module ((fstamour home x11)
+                #:select (%unclutter %dunst %browsers %desktop)))
 
 (define (host-nu?)
   (string= "nu" (gethostname)))
@@ -97,10 +92,7 @@
                                   "--eval" "(loop (sleep 1))")))
                              (stop #~(make-kill-destructor))))))))
 
-(define %unclutter ; hide the mouse after some time of inactivity
-  (service home-unclutter-service-type
-           (home-unclutter-configuration
-            (idle-timeout 2))))
+
 
 (define %ssh-agent
   (service home-ssh-agent-service-type
@@ -130,17 +122,6 @@
                               ;; Remote forward: port 2222 on "sartre"
                               ;; is forwarded to localhost's port 22
                               "-R" "2222:localhost:22" "sartre")))
-                         (stop #~(make-kill-destructor))))))
-
-(define %dunst
-  (simple-service 'dunst home-shepherd-service-type
-                  (list (shepherd-service
-                         (provision '(dunst))
-                         (documentation "Run dunst as a shepherd (user) service")
-                         (start
-                          #~(make-forkexec-constructor
-                             (list
-                              #$(file-append dunst "/bin/dunst"))))
                          (stop #~(make-kill-destructor))))))
 
 (define %command-line-stuff
@@ -355,95 +336,9 @@
    "mutt"
    "offlineimap3"))
 
-(define %browsers
-  (filter
-   (compose not unspecified?)
-   (list
-    "icecat"
-    ;; chromium as of 2024-11-14
-    ;; version from guix: 112
-    ;; version from nix : 124
-    ;; "ungoogled-chromium"
-    ;; For some reason, firefox started crashing on ubuntu...
-    (unless (host-other?)
-      ;; nonguix
-      "firefox"))))
-
 (define %image
   (list
    "gimp"))
-
-(define %desktop
-  (filter
-   (compose not unspecified?)
-   (list
-    "kitty"
-
-    (unless (host-other?)
-      "vscodium")
-
-    "keepassxc"
-    "rofi"
-    "flameshot"
-
-    "dunst"                             ; for notifications
-
-    "flatpak"
-    ;; "flatpak-xdg-utils"
-    ;; "xdg-desktop-portal"                 ; this is also for flatpak
-    ;; "xdg-desktop-portal-gtk"             ; this is also for flatpak
-
-    "pavucontrol"
-    "playerctl"
-    "vlc"
-
-    "x11vnc"
-    ;; Remote access to individual applications or full desktops
-    "xpra"
-
-    "xdg-utils"
-    "xbindkeys"
-    "slop"                       ; select a region and print its bound
-    "xclip"
-    "xbacklight"                        ; TODO laptop-only
-    "xmodmap" "setxkbmap"
-    "xrandr"
-    "arandr"
-    "xdotool"
-    "xset" ;; for "xset -dpms", to disable shutting down the screen automatically
-
-    ;; PDF viewers
-    "mupdf"
-    ;; "zathura-pdf-mupdf"
-    ;; ;; Other document formats
-    ;; "zathura"
-    ;; "zathura-ps"
-    ;; "zathura-djvu"
-    ;; ;; Comic books
-    ;; "zathura-cb"
-    ;; "mcomix"
-    "python-pdftotext" ;; Simple PDF text extraction
-
-    "libreoffice"
-
-    ;;   # fonts.fonts = with pkgs; [
-    ;; #   noto-fonts
-    ;; #   noto-fonts-cjk
-    ;; #   noto-fonts-emoji
-    ;; #   liberation_ttf
-    ;; #   fira-code
-    ;; #   fira-code-symbols
-    ;; #   mplus-outline-fonts
-    ;; #   dina-font
-    ;; #   proggyfonts
-    ;; # ];
-
-    "font-fira-mono"
-    "font-fira-code"
-    "font-google-noto"
-    "font-google-noto-emoji"
-
-    )))
 
 (define %screencast
   (list
