@@ -180,6 +180,7 @@
     "net-tools"                         ; netstat (and much more)
     "netcat-openbsd"
     "nmap"
+    "qrencode" ; qrencode -t UTF8 "example"
     "readline"
     "ripgrep"                          ; grep -R
     "rlwrap"                           ; add readline to other command
