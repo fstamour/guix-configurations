@@ -15,7 +15,8 @@
     "clasp-cl"
     "gcl"
     "ccl"
-    "allegro-cl"
+    ;; I've got no licence for allegro
+    ;; "allegro-cl"
 
     "roswell"
-    "cl-all"))
+    "sbcl-cl-all:bin"))
