@@ -1,7 +1,10 @@
 
 (define-module (fstamour home)
   #:use-module (gnu home services)
-  #:use-module (gnu home services desktop)
+  #:use-module ((gnu home services desktop)
+                #:select (home-unclutter-service-type
+                          home-unclutter-configuration
+                          home-x11-service-type))
   #:use-module (gnu home services shells)
   #:use-module (gnu home services shepherd)
   #:use-module (gnu home services ssh)
@@ -92,14 +95,6 @@
                                                  "/dev/myelin/scripts/dev.lisp")
                                   "--eval" "(loop (sleep 1))")))
                              (stop #~(make-kill-destructor))))))))
-
-(define %my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
-  (service home-redshift-service-type
-           (home-redshift-configuration
-            (location-provider 'manual)
-            ;; Took Ottawa's coordinates
-            (latitude 45.4215)
-            (longitude -75.6972))))
 
 (define %unclutter ; hide the mouse after some time of inactivity
   (service home-unclutter-service-type
@@ -593,8 +588,8 @@
       %myelin
 
       ;; Desktop
+      (service home-x11-service-type)
       %xmodmap
-      ;; TODO laptop-only
-      %my-poor-eyes-i-cant-adjust-my-backlight-because-i-didnt-install-the-right-drivers-yet
+
       %unclutter
       %dunst)))))
