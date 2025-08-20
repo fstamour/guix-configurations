@@ -3,6 +3,7 @@
 (define-module (fstamour system)
   #:use-module (gnu services cuirass)
   #:use-module (gnu services docker)
+  #:use-module (gnu services nix)
   #:use-module (gnu services sddm)
   #:use-module (gnu services databases) ; for postgres
   #:use-module (gnu services virtualization)
@@ -197,7 +198,8 @@ KERNEL==\"hidraw*\", KERNELS==\"*054C:09CC*\", MODE=\"0666\"
    (service docker-service-type)
    ;; add CUPS
    (service cups-service-type)
-   (udev-rules-service 'controllers %udev-rules-for-controller)))
+   (udev-rules-service 'controllers %udev-rules-for-controller)
+   (service nix-service-type)))
 
 (define-public %users/fstamour
   (user-account
