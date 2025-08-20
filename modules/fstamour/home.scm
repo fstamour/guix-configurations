@@ -394,7 +394,8 @@
 
 (define %mail
   (list
-   "mutt"))
+   "mutt"
+   "offlineimap3"))
 
 (define %browsers
   (filter
