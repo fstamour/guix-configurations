@@ -117,6 +117,37 @@
     "RUN+=\"/run/current-system/profile/bin/chgrp video $sys$devpath/brightness\", "
     "RUN+=\"/run/current-system/profile/bin/chmod g+w $sys$devpath/brightness\"")))
 
+(define %udev-rules-for-controller
+  (udev-rule
+   "91-steam-controller-perms.rules"
+   "# This rule is needed for basic functionality of the controller in Steam and keyboard/mouse emulation
+SUBSYSTEM==\"usb\", ATTRS{idVendor}==\"28de\", MODE=\"0666\"
+
+# This rule is necessary for gamepad emulation; make sure you replace 'pgriffais' with a group that the user that runs Steam belongs to
+KERNEL==\"uinput\", MODE=\"0660\", GROUP=\"pgriffais\", OPTIONS+=\"static_node=uinput\"
+
+# Valve HID devices over USB hidraw
+KERNEL==\"hidraw*\", ATTRS{idVendor}==\"28de\", MODE=\"0666\"
+
+# Valve HID devices over bluetooth hidraw
+KERNEL==\"hidraw*\", KERNELS==\"*28DE:*\", MODE=\"0666\"
+
+# DualShock 4 over USB hidraw
+KERNEL==\"hidraw*\", ATTRS{idVendor}==\"054c\", ATTRS{idProduct}==\"05c4\", MODE=\"0666\"
+
+# DualShock 4 wireless adapter over USB hidraw
+KERNEL==\"hidraw*\", ATTRS{idVendor}==\"054c\", ATTRS{idProduct}==\"0ba0\", MODE=\"0666\"
+
+# DualShock 4 Slim over USB hidraw
+KERNEL==\"hidraw*\", ATTRS{idVendor}==\"054c\", ATTRS{idProduct}==\"09cc\", MODE=\"0666\"
+
+# DualShock 4 over bluetooth hidraw
+KERNEL==\"hidraw*\", KERNELS==\"*054C:05C4*\", MODE=\"0666\"
+
+# DualShock 4 Slim over bluetooth hidraw
+KERNEL==\"hidraw*\", KERNELS==\"*054C:09CC*\", MODE=\"0666\"
+"))
+
 ;; support for transparent emulation of program binaries built for
 ;; different architectures
 (define-public %qemu-binfmt-service
@@ -165,7 +196,8 @@
    ;; add docker
    (service docker-service-type)
    ;; add CUPS
-   (service cups-service-type)))
+   (service cups-service-type)
+   (udev-rules-service 'controllers %udev-rules-for-controller)))
 
 (define-public %users/fstamour
   (user-account
@@ -214,12 +246,12 @@
                %services
                %fstamour/desktop-services))
     (bootloader (bootloader-configuration
-                 (bootloader grub-efi-removable-bootloader)
-                 (targets (list "/boot/efi"))
-                 (keyboard-layout %keyboard-layout)))
+                  (bootloader grub-efi-removable-bootloader)
+                  (targets (list "/boot/efi"))
+                  (keyboard-layout %keyboard-layout)))
     (swap-devices (list (swap-space
-                         (target (uuid
-                                  "5cc04005-8263-4bc7-9532-1d5180cf9dc1")))))
+                          (target (uuid
+                                   "5cc04005-8263-4bc7-9532-1d5180cf9dc1")))))
     (file-systems (cons* (file-system
                            (mount-point "/boot/efi")
                            (device (uuid "9EB9-A785"
