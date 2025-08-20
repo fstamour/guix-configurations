@@ -12,6 +12,9 @@
     ;; packaging them with guix
     "emacs-straight"
 
+;;; 👀
+    "emacs-ellama"
+
 ;;; Aesthetic stuff
     ;; "emacs-darkroom" ; doesn't work (arithmetic error)
     "emacs-focus"
