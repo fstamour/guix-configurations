@@ -440,6 +440,8 @@
     "vlc"
 
     "x11vnc"
+    ;; Remote access to individual applications or full desktops
+    "xpra"
 
     "xdg-utils"
     "xbindkeys"
