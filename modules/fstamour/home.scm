@@ -37,16 +37,22 @@
 (define %environment-variables
   (simple-service 'some-useful-env-vars-service
                   home-environment-variables-service-type
-                  `(("EDITOR" . "emacsclient -nw -a emacs -nw")
+                  `(
+                    ;; N.B. emacs's -a argument takes only an
+                    ;; executable, not a full command, which means that
+                    ;; if I really want to use emacs (with arguments) as
+                    ;; an alternative, I'll probably have to make a
+                    ;; small wrapper script for that.
+                    ("EDITOR" . "emacsclient -t -nw -a nvim")
+                    ;; ("EDITOR" . "emacsclient -t -nw -a emacs -t -nw")
                     ;; Meh
                     ;; ("VISUAL" . "emacsclient -a emacs")
                     ("PAGER" . "less")
                     ("PATH" . "$HOME/go/bin:$HOME/.local/bin:$PATH")
                     )))
 
-;; Putting those in a variable because I'm using bash for now, but
-;; I'll use fish in the future. I would be nice to have those aliases
-;; defined for both!
+;; Putting those in a variable to be able to define those aliases for
+;; both bash and fish
 ;;
 ;; I'll have to decide which ones I would prefer to have abbrevs instead
 ;; TODO https://fishshell.com/docs/current/cmds/alias.html
