@@ -97,4 +97,38 @@
 
     ;; emacs-gitlab-ci-mode
     ;; emacs-gitlab-snip-helm
+
+    ;; Tree sitter stuff, maybe put those into their own variable
+    ;; %tree-sitter (there's one for TLA+ in %formal-methods)
+    "tree-sitter-typescript"
+    "tree-sitter-rust"
+    "tree-sitter-ruby"
+    "tree-sitter-r"
+    "tree-sitter-python"
+    "tree-sitter-plantuml"
+    "tree-sitter-org"
+    "tree-sitter-nix"
+    "tree-sitter-lua"
+    "tree-sitter-latex"
+    "tree-sitter-kotlin"
+    "tree-sitter-json"
+    "tree-sitter-javascript"
+    "tree-sitter-html"
+    "tree-sitter-java"
+    "tree-sitter-hcl"
+    "tree-sitter-erlang"
+    "tree-sitter-dockerfile"
+    "tree-sitter-css"
+    "tree-sitter-cpp"
+    "tree-sitter-cmake"
+    "tree-sitter-clojure"
+    "tree-sitter-c-sharp"
+    "tree-sitter-c"
+    "tree-sitter-awk"
+    "tree-sitter-bash"
+    ;; Structured editing and navigation in Emacs with tree-sitter
+    "emacs-combobulate"
+    ;; bindings for tree-sitter:
+    ;; "python-tree-sitter"
+    ;; "guile-ts"
     ))
