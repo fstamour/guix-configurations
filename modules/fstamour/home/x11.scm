@@ -46,7 +46,12 @@
   (filter
    (compose not unspecified?)
    (list
+    ;; for dbus-launch
+    "dbus"
+
     "kitty"
+
+    "xauth" ; used by ssh for setting up xauthority when forwarding X
 
     "vscodium"
 
@@ -55,6 +60,8 @@
     "flameshot"
 
     "dunst"                             ; for notifications
+
+    "thunar"                            ; file explorer
 
     "flatpak"
     ;; "flatpak-xdg-utils"
