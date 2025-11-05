@@ -7,6 +7,7 @@
     "emacs-magit"
     "emacs-guix"
     "emacs-envrc"
+    "emacs-editorconfig"
 
     ;; workaround: use straight to try out some packages without
     ;; packaging them with guix
@@ -42,6 +43,10 @@
     ;; "emacs-sqlformat" ; not in guix
     "emacs-tempel"
 
+;;; elisp dev
+    ;; https://github.com/DarwinAwardWinner/with-simulated-input
+    "emacs-with-simulated-input"
+
 ;;; Window/frame/navigation/search stuff
     "emacs-ace-window"
     "emacs-deadgrep"
@@ -59,6 +64,8 @@
     "emacs-vertico"
     ;; "emacs-vertico-prescient" ; not in guix
     "emacs-prescient"
+    "emacs-corfu"
+    "emacs-cape"
 
     ;; nerdtree for emacs (kinda)
     ;;"emacs-neotree" ;; the guix's package is missing icons
@@ -86,6 +93,7 @@
     "emacs-dockerfile-mode"
     "emacs-docker-compose-mode"
     "emacs-rec-mode"                  ; for editing recutils databases
+    "emacs-markdown-mode"
 
     ;; emacs-gitlab-ci-mode
     ;; emacs-gitlab-snip-helm
