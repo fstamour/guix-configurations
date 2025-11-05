@@ -131,4 +131,6 @@
     ;; bindings for tree-sitter:
     ;; "python-tree-sitter"
     ;; "guile-ts"
+
+    "emacs-web-mode"
     ))
