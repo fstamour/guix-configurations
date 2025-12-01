@@ -9,7 +9,6 @@
   #:use-module (gnu packages ssh) ;; for autossh
   #:use-module (gnu home)
   #:use-module (gnu packages admin) ;; for shepherd
-  #:use-module ((gnu packages lisp) #:prefix lisp:)
   #:use-module (gnu packages shells)
   #:use-module (gnu packages syncthing)
   #:use-module (gnu packages)
@@ -18,6 +17,7 @@
   #:use-module ((fstamour stumpwm) #:select (stumpwm+swank))
   #:use-module ((fstamour syncthing) #:select (%syncthing))
   #:use-module ((fstamour home lisp) #:select (%lisp-packages))
+  #:use-module ((fstamour home myelin) #:select (%myelin))
   #:use-module ((fstamour home emacs) #:select (%emacs-packages))
   #:use-module ((fstamour home xmodmap) #:select (%xmodmap))
   #:use-module ((fstamour home x11)
@@ -73,32 +73,6 @@
            (home-bash-configuration
             (guix-defaults? #t)
             (aliases %shell-aliases))))
-
-(define %myelin
-  (let ((entrypoint (string-append (getenv "HOME")
-                                   "/dev/myelin/scripts/dev.lisp")))
-    (when (file-exists? entrypoint)
-      (simple-service 'myelin home-shepherd-service-type
-                      (list (shepherd-service
-                             (provision '(myelin))
-                             (documentation "Run myelin as a shepherd (user) service")
-                             (start
-                              #~(make-forkexec-constructor
-                                 (list
-                                  #$(file-append lisp:sbcl "/bin/sbcl")
-                                  "--noinform"
-                                  "--non-interactive"
-                                  "--disable-debugger"
-                                  "--load"
-                                  (string-append (getenv "HOME")
-                                                 "/dev/myelin/loader.lisp")
-                                  "--load"
-                                  (string-append (getenv "HOME")
-                                                 "/dev/myelin/scripts/dev.lisp")
-                                  "--eval" "(loop (sleep 1))")))
-                             (stop #~(make-kill-destructor))))))))
-
-
 
 (define %ssh-agent
   (service home-ssh-agent-service-type
