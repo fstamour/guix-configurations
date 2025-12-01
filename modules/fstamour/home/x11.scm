@@ -75,6 +75,7 @@
     "x11vnc"
     ;; Remote access to individual applications or full desktops
     "xpra"
+    "xauth"   ; used e.g. by ssh to configure ssh forwarding correctly
 
     "xdg-utils"
     "xbindkeys"
