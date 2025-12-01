@@ -119,6 +119,12 @@
     "fish"
     "fish-foreign-env"
 
+    "nushell"
+    ;; TODO treesitter for nushell
+    "emacs-nushell-mode"
+    ;; TODO there's tons of plugins
+    ;; TODO it _looks_ like there's a built-in lsp in nushell
+
     "git" "git-lfs"
     "tig"
     ,@(if (host-other?)
