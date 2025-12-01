@@ -56,7 +56,11 @@
     config => (guix-configuration
                (inherit config)
                (substitute-urls
-                (append (list "https://substitutes.nonguix.org")
+                ;; --substitute-urls='https://ci.guix.gnu.org https://bordeaux.guix.gnu.org'
+                (append (list "https://substitutes.nonguix.org"
+                              ;; New North American based Guix Substitute Server, cuirass.genenetwork
+                              ;; https://lists.gnu.org/archive/html/guix-devel/2024-11/msg00174.html
+                              "https://cuirass.genenetwork.org")
                         store:%default-substitute-urls))
                (authorized-keys
                 (append (list

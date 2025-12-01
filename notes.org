@@ -89,15 +89,42 @@ https://dataswamp.org/~solene/2021-06-07-guix-packages-publish.html
 no need to run =sudo guix archive --generate-key=, it's done
 automatically (on guixSD at least)
 
-* TODO Document how to add substitute
+* Document how to add substitute
 
-for non-guixSD deployments
+https://guix.gnu.org/manual/en/html_node/Getting-Substitutes-from-Other-Servers.html
+
+** Substitute Authentication
+
+https://guix.gnu.org/manual/en/html_node/Substitute-Authentication.html
+
+You don't need to add the signing key if the substitute provides
+bit-for-bit reproducible builds. (or if they just mirror.)
+
+But without it, if you build something custom on another computer on
+the same lan, you won't be able to take advantage of it because it
+won't be trusted.
 
 #+begin_src shell
 sudo guix archive --authorize < modules/fstamour/nonguix-substitutes-signing-key.pub
 sudo guix archive --authorize < modules/fstamour/nu.pub
 sudo guix archive --authorize < modules/fstamour/phi.pub
 #+end_src
+
+** On a “foreign distro”
+
+In short: add ~--substitutes~ to the daemon.
+
+1. edit =/etc/systemd/system/guix-daemon.service=
+   - e.g. ~--substitute-urls='https://cuirass.genenetwork.org https://ci.guix.gnu.org https://bordeaux.guix.gnu.org'~
+2. ~systemctl daemon-reload~
+3. ~sudo systemctl restart guix-daemon~
+
+See also [[*add "substitute discovery" on ubuntu][add "substitute discovery" on ubuntu]]
+
+** Related
+
+- [[https://www.blog.rekahsoft.ca/posts/guix-na-build-farm.html][Setup of a Simple Guix Build Farm and Substitute Server]]
+- [[https://lists.gnu.org/archive/html/guix-devel/2024-11/msg00174.html][Re: New North American based Guix Substitute Server, cuirass.genenetwork]]
 
 * add "substitute discovery" on ubuntu
 
