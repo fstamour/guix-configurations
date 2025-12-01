@@ -34,6 +34,12 @@
    (not (host-nu?))
    (not (host-phi?))))
 
+(define %profile
+  (simple-service 'profile-extra
+                  home-shell-profile-service-type
+                  (list (plain-file "shell-profile"
+                                    "export GUIX_PROFILE_SOURCED=1"))))
+
 (define %environment-variables
   (simple-service 'some-useful-env-vars-service
                   home-environment-variables-service-type
@@ -49,6 +55,7 @@
                     ;; ("VISUAL" . "emacsclient -a emacs")
                     ("PAGER" . "less")
                     ("PATH" . "$HOME/go/bin:$HOME/.local/bin:$PATH")
+                    ("GUIX_PROFILES" . "${HOME_ENVIRONMENT}${GUIX_PROFILES:+:}$GUIX_PROFILES")
                     )))
 
 ;; Putting those in a variable to be able to define those aliases for
@@ -414,6 +421,7 @@
 
       ;; Shell
       %bash
+      %profile
 
       ;; Various daemons
       %ssh-agent
