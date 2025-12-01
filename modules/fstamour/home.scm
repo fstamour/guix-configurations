@@ -54,6 +54,7 @@
                     ;; Meh
                     ;; ("VISUAL" . "emacsclient -a emacs")
                     ("PAGER" . "less")
+                    ("LESS" . "-R --mouse --quit-if-one-screen")
                     ("PATH" . "$HOME/go/bin:$HOME/.local/bin:$PATH")
                     ("GUIX_PROFILES" . "${HOME_ENVIRONMENT}${GUIX_PROFILES:+:}$GUIX_PROFILES")
                     )))
