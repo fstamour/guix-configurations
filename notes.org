@@ -1,5 +1,11 @@
 * Tasks
 
+** TODO set better font and color for the virtual terminals
+
+- see ~setfont -d~
+- see =KMSCONS=
+- IDK about the colors yet
+
 ** TODO Emacs
 
 ** Home Services
@@ -261,3 +267,8 @@ This is because (ungoogled-)chromium sandbox relies on user namespaces
 support in the kernel but Debian [2] disables user namespaces by
 default, the above commands enables them for your current boot session
 and permanently for next reboots.
+
+* Raspberry Pi
+
+see package ~u-boot-rpi-arm64-efi-bin~, ~u-boot-rpi-arm64~,
+~u-boot-rpi-4-32b~, ~u-boot-rpi-2~, etc

@@ -275,8 +275,9 @@
    "miscfiles" ;; provides a wordlist
    "python-codespell"))
 
-;; TODO STM
-;; TODO AVR (define %embedded-dev (list "microcom" "avr-toolchain" "avrdude" "avr-gdb" "picom"))
+;; TODO STM (see package stlink)
+;; TODO AVR (define %embedded-dev (list "microcom" "avr-toolchain" "avrdude" "avr-gdb" "picom" "gcc-cross-avr-toolchain"))
+;; TODO maybe mingw32: "gcc-cross-i686-w64-mingw32-toolchain"
 
 (define %cad
   (list

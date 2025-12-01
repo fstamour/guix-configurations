@@ -6,8 +6,7 @@ This repository contains
 - a guix channel to expose the modules
 - some package definitions for my own projects
 - some system definitions for my machines
-- some dotfiles
-- guix home configs to setup the dotfiles and some user services
+- guix home configs
 
 See notes.org
 
