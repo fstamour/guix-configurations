@@ -131,6 +131,7 @@
     "direnv"
     "entr"
     "fd"
+    "ffmpeg"
     "file"
     "fzf"
     "htop"
@@ -164,6 +165,7 @@
     "ranger"                            ; file manager
     "mc"                                ; file manager
     "strace"
+    "stow"
     "tesseract-ocr"
     "zip" "unzip"
     "zoxide"
