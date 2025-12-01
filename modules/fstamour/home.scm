@@ -134,9 +134,13 @@
     "bind:utils"                        ; nslookup, dig, etc
     "coreutils"
     "moreutils"                         ; sponge, ts, etc.
+
+    "btop"
     "curl"
     "direnv"
+    "du-dust"
     "entr"
+    "eza"
     "fd"
     "ffmpeg"
     "file"
@@ -144,10 +148,11 @@
     "htop"
     "jq"
     "less"
+    "lsd"
     "m4"
     "make"
     "just"
-    "libiconv"                          ; for iconv — character encoding conversion
+    "libiconv"             ; for iconv — character encoding conversion
 
     ;; "man-db" ; included by the "host"... somewhere
     "man-pages" ; Development manual pages from the Linux project
@@ -156,13 +161,14 @@
     "net-tools"                         ; netstat (and much more)
     "netcat-openbsd"
     "nmap"
-    "qrencode" ; qrencode -t UTF8 "example"
+    "qrencode"                          ; qrencode -t UTF8 "example"
     "readline"
     "ripgrep"                          ; grep -R
     "rlwrap"                           ; add readline to other command
     "skopeo"                           ; to copy containers around
     "screen"
     "sqlite"
+    "python-tldr"
     "tmux"                              ; terminal multiplexer
     "tree"                              ; list file
     "w3m"                               ; browser
@@ -171,8 +177,8 @@
     "recutils"
     "ranger"                            ; file manager
     "mc"                                ; file manager
+    "stow"                              ; symlink farm
     "strace"
-    "stow"
     "tesseract-ocr"
     "zip" "unzip"
     "zoxide"
