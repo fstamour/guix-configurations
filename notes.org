@@ -17,13 +17,13 @@
 - logs into =~/.local/state/shepherd/ssh-agent.log=
 - should it be =~/.local/state/log/=?
 
-** TODO add "clean" targets to makfile
+** DONE add "clean" targets to justfile
 
 #+begin_src shell
 ./system delete-generations 1m
 #+end_src
 
-** TODO add "clean-guile-cache" target to makefile
+** DONE add "clean-guile-cache" target to justfile
 
 #+begin_src shell
 rm -rf ~/.cache/guile/ccache
