@@ -396,7 +396,6 @@
       ;; TODO as of 2023-05-08 guix provides gforth 0.7.3,
       ;; which is very old...
       "gforth"
-      "gauche" ;; gosh
 
       ;; TODO Add a home-service for this too
       "laminar"
