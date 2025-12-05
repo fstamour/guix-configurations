@@ -169,7 +169,7 @@
     "skopeo"                           ; to copy containers around
     "screen"
     "sqlite"
-    "python-tldr"
+    "tldr"
     "tmux"                              ; terminal multiplexer
     "tree"                              ; list file
     "w3m"                               ; browser
