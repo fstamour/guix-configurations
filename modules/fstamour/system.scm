@@ -9,6 +9,7 @@
   #:use-module (gnu services virtualization)
   #:use-module (gnu system nss)
   #:use-module (gnu system shadow)
+  #:use-module ((gnu services base) :select (file->udev-rule))
   #:use-module (gnu)
   ;; #:use-module ((gnu) #:select (use-service-modules))
   ;; #:use-module ((gnu system keyboard) #:select (keyboard-layout))
@@ -26,6 +27,7 @@
   ;; #:use-module ((gnu packages) #:select (specifications->packages))
   #:use-module ((gnu packages shells) #:select (fish))
   #:use-module ((gnu packages linux) #:select (acpilight))
+  #:use-module ((gnu packages admin) #:select (solaar))
   #:use-module (nongnu packages linux)
   #:use-module (nongnu packages nvidia)
   #:use-module (nongnu system linux-initrd))
@@ -74,14 +76,17 @@
 (define-public %packages
   (specifications->packages
    '(
-     "acpilight"
+     "acpilight" ; not needed on on-laptop...
      "fish"
      "xfce"
      ;; "gnome"
-     "dmenu"
+     ;; "dmenu"
 
      "btrfs-progs"
      "btrbk"
+
+     ;; logitech unify
+     "solaar"
 
      ;; These are added system-wide to make it easier
      ;; to use them from ssh. (The default .bashrc
@@ -111,6 +116,13 @@
                      ;; sbcl seems to be broken for armhf
                      ;; "armhf-linux"
                      )))))
+
+;; For solaar
+(define %logitech-unify-udev-rule
+  (file->udev-rule
+   "42-logitech-unify-permissions.rules"
+   (file-append solaar
+                "/lib/udev/rules.d/42-logitech-unify-permissions.rules")))
 
 ;; TODO
 ;; adjust brightness without sudo
@@ -158,12 +170,12 @@ KERNEL==\"hidraw*\", KERNELS==\"*054C:09CC*\", MODE=\"0666\"
 (define-public %qemu-binfmt-service
   (service qemu-binfmt-service-type
            (qemu-binfmt-configuration
-             (platforms (lookup-qemu-platforms "arm" "aarch64")))))
+            (platforms (lookup-qemu-platforms "arm" "aarch64")))))
 
 (define-public %postgres-service
   (service postgresql-service-type
            (postgresql-configuration
-             (postgresql postgresql-16))))
+            (postgresql postgresql-16))))
 
 (define-public %postgres-roles
   (service postgresql-role-service-type
@@ -203,6 +215,7 @@ KERNEL==\"hidraw*\", KERNELS==\"*054C:09CC*\", MODE=\"0666\"
    ;; add CUPS
    (service cups-service-type)
    (udev-rules-service 'controllers %udev-rules-for-controller)
+   (udev-rules-service 'logitech-unify %logitech-unify-udev-rule)
    (service nix-service-type)))
 
 (define-public %users/fstamour
