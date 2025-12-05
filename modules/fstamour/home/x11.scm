@@ -51,7 +51,7 @@
 
     "kitty"
 
-    "xauth" ; used by ssh for setting up xauthority when forwarding X
+    "xauth"  ; used by ssh for setting up xauthority when forwarding X
 
     "vscodium"
 
@@ -61,7 +61,11 @@
 
     "dunst"                             ; for notifications
 
-    "thunar"                            ; file explorer
+    "thunar"                 ; file explorer
+    "gvfs"                   ; used by thunar (required for trash -_-)
+
+    "eom"                               ; image view (Eye Of Mate)
+    "qiv"                               ; image viewer
 
     "flatpak"
     ;; "flatpak-xdg-utils"
@@ -102,21 +106,21 @@
 
     "libreoffice"
 
-    ;;   # fonts.fonts = with pkgs; [
-    ;; #   noto-fonts
-    ;; #   noto-fonts-cjk
-    ;; #   noto-fonts-emoji
-    ;; #   liberation_ttf
-    ;; #   fira-code
-    ;; #   fira-code-symbols
-    ;; #   mplus-outline-fonts
-    ;; #   dina-font
-    ;; #   proggyfonts
-    ;; # ];
+    ;; monospaced, bitmap font; aimed at programmers
+    "font-dina"
 
+    ;; Fira Sans is a humanist sans-serif typeface with an emphasis on legibility
+    "font-fira-sans"
+    ;; Monospace cut of Fira Sans
     "font-fira-mono"
+    ;;  Monospaced font with programming ligatures
     "font-fira-code"
+
     "font-google-noto"
     "font-google-noto-emoji"
 
+    "font-awesome"
+    "font-awesome-nonfree"
+
+    "fontmanager"           ; note: the binary is named "font-manager"
     )))
