@@ -154,8 +154,9 @@
     "just"
     "libiconv"             ; for iconv — character encoding conversion
 
-    ;; "man-db" ; included by the "host"... somewhere
-    "man-pages" ; Development manual pages from the Linux project
+    ;; need to include "man-db", othetwise "MANPATH" is not set
+    "man-db"         ; included by the "host"... somewhere
+    "man-pages"      ; Development manual pages from the Linux project
 
     "mosh"
     "net-tools"                         ; netstat (and much more)
