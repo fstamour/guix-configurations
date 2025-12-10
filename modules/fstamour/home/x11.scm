@@ -70,6 +70,9 @@
     "eom"                               ; image view (Eye Of Mate)
     "qiv"                               ; image viewer
 
+    "espanso-x11"                       ; text expander
+    "jumpapp"                           ; run-or-raise
+
     "flatpak"
     ;; "flatpak-xdg-utils"
     ;; "xdg-desktop-portal"                 ; this is also for flatpak
