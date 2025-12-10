@@ -61,7 +61,10 @@
 
     "dunst"                             ; for notifications
 
-    "thunar"                 ; file explorer
+    "thunar"             ; file explorer
+    "thunar-volman"      ; removable media manager
+    "thunar-media-tags-plugin" ; allow editing tags ; allow using tags in the bulk renamer
+    "thunar-archive-plugin"    ; create and extract archives
     "gvfs"                   ; used by thunar (required for trash -_-)
 
     "eom"                               ; image view (Eye Of Mate)
