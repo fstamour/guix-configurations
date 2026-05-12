@@ -44,7 +44,7 @@ update-packages:
 
 # Clean guile's build cache (often necessary when updating guix)
 clean-guile-cache:
-  rm ~/.cache/guile/
+  rm -rf ~/.cache/guile/
 
 ######################################################################
 ### Targets to help with Build
