@@ -43,5 +43,9 @@
                        "add mod3 = Hyper_L"
 
                        ;; "add mod3 = Control_R"
-                       ;;  ("keycode 108" ;; Alt_R
+
+                       ;; ;; keycode 108 (keysym 0xffea, Alt_R)
+                       ;; "remove mod1 = Alt_R"
+                       ;; ;; Map "Right Alt" to "Menu"
+                       ;; ("keycode 108" . "Menu")
                        )))))
