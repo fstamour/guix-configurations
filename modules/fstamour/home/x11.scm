@@ -90,6 +90,8 @@
     "xdg-utils"
     "xbindkeys"
     "slop"                       ; select a region and print its bound
+    "imagemagick" ; my "ocr" script use imagemagick's "import" (along
+                  ; with "slop") to extract a region of a screenshot.
     "xclip"
     "xbacklight"                        ; TODO laptop-only
     "xmodmap" "setxkbmap"
