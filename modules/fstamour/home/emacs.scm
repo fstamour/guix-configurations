@@ -37,8 +37,9 @@
     "emacs-inspector"
     "emacs-tree-inspector"
 
-    ;; Formatter
+    ;; Formatter and linter
     "emacs-prettier"
+    "emacs-flycheck"
 
     ;; "emacs-sqlformat" ; not in guix
     "emacs-tempel"
@@ -57,6 +58,7 @@
     "emacs-org-download"
     "emacs-org-roam"
     ;; "emacs-org-hugo" ; not in guix
+    "emacs-htmlize" ; for syntax-highlight when exporting/publishing
 
     "emacs-howm" ;; note-taking tool for Emacs
 
