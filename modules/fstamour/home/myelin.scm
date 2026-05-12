@@ -2,6 +2,7 @@
 (define-module (fstamour home myelin)
   #:use-module ((gnu services) #:select (simple-service))
   #:use-module ((gnu packages lisp) #:prefix lisp:)
+  #:use-module ((gnu packages libusb) #:prefix libusb:)
   #:use-module ((gnu home services shepherd)
                 #:select (home-shepherd-service-type
                           shepherd-service))
@@ -33,5 +34,10 @@
                                   "--disable-debugger"
                                   "--load" #$(string-append root "loader.lisp")
                                   "--load" #$(string-append root "scripts/dev.lisp")
-                                  "--eval" "(loop (sleep 1))")))
+                                  "--eval" "(loop (sleep 1))")
+                                 ;; TODO :log-file
+                                 #:environment-variables (append (default-environment-variables)
+                                                                 (list (string-append "LD_LIBRARY_PATH="
+                                                                                      #$(file-append libusb:hidapi "/lib"))))
+                                 ))
                              (stop #~(make-kill-destructor))))))))
