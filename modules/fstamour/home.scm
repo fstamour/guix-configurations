@@ -6,7 +6,6 @@
   #:use-module (gnu home services shells)
   #:use-module (gnu home services shepherd)
   #:use-module (gnu home services ssh)
-  #:use-module (gnu packages ssh) ;; for autossh
   #:use-module (gnu home)
   #:use-module (gnu packages admin) ;; for shepherd
   #:use-module (gnu packages shells)
@@ -90,30 +89,6 @@
            (home-ssh-agent-configuration
             ;; TODO maybe another time... (extra-options '("-t" "1h30m"))
             )))
-
-(define %autossh-vps
-  (simple-service 'autossh home-shepherd-service-type
-                  (list (shepherd-service
-                         (provision '(autossh))
-                         (documentation "Run autossh as a shepherd (user) service")
-                         (start
-                          #~(make-forkexec-constructor
-                             (list
-                              #$(file-append autossh "/bin/autossh")
-                              "-M" "2223"
-                              "-C" ; compression of all data
-                              ;; "-g"
-                              "-o" "ServerAliveCountMax=3"
-                              "-o" "ServerAliveInterval=60"
-                              "-o" "ExitOnForwardFailure=yes"
-                              ;; No tty
-                              "-T"
-                              ;; Do not execute a remote command.
-                              "-N"
-                              ;; Remote forward: port 2222 on "sartre"
-                              ;; is forwarded to localhost's port 22
-                              "-R" "2222:localhost:22" "sartre")))
-                         (stop #~(make-kill-destructor))))))
 
 (define %command-line-stuff
   `(
@@ -446,7 +421,6 @@
       ;; Various daemons
       %ssh-agent
       (unless (host-other?) %syncthing)
-      (when (host-nu?) %autossh-vps)
 
       %myelin
 
