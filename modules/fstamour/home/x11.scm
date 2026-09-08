@@ -83,6 +83,8 @@
     "playerctl"
     "vlc"
 
+    "simplescreenrecorder"
+
     "x11vnc"
     ;; Remote access to individual applications or full desktops
     "xpra"
