@@ -131,6 +131,7 @@
     "ffmpeg"
     "file"
     "fzf"
+    "gcal" ; calendar
     "htop"
     "jq"
     "less"
@@ -164,10 +165,13 @@
     "recutils"
     "ranger"                            ; file manager
     "mc"                                ; file manager
+    "socat"                             ; socket cat
     "stow"                              ; symlink farm
     "strace"
+    "taskwarrior"
     "tesseract-ocr"
     "zip" "unzip"
+    "7zip"
     "zoxide"
     "lzip" "lunzip"
     "sshfs"
