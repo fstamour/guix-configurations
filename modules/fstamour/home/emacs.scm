@@ -25,7 +25,6 @@
     "emacs-rainbow-delimiters"
     "emacs-diminish"
 
-
 ;;; Editing stuff
     "emacs-aggressive-indent"
     "emacs-emmet-mode"
@@ -53,12 +52,11 @@
     "emacs-deadgrep"
     "emacs-avy" ;; for "jumping to visible text using a char-based decision tree"
 
-
 ;;; Org-mode stuff
     "emacs-org-download"
     "emacs-org-roam"
     ;; "emacs-org-hugo" ; not in guix
-    "emacs-htmlize" ; for syntax-highlight when exporting/publishing
+    "emacs-htmlize"   ; for syntax-highlight when exporting/publishing
 
     "emacs-howm" ;; note-taking tool for Emacs
 
@@ -73,6 +71,8 @@
     ;;"emacs-neotree" ;; the guix's package is missing icons
     "emacs-treemacs"
 
+;;; Debug Adapter Protocol
+
     ;; Emacs ❤️ Debug Adapter Protocol
     ;; https://github.com/emacs-lsp/dap-mode
     ;; "emacs-dap-mode" ;; work only with lsp-mode, not eglot
@@ -80,8 +80,12 @@
     ;; Debug Adapter Protocol for Emacs https://github.com/svaante/dape
     "emacs-dape"
 
+;;; Documentations
+    ;; Emacs viewer for DevDocs https://github.com/astoff/devdocs.el
+    ;; https://devdocs.io/
+    "emacs-devdocs"
 
-    ;; language modes
+;;; language modes
     "emacs-cmake-mode"
     "emacs-fish-mode"
     ;; "emacs-forth" ; not in guix
