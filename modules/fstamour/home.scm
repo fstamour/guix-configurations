@@ -19,8 +19,12 @@
   #:use-module ((fstamour home myelin) #:select (%myelin))
   #:use-module ((fstamour home emacs) #:select (%emacs-packages))
   #:use-module ((fstamour home xmodmap) #:select (%xmodmap))
+  #:use-module ((fstamour home xbindkeys)
+                #:select (home-xbindkeys-service-type
+                          home-xbindkeys-configuration))
   #:use-module ((fstamour home x11)
-                #:select (%unclutter %dunst %browsers %desktop)))
+                #:select (%unclutter %dunst %browsers %desktop))
+  #:use-module ((srfi srfi-13) #:select (string-join)))
 
 (define (host-nu?)
   (string= "nu" (gethostname)))
@@ -39,6 +43,10 @@
                   (list (plain-file "shell-profile"
                                     "export GUIX_PROFILE_SOURCED=1"))))
 
+(define %extra-paths
+  (map (lambda (dir) (string-append "$HOME/" dir))
+       '("bin" "go/bin" ".local/bin")))
+
 (define %environment-variables
   (simple-service 'some-useful-env-vars-service
                   home-environment-variables-service-type
@@ -54,7 +62,7 @@
                     ;; ("VISUAL" . "emacsclient -a emacs")
                     ("PAGER" . "less")
                     ("LESS" . "-R --mouse --quit-if-one-screen")
-                    ("PATH" . "$HOME/go/bin:$HOME/.local/bin:$PATH")
+                    ("PATH" . ,(string-append (string-join %extra-paths ":") ":$PATH"))
                     ("GUIX_PROFILES" . "${HOME_ENVIRONMENT}${GUIX_PROFILES:+:}$GUIX_PROFILES")
                     ;; -_-
                     ("DISABLE_TELEMETRY" . "1")
@@ -427,6 +435,12 @@
       ;; Desktop
       (service home-x11-service-type)
       %xmodmap
+
+      ;; xbindkeys
+      ;; TODO move into its own file, just like xmodmap
+      (service home-xbindkeys-service-type
+               (home-xbindkeys-configuration
+                (path %extra-paths)))
 
       %unclutter
       %dunst)))))
