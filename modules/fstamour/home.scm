@@ -17,6 +17,7 @@
   #:use-module ((fstamour syncthing) #:select (%syncthing))
   #:use-module ((fstamour home lisp) #:select (%lisp-packages))
   #:use-module ((fstamour home myelin) #:select (%myelin))
+  #:use-module ((fstamour home laminar) #:select (%laminar))
   #:use-module ((fstamour home emacs) #:select (%emacs-packages))
   #:use-module ((fstamour home xmodmap) #:select (%xmodmap))
   #:use-module ((fstamour home xbindkeys)
@@ -387,7 +388,6 @@
       ;; which is very old...
       "gforth"
 
-      ;; TODO Add a home-service for this too
       "laminar"
 
       ;; TODO I only need these packages on non-GuixSD systems
@@ -435,6 +435,7 @@
       (unless (host-other?) %syncthing)
 
       %myelin
+      %laminar
 
       ;; Desktop
       (service home-x11-service-type)
