@@ -59,10 +59,11 @@
     "rofi"
     "flameshot"
 
+    "deluge"                            ; torrents
     "dunst"                             ; for notifications
 
-    "thunar"             ; file explorer
-    "thunar-volman"      ; removable media manager
+    "thunar"                            ; file explorer
+    "thunar-volman"                     ; removable media manager
     "thunar-media-tags-plugin" ; allow editing tags ; allow using tags in the bulk renamer
     "thunar-archive-plugin"    ; create and extract archives
     "gvfs"                   ; used by thunar (required for trash -_-)
@@ -89,9 +90,9 @@
 
     "xdg-utils"
     "xbindkeys"
-    "slop"                       ; select a region and print its bound
-    "imagemagick" ; my "ocr" script use imagemagick's "import" (along
-                  ; with "slop") to extract a region of a screenshot.
+    "slop"         ; select a region and print its bound
+    "imagemagick"  ; my "ocr" script use imagemagick's "import" (along
+                   ; with "slop") to extract a region of a screenshot.
     "xclip"
     "xbacklight"                        ; TODO laptop-only
     "xmodmap" "setxkbmap"
